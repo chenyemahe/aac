@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">AcmeAmazon</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    
+    <!-- Main Page -->
+    <string name="bt_add">Add</string>
+    <string name="bt_summary">Summary</string>
+    <string name="bt_amazon">Amazon</string>
+    
+    <!-- List View -->
+    <string name="tv_date">Date</string>
+    <string name="tv_title">title</string>
+    <string name="tv_total">total</string>
+    <string name="tv_cost">cost</string>
+    
+    <!-- Add New Order -->
+    <string name="tv_add_order">Add New Order</string>
+    <string name="bt_submit">Submit</string>
+    <string name="bt_add_item">Add</string>
+
+</resources>
