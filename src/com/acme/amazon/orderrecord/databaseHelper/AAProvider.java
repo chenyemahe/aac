@@ -37,7 +37,7 @@ public class AAProvider extends ContentProvider{
     	public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.acme.profile";
     	public static final String ORDER_ID = "order_id";
     	public static final String ORDER_DATE = "order_date";
-    	public static final String ORDER_DETIAL_ID = "order_detial_ID";
+    	public static final String ORDER_ITEM_ID = "order_detial_ID";
     	public static final String ORDER_TITLE = "order_tilte";
     	public static final String ORDER_TOTAL_COST = "order_total_cost";
     }
@@ -50,6 +50,15 @@ public class AAProvider extends ContentProvider{
     	public static final String ITEM_NAME = "item_name";
     	public static final String ITEM_QUALITY = "item_quality";
     	public static final String ITEM_TOTAL_COST = "order_total_cost";
+    }
+    
+    //Amazon Order Item and profile match info
+    public interface MatchColumns extends BaseColumns {
+    	public static final String TBL_AA_MATCH = "aa_match";
+    	public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + TBL_AA_MATCH);
+    	public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.acme.match";
+    	public static final String PROFILE_ID = "profile_id";
+    	public static final String ITEM_ID = "item_id";
     }
     
     @Override
@@ -173,7 +182,7 @@ public class AAProvider extends ContentProvider{
                     + ProfileColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + ProfileColumns.ORDER_ID + " INTEGER, "
                     + ProfileColumns.ORDER_DATE + " VARCHAR, "
-                    + ProfileColumns.ORDER_DETIAL_ID + " INTEGER, "
+                    + ProfileColumns.ORDER_ITEM_ID + " INTEGER, "
                     + ProfileColumns.ORDER_TITLE + " VARCHAR, "
                     + ProfileColumns.ORDER_TOTAL_COST + " INTEGER);");
             
@@ -182,6 +191,11 @@ public class AAProvider extends ContentProvider{
                     + ItemColumns.ITEM_NAME + " VARCHAR, "
                     + ItemColumns.ITEM_QUALITY + " INTEGER, "
                     + ItemColumns.ITEM_TOTAL_COST + " VARCHAR);");
+            
+            db.execSQL("CREATE TABLE " + MatchColumns.TBL_AA_MATCH + " ("
+                    + MatchColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + MatchColumns.PROFILE_ID + " VARCHAR, "
+                    + MatchColumns.ITEM_ID + " INTEGER);");
 		}
 		@Override
 		public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
