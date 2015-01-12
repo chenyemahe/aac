@@ -1,5 +1,7 @@
 package com.acme.amazon.orderrecord;
 
+import com.acme.amazon.AAConstant;
+
 import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,7 +20,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mListView = (ListView) findViewById(R.id.listView1);
-        mListView.setAdapter(new AAListViewAdapter(this));
+        mListView.setAdapter(new AAListViewAdapter(this,R.layout.aalistitem,AAConstant.ADAPTER_ORIDER_LIST));
         mAdd = (Button) findViewById(R.id.bt_add);
         mAdd.setOnClickListener(this);
     }

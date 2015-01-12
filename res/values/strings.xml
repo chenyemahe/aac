@@ -13,12 +13,19 @@
     <!-- List View -->
     <string name="tv_date">Date</string>
     <string name="tv_title">title</string>
-    <string name="tv_total">total</string>
-    <string name="tv_cost">cost</string>
+    <string name="tv_total">Total</string>
+    <string name="tv_cost">Cost</string>
+    <string name="tv_item_quanatity">Quanatity</string>
+    <string name="tv_item_cost">Total Cost</string>
     
     <!-- Add New Order -->
     <string name="tv_add_order">Add New Order</string>
     <string name="bt_submit">Submit</string>
     <string name="bt_add_item">Add</string>
-
+    <string name="ed_item_name">Product Name</string>
+    <string name="ed_item_quantity">Quantity</string>
+    <string name="ed_item_cost">Item Prime Cost</string>
+    
+    <!-- Toast Message -->
+    <string name="no_item_info">Please entre products name, quanatity and prime cost!</string>
 </resources>
