@@ -1,65 +1,71 @@
 package com.acme.amazon.orderrecord;
 
-import com.acme.amazon.AAConstant;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-public class AAListViewAdapter extends BaseAdapter{
-    
-    private Context mContext;
-    private int mLayoutID;
-    private AAListDataHolder<?> mListDataHodler;
-    private int mAdapterStyle;
-    
-    public AAListViewAdapter(Context context, int layoutID, int style){
-        mContext = context;
-        mLayoutID = layoutID;
-        mAdapterStyle = style;
-    }
+import com.acme.amazon.AAConstant;
+import com.acme.amazon.AAItem;
+import com.acme.amazon.AAProfile;
 
-    @Override
-    public int getCount() {
-        // TODO Auto-generated method stub
-        return 5;
-    }
+public class AAListViewAdapter extends BaseAdapter {
 
-    @Override
-    public Object getItem(int index) {
-        // TODO Auto-generated method stub
-        return index;
-    }
+	private Context mContext;
+	private int mLayoutID;
+	private AAListDataHolder<?> mListDataHodler;
+	private int mAdapterStyle;
 
-    @Override
-    public long getItemId(int index) {
-        // TODO Auto-generated method stub
-        return index;
-    }
+	public AAListViewAdapter(Context context, int layoutID, int style) {
+		mContext = context;
+		mLayoutID = layoutID;
+		mAdapterStyle = style;
+	}
 
-    @Override
-    public View getView(int arg0, View arg1, ViewGroup parent) {
-        View contentView = LayoutInflater.from(mContext).inflate(mLayoutID, parent, false);
-        AAListViewHodler holder = new AAListViewHodler();
-        if(mAdapterStyle == AAConstant.ADAPTER_ORIDER_LIST) {
-        	holder.setOrderListView();
-        	holder.setData(profile);
-        } else if(mAdapterStyle == AAConstant.ADAPTER_ITEM_LIST) {
-        	holder.setItemListView();
-        	holder.setData(item);
-        }
-        contentView.setTag(holder);
-        return contentView;
-    }
-    
-    public void notifiListUpdate() {
-    	notifyDataSetChanged();
-    }
-    
-    public void setDataHolder(AAListDataHolder<?> holder){
-    	mListDataHodler = holder;
-    }
-    
+	@Override
+	public int getCount() {
+		if (mListDataHodler == null)
+			return 0;
+		return mListDataHodler.getSize();
+	}
+
+	@Override
+	public Object getItem(int index) {
+		if (mListDataHodler == null)
+			return null;
+		return mListDataHodler.getListData(index);
+	}
+
+	@Override
+	public long getItemId(int index) {
+		// TODO Auto-generated method stub
+		return index;
+	}
+
+	@Override
+	public View getView(int index, View contentView, ViewGroup parent) {
+		if (contentView == null) {
+			contentView = LayoutInflater.from(mContext).inflate(mLayoutID,
+					parent, false);
+		}
+		AAListViewHodler holder = new AAListViewHodler();
+		if (mAdapterStyle == AAConstant.ADAPTER_ORIDER_LIST) {
+			holder.setOrderListView(contentView);
+			// holder.setData(profile);
+		} else if (mAdapterStyle == AAConstant.ADAPTER_ITEM_LIST) {
+			holder.setItemListView(contentView);
+			holder.setData((AAItem) getItem(index));
+		}
+		contentView.setTag(holder);
+		return contentView;
+	}
+
+	public void notifiListUpdate() {
+		notifyDataSetChanged();
+	}
+
+	public void setDataHolder(AAListDataHolder<?> holder) {
+		mListDataHodler = holder;
+	}
 }

@@ -2,6 +2,11 @@ package com.acme.amazon.orderrecord.databaseHelper;
 
 import java.util.List;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.net.Uri;
+import android.util.Log;
+
 import com.acme.amazon.AAItem;
 import com.acme.amazon.AAMatch;
 import com.acme.amazon.AAProfile;
@@ -9,11 +14,6 @@ import com.acme.amazon.AAUtils;
 import com.acme.amazon.orderrecord.databaseHelper.AAProvider.ItemColumns;
 import com.acme.amazon.orderrecord.databaseHelper.AAProvider.MatchColumns;
 import com.acme.amazon.orderrecord.databaseHelper.AAProvider.ProfileColumns;
-
-import android.content.ContentResolver;
-import android.content.ContentValues;
-import android.net.Uri;
-import android.util.Log;
 
 public class AADba {
 

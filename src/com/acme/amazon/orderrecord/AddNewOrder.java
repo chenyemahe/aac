@@ -1,10 +1,6 @@
 package com.acme.amazon.orderrecord;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import com.acme.amazon.AAConstant;
-import com.acme.amazon.AAItem;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -17,6 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.acme.amazon.AAConstant;
+import com.acme.amazon.AAItem;
 
 public class AddNewOrder extends Activity implements OnClickListener{
 
@@ -73,6 +72,7 @@ public class AddNewOrder extends Activity implements OnClickListener{
     		item.setQuality(Integer.parseInt(itemQuanatity));
     		item.setCost(itemCost);
     		mListHolder.addListData(item);
+    		mAdapter.setDataHolder(mListHolder);
     		mAdapter.notifiListUpdate();
     	}
     }

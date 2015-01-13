@@ -16,4 +16,8 @@ public class AAListDataHolder<T> {
 	public T getListData(int index) {
 		return mListData.get(index);
 	}
+	
+	public int getSize() {
+		return mListData.size();
+	}
 }

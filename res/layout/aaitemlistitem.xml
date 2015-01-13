@@ -16,15 +16,15 @@
         android:text="" />
 
     <TextView
-        android:id="@+id/tv_quanatity"
+        android:id="@+id/tv_quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_name"
         android:layout_alignParentLeft="true"
-        android:text="@string/tv_item_quanatity" />
+        android:text="@string/tv_item_quantity" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tv_cost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_name"

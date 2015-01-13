@@ -13,9 +13,9 @@
     <!-- List View -->
     <string name="tv_date">Date</string>
     <string name="tv_title">title</string>
-    <string name="tv_total">Total</string>
+    <string name="tv_total">Total Price</string>
     <string name="tv_cost">Cost</string>
-    <string name="tv_item_quanatity">Quanatity</string>
+    <string name="tv_item_quantity">Quanatity</string>
     <string name="tv_item_cost">Total Cost</string>
     
     <!-- Add New Order -->

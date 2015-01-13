@@ -1,10 +1,10 @@
 package com.acme.amazon;
 
+import android.content.ContentValues;
+
 import com.acme.amazon.orderrecord.databaseHelper.AAProvider.ItemColumns;
 import com.acme.amazon.orderrecord.databaseHelper.AAProvider.MatchColumns;
 import com.acme.amazon.orderrecord.databaseHelper.AAProvider.ProfileColumns;
-
-import android.content.ContentValues;
 
 public class AAUtils {
 
