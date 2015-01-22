@@ -59,7 +59,7 @@ public class AADba {
 		}
 	}
 
-	public Uri saveAAItem(ContentResolver cr, AAItem item) {
+	private Uri saveAAItem(ContentResolver cr, AAItem item) {
 		if (item == null) {
 			return null;
 		}

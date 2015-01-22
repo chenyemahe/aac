@@ -20,4 +20,8 @@ public class AAListDataHolder<T> {
 	public int getSize() {
 		return mListData.size();
 	}
+	
+	public List<T> getList() {
+		return mListData;
+	}
 }

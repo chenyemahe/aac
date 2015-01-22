@@ -28,4 +28,6 @@
     
     <!-- Toast Message -->
     <string name="no_item_info">Please entre products name, quanatity and prime cost!</string>
+    <string name="number_item_quanatity">Please entre numbers for quanatity!</string>
+    <string name="number_item_cost">Please entre numbers for cost!</string>
 </resources>

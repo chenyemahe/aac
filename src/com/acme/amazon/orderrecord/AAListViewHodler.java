@@ -1,5 +1,6 @@
 package com.acme.amazon.orderrecord;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -37,8 +38,8 @@ public class AAListViewHodler {
 	}
 	
 	public void setData(AAItem item) {
-		mItemName.setText(item.getName());
-		mItemQuantity.setText(item.getQuality());
-		mItemCost.setText(item.getCost());
+		mItemName.setText(" - " + item.getName());
+		mItemQuantity.setText(" : " + String.valueOf(item.getQuality()));
+		mItemCost.setText("Total Cost : " + item.getCost());
 	}
 }
