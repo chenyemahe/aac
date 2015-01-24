@@ -26,6 +26,10 @@
     <string name="ed_item_quantity">Quantity</string>
     <string name="ed_item_cost">Item Prime Cost</string>
     
+    <!-- Date pick dialog -->
+    <string name="dialog_summary">Please enter the order date. Show today by default!</string>
+    <string name="dialog_submit">Submit</string>
+    
     <!-- Toast Message -->
     <string name="no_item_info">Please entre products name, quanatity and prime cost!</string>
     <string name="number_item_quanatity">Please entre numbers for quanatity!</string>

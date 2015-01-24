@@ -20,8 +20,11 @@ import android.widget.Toast;
 import com.acme.amazon.AAConstant;
 import com.acme.amazon.AAItem;
 import com.acme.amazon.AAProfile;
+import com.acme.amazon.orderrecord.AADialogFragment.AADialogListener;
 
 public class AddNewOrder extends Activity implements OnClickListener {
+	
+	private static final String TAG = "AddNewOrder";
 
 	private AutoCompleteTextView mItemACT;
 	private EditText mItemQuantity;
@@ -110,10 +113,19 @@ public class AddNewOrder extends Activity implements OnClickListener {
 	}
 	
 	private void submitItem() {
-		AAProfile profile = new AAProfile();
-		profile.setItemList((ArrayList<AAItem>) mListHolder.getList());
-		profile.setCost(totalCost());
-		profile.setDate(getDate());
+		AADialogFragment mDialog = new AADialogFragment();
+		mDialog.setListener(new AADialogListener() {
+			
+			@Override
+			public void onSubmitChange() {
+				AAProfile profile = new AAProfile();
+				profile.setItemList((ArrayList<AAItem>) mListHolder.getList());
+				profile.setCost(totalCost());
+				profile.setDate(mDate);
+				
+			}
+		});
+		mDialog.show(getFragmentManager(), TAG);
 	}
 	
 	private String totalCost() {
@@ -123,14 +135,8 @@ public class AddNewOrder extends Activity implements OnClickListener {
 		}
 		return String.valueOf(cost);
 	}
-	
-	private String getDate() {
-		if (mDate == null) {
-			Date date = new Date(System.currentTimeMillis());
-			Calendar cal = Calendar.getInstance();
-			cal.setTime(date);
-			mDate = String.valueOf(cal.get(Calendar.MONTH)) + "/" + String.valueOf(cal.get(Calendar.DATE)) + "/" +String.valueOf(cal.get(Calendar.YEAR));
-			}
-		return mDate;
+
+	public void setDate(String date) {
+		mDate = date;
 	}
 }
