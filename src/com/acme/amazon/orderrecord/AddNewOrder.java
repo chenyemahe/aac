@@ -19,8 +19,10 @@ import android.widget.Toast;
 
 import com.acme.amazon.AAConstant;
 import com.acme.amazon.AAItem;
+import com.acme.amazon.AAManager;
 import com.acme.amazon.AAProfile;
 import com.acme.amazon.orderrecord.AADialogFragment.AADialogListener;
+import com.acme.amazon.orderrecord.databaseHelper.AADba;
 
 public class AddNewOrder extends Activity implements OnClickListener {
 	
@@ -122,7 +124,7 @@ public class AddNewOrder extends Activity implements OnClickListener {
 				profile.setItemList((ArrayList<AAItem>) mListHolder.getList());
 				profile.setCost(totalCost());
 				profile.setDate(mDate);
-				
+				AAManager.getManager().getDB().saveAAProfile(getContentResolver(), profile);
 			}
 		});
 		mDialog.show(getFragmentManager(), TAG);

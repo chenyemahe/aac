@@ -29,6 +29,13 @@
             android:screenOrientation="portrait">
             
         </activity>
+        
+       <provider
+            android:name=".databaseHelper.AAProvider"
+            android:authorities="com.acme.amazon.orderrecord.provider"
+            android:label="@string/provider_label"
+            android:multiprocess="false" >
+        </provider>
     </application>
 
 </manifest>

@@ -18,6 +18,13 @@ import com.acme.amazon.orderrecord.databaseHelper.AAProvider.ProfileColumns;
 public class AADba {
 
 	private static final String TAG = "AADba";
+	private static AADba mDba;
+	
+	public static AADba getDB() {
+		if(mDba == null)
+			mDba = new AADba();
+		return mDba;
+	}
 
 	/*
      * 
