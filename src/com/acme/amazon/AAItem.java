@@ -8,6 +8,7 @@ public class AAItem{
     private String mCost;
     private String mDate;
     private String mCurrencyType;
+    private String mExtra1;
 
     /*public static final Creator<AAItem> CREATOR = new Creator<AAItem>() {
 
@@ -53,6 +54,10 @@ public class AAItem{
         mCurrencyType = type;
     }
 
+    public void setExtra1(String cost) {
+        mExtra1 = cost;
+    }
+
     public String getItemId() {
         return mItemId;
     }
@@ -71,6 +76,10 @@ public class AAItem{
 
     public String getDate() {
         return mDate;
+    }
+    
+    public String getExtra1() {
+        return mExtra1;
     }
 
     public String getCurrencyType() {

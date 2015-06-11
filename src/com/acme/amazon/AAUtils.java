@@ -27,6 +27,7 @@ public class AAUtils {
         values.put(ProfileColumns.ORDER_ID, profile.getID());
         values.put(ProfileColumns.ORDER_TITLE, profile.getTitle());
         values.put(ProfileColumns.ORDER_TOTAL_COST, profile.getCost());
+        values.put(ProfileColumns.ORDER_EXTRA_1, profile.getExtra1());
     }
 
     public static void toContentValues(AAMatch match, ContentValues values) {
@@ -40,6 +41,7 @@ public class AAUtils {
         values.put(ItemColumns.ITEM_TOTAL_COST, item.getCost());
         values.put(ItemColumns.ORDER_DATE, item.getDate());
         values.put(ItemColumns.ITEM_CURRENCY_TYPE, item.getCurrencyType());
+        values.put(ItemColumns.ITEM_ORDER_EXTRA_1, item.getExtra1());
     }
 
     public static void fromCursor(Cursor cursor, AAProfile profile) {
@@ -48,12 +50,14 @@ public class AAUtils {
         int idxOrderId = cursor.getColumnIndexOrThrow(ProfileColumns.ORDER_ID);
         int idxTitle = cursor.getColumnIndexOrThrow(ProfileColumns.ORDER_TITLE);
         int idxCost = cursor.getColumnIndexOrThrow(ProfileColumns.ORDER_TOTAL_COST);
+        int idxExtra1 = cursor.getColumnIndexOrThrow(ProfileColumns.ORDER_EXTRA_1);
 
         profile.setProfileId(cursor.getString(idxId));
         profile.setDate(cursor.getString(idxDate));
         profile.setID(cursor.getString(idxOrderId));
         profile.setTitle(cursor.getString(idxTitle));
         profile.setCost(cursor.getString(idxCost));
+        profile.setExtra1(cursor.getString(idxExtra1));
     }
 
     public static void fromCursor(Cursor cursor, AAItem item) {
@@ -63,6 +67,7 @@ public class AAUtils {
         int idxQuality = cursor.getColumnIndexOrThrow(ItemColumns.ITEM_QUALITY);
         int idxCost = cursor.getColumnIndexOrThrow(ItemColumns.ITEM_TOTAL_COST);
         int idxCurrencyType = cursor.getColumnIndexOrThrow(ItemColumns.ITEM_CURRENCY_TYPE);
+        int idxExtra1 = cursor.getColumnIndexOrThrow(ItemColumns.ITEM_ORDER_EXTRA_1);
 
         item.setItemId(cursor.getString(idxId));
         item.setDate(cursor.getString(idxDate));
@@ -70,6 +75,7 @@ public class AAUtils {
         item.setQuality(cursor.getInt(idxQuality));
         item.setCurrencyType(cursor.getString(idxCurrencyType));
         item.setCost(cursor.getString(idxCost));
+        item.setExtra1(cursor.getString(idxExtra1));
     }
 
     /**

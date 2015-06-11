@@ -12,6 +12,7 @@ public class AAProfile{
     private int mTempId;
     private String mOrderTitle;
     private String mOrderCost;
+    private String mExtra1;
     private static final String TAG = "AAProfile";
 
     private List<AAItem> mAAItemList;
@@ -77,6 +78,10 @@ public class AAProfile{
         mOrderCost = cost;
     }
 
+    public void setExtra1(String cost) {
+        mExtra1 = cost;
+    }
+
     public void setItemList(ArrayList<AAItem> list) {
         mAAItemList = list;
     }
@@ -103,6 +108,10 @@ public class AAProfile{
 
     public String getCost() {
         return mOrderCost;
+    }
+    
+    public String getExtra1() {
+        return mExtra1;
     }
 
     public List<AAItem> getItemList() {

@@ -44,6 +44,7 @@ public class AAProvider extends ContentProvider{
     	public static final String ORDER_ITEM_ID = "order_detial_ID";
     	public static final String ORDER_TITLE = "order_tilte";
     	public static final String ORDER_TOTAL_COST = "order_total_cost";
+        public static final String ORDER_EXTRA_1 = "order_extra_1";
     }
     
     //Amazon Order Item Info
@@ -56,6 +57,7 @@ public class AAProvider extends ContentProvider{
     	public static final String ITEM_TOTAL_COST = "order_total_cost";
         public static final String ORDER_DATE = "order_date";
         public static final String ITEM_CURRENCY_TYPE = "item_currency_type";
+        public static final String ITEM_ORDER_EXTRA_1 = "item_order_extra_1";
     }
     
     //Amazon Order Item and profile match info
@@ -193,6 +195,7 @@ public class AAProvider extends ContentProvider{
                     + ProfileColumns.ORDER_DATE + " VARCHAR, "
                     + ProfileColumns.ORDER_ITEM_ID + " INTEGER, "
                     + ProfileColumns.ORDER_TITLE + " VARCHAR, "
+                    + ProfileColumns.ORDER_EXTRA_1 + " VARCHAR, "
                     + ProfileColumns.ORDER_TOTAL_COST + " INTEGER);");
             
             db.execSQL("CREATE TABLE " + ItemColumns.TBL_AA_ITEM + " ("
@@ -201,6 +204,7 @@ public class AAProvider extends ContentProvider{
                     + ItemColumns.ITEM_QUALITY + " INTEGER, "
                     + ItemColumns.ORDER_DATE + " VARCHAR, "
                     + ItemColumns.ITEM_CURRENCY_TYPE + " VARCHAR, "
+                    + ItemColumns.ITEM_ORDER_EXTRA_1 + " VARCHAR, "
                     + ItemColumns.ITEM_TOTAL_COST + " VARCHAR);");
 		}
 		@Override
