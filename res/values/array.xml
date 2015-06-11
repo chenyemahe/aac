@@ -34,4 +34,13 @@
             <item>Apple Cable</item>
             <item>Isotonix Multi-mineral</item>
         </string-array>
+        
+        <string-array name="list_of_main">
+            <item>EDIT</item>
+            <item>DELETE</item>
+        </string-array>
+        
+        <string-array name="list_of_product">
+            <item>DELETE</item>
+        </string-array>
 </resources>

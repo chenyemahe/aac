@@ -11,13 +11,16 @@
     <string name="bt_summary">Summary</string>
     <string name="bt_amazon">Amazon</string>
     
+    <!-- Item Page -->
+    <string name="tv_order_detail">YOUR ORDER DETAIL</string>
+    
     <!-- List View -->
     <string name="tv_date">Date</string>
     <string name="tv_title">title</string>
-    <string name="tv_total">Total Price</string>
+    <string name="tv_total">Prime Cost</string>
     <string name="tv_cost">Cost</string>
     <string name="tv_item_quantity">Quanatity</string>
-    <string name="tv_item_cost">Total Cost</string>
+    <string name="tv_item_cost">Prime Cost</string>
     
     <!-- Add New Order -->
     <string name="tv_add_order">Add New Order</string>
@@ -35,4 +38,10 @@
     <string name="no_item_info">Please entre products name, quanatity and prime cost!</string>
     <string name="number_item_quanatity">Please entre numbers for quanatity!</string>
     <string name="number_item_cost">Please entre numbers for cost!</string>
+    
+    <!-- Settings -->
+    <string name="edit_product_list">Edit Product List</string>
+    <string name="bt_setting_add">ADD</string>
+    <string name="bt_setting_edit">EDIT</string>
+    <string name="bt_setting_hint">Enter Product Name</string>
 </resources>

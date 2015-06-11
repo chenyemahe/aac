@@ -1,5 +1,7 @@
 package com.acme.amazon.orderrecord.databaseHelper;
 
+import com.acem.amazon.logging.Logging;
+
 import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -27,6 +29,8 @@ public class AAProvider extends ContentProvider{
     private static final int AA_PROFILE_ID = 2;
     private static final int AA_ITEM = 3;
     private static final int AA_ITEM_ID = 4;
+    private static final int AA_MATCH = 5;
+    private static final int AA_MATCH_ID = 6;
     
     private AADatabaseHelper mHelper;
     
@@ -50,6 +54,8 @@ public class AAProvider extends ContentProvider{
     	public static final String ITEM_NAME = "item_name";
     	public static final String ITEM_QUALITY = "item_quality";
     	public static final String ITEM_TOTAL_COST = "order_total_cost";
+        public static final String ORDER_DATE = "order_date";
+        public static final String ITEM_CURRENCY_TYPE = "item_currency_type";
     }
     
     //Amazon Order Item and profile match info
@@ -159,6 +165,9 @@ public class AAProvider extends ContentProvider{
             count = db.update(whichTable, values, "_id=" + segment
                     + (!TextUtils.isEmpty(selection) ? " AND (" + selection + ')' : ""), selectionArgs);
             break;
+        case AA_MATCH:
+        case AA_MATCH_ID:
+            
         default:
             throw new IllegalArgumentException("Unknown URL " + uri);
         }
@@ -180,7 +189,7 @@ public class AAProvider extends ContentProvider{
             // Profi.les
             db.execSQL("CREATE TABLE " + ProfileColumns.TBL_AA_PROFILES + " ("
                     + ProfileColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                    + ProfileColumns.ORDER_ID + " INTEGER, "
+                    + ProfileColumns.ORDER_ID + " VARCHAR, "
                     + ProfileColumns.ORDER_DATE + " VARCHAR, "
                     + ProfileColumns.ORDER_ITEM_ID + " INTEGER, "
                     + ProfileColumns.ORDER_TITLE + " VARCHAR, "
@@ -190,12 +199,9 @@ public class AAProvider extends ContentProvider{
                     + ItemColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + ItemColumns.ITEM_NAME + " VARCHAR, "
                     + ItemColumns.ITEM_QUALITY + " INTEGER, "
+                    + ItemColumns.ORDER_DATE + " VARCHAR, "
+                    + ItemColumns.ITEM_CURRENCY_TYPE + " VARCHAR, "
                     + ItemColumns.ITEM_TOTAL_COST + " VARCHAR);");
-            
-            db.execSQL("CREATE TABLE " + MatchColumns.TBL_AA_MATCH + " ("
-                    + MatchColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                    + MatchColumns.PROFILE_ID + " VARCHAR, "
-                    + MatchColumns.ITEM_ID + " INTEGER);");
 		}
 		@Override
 		public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -220,6 +226,9 @@ public class AAProvider extends ContentProvider{
         urlMatcher.addURI(AUTHORITY, ProfileColumns.TBL_AA_PROFILES, AA_PROFILE);
         urlMatcher.addURI(AUTHORITY, ProfileColumns.TBL_AA_PROFILES + "/#", AA_PROFILE_ID);
 
+        urlMatcher.addURI(AUTHORITY, MatchColumns.TBL_AA_MATCH, AA_MATCH);
+        urlMatcher.addURI(AUTHORITY, MatchColumns.TBL_AA_MATCH + "/#", AA_MATCH_ID);
+
         urlMatcher.addURI(AUTHORITY, ItemColumns.TBL_AA_ITEM, AA_ITEM);
         urlMatcher.addURI(AUTHORITY, ItemColumns.TBL_AA_ITEM + "/#", AA_ITEM_ID);
     }
@@ -240,10 +249,15 @@ public class AAProvider extends ContentProvider{
         case AA_ITEM_ID:
             whichTable = ItemColumns.TBL_AA_ITEM;
             break;
+        case AA_MATCH:
+        case AA_MATCH_ID:
+            whichTable = MatchColumns.TBL_AA_MATCH;
+            break;
         default:
                 throw new IllegalArgumentException("Unknown URL: " + uri);
         }
 
+        Logging.logD("Selected table is " + whichTable);
         return whichTable;
     }
 }

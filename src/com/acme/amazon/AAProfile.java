@@ -2,72 +2,129 @@ package com.acme.amazon;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import android.util.Log;
 
-public class AAProfile {
+public class AAProfile{
 
-	private String mDate;
-	private int mItemID;
-	private String mOrderTitle;
-	private String mOrderCost;
-	private static final String TAG = "AAProfile";
+    private String mProfileId;
+    private String mDate;
+    private String mIDList;
+    private int mTempId;
+    private String mOrderTitle;
+    private String mOrderCost;
+    private static final String TAG = "AAProfile";
 
-	private List<AAItem> mAAItemList;
+    private List<AAItem> mAAItemList;
 
-	public AAProfile() {
-		mDate = null;
-		mOrderTitle = null;
-		mOrderCost = null;
-		mAAItemList = null;
-	}
+    /*public static final Creator<AAProfile> CREATOR = new Creator<AAProfile>() {
 
-	public void setDate(String date) {
-		mDate = date;
-	}
+        @Override
+        public AAProfile createFromParcel(Parcel source) {
+            AAProfile profile = new AAProfile();
+            profile.setProfileId(source.readInt());
+            profile.setDate(source.readString());
+            profile.setID(source.readString());
+            profile.setItemID(source.readInt());
+            profile.setTitle(source.readString());
+            profile.setCost(source.readString());
+            source.readList(mAAItemList, null);
+            return null;
+        }
 
-	public void setItemID(int id) {
-		mItemID = id;
-	}
+        @Override
+        public AAProfile[] newArray(int size) {
+            return new AAProfile[size];
+        }
+    };*/
+    
+    public AAProfile() {
+        mDate = null;
+        mOrderTitle = null;
+        mOrderCost = null;
+        mAAItemList = null;
+    }
 
-	public void setItemID(String aid) {
-		try {
-			int id = Integer.parseInt(aid);
-			setItemID(id);
-		} catch (NumberFormatException nfe) {
-			Log.e(TAG, "Exception: " + nfe.toString());
-		}
-	}
+    public void setProfileId(String id) {
+        mProfileId = id;
+    }
 
-	public void setTitle(String title) {
-		mOrderTitle = title;
-	}
+    public void setDate(String date) {
+        mDate = date;
+    }
 
-	public void setCost(String cost) {
-		mOrderCost = cost;
-	}
+    public void setID(String id) {
+        mIDList = id;
+    }
 
-	public void setItemList(ArrayList<AAItem> list) {
-		mAAItemList = list;
-	}
+    public void setTempId(int id) {
+        mTempId = id;
+    }
 
-	public String getDate() {
-		return mDate;
-	}
+    public void setItemID(String aid) {
+        try {
+            int id = Integer.parseInt(aid);
+            setTempId(id);
+        } catch (NumberFormatException nfe) {
+            Log.e(TAG, "Exception: " + nfe.toString());
+        }
+    }
 
-	public int getItemID() {
-		return mItemID;
-	}
+    public void setTitle(String title) {
+        mOrderTitle = title;
+    }
 
-	public String getTitle() {
-		return mOrderTitle;
-	}
+    public void setCost(String cost) {
+        mOrderCost = cost;
+    }
 
-	public String getCost() {
-		return mOrderCost;
-	}
+    public void setItemList(ArrayList<AAItem> list) {
+        mAAItemList = list;
+    }
 
-	public List<AAItem> getItemList() {
-		return mAAItemList;
-	}
+    public String getProfileId() {
+        return mProfileId;
+    }
+
+    public String getDate() {
+        return mDate;
+    }
+
+    public String getID() {
+        return mIDList;
+    }
+
+    public int mTempId() {
+        return mTempId;
+    }
+
+    public String getTitle() {
+        return mOrderTitle;
+    }
+
+    public String getCost() {
+        return mOrderCost;
+    }
+
+    public List<AAItem> getItemList() {
+        return mAAItemList;
+    }
+
+    /*
+    @Override
+    public int describeContents() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(mProfileId);
+        dest.writeString(mDate);
+        dest.writeString(mID);
+        dest.writeInt(mItemID);
+        dest.writeString(mOrderTitle);
+        dest.writeString(mOrderCost);
+        dest.writeList(mAAItemList);
+    }
+    */
 }

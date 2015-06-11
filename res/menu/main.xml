@@ -4,9 +4,9 @@
     tools:context="com.example.acmeamazon.MainActivity" >
 
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/edit_product_list"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="@string/edit_product_list"
         app:showAsAction="never"/>
 
 </menu>
