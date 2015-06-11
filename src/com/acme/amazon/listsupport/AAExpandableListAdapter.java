@@ -86,6 +86,7 @@ public class AAExpandableListAdapter extends BaseExpandableListAdapter {
         AAListViewHodler holder = new AAListViewHodler();
         holder.setOrderListView(convertView);
         holder.setData(mChildList.get(groupPosition).get(childPosition));
+        holder.setExpandId(groupPosition, childPosition);
         convertView.setTag(holder);
         return convertView;
     }

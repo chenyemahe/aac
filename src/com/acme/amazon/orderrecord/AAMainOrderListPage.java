@@ -60,10 +60,7 @@ public class AAMainOrderListPage extends ActionBarActivity implements OnClickLis
         // mListHolder = new
         // AAListDataHolder<>(AAManager.getManager().getDB().getAllProfile(getContentResolver()));
         // mAdapter.setDataHolder(mListHolder);
-        mExpandDataList = AAUtils.sortProfileByDate(AAManager.getManager().getDB().getAllProfile(getContentResolver()));
-        mChildList = new ArrayList<ArrayList<AAProfile>>();
-        setSignleLevelChildData();
-        mExpandAdapter.setListData(mExpandDataList, mChildList, this);
+        setExpViewData();
         super.onResume();
     }
 
@@ -134,6 +131,7 @@ public class AAMainOrderListPage extends ActionBarActivity implements OnClickLis
                     break;
                 case 1:
                     AAManager.getManager().getDB().deleteAAProfile(getContentResolver(), profile);
+                    setExpViewData();
                     mExpandAdapter.notifiListUpdate();
                     break;
                 }
@@ -166,5 +164,12 @@ public class AAMainOrderListPage extends ActionBarActivity implements OnClickLis
                 }
             }
         }
+    }
+    
+    private void setExpViewData() {
+        mExpandDataList = AAUtils.sortProfileByDate(AAManager.getManager().getDB().getAllProfile(getContentResolver()));
+        mChildList = new ArrayList<ArrayList<AAProfile>>();
+        setSignleLevelChildData();
+        mExpandAdapter.setListData(mExpandDataList, mChildList, this);
     }
 }

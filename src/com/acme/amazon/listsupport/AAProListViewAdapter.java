@@ -100,7 +100,7 @@ public class AAProListViewAdapter {
     }
 
     private void addLastRow() {
-        if (!TextUtils.equals(listData.get(listData.size() - 1), "")) {
+        if (listData.size() == 0 || !TextUtils.equals(listData.get(listData.size() - 1), "")) {
             listEditCT.add(AAUtils.PRODUCT_LIST_INI_STATE);
             mFocusItemNum = listData.size();
             listData.add("");

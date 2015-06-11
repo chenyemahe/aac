@@ -78,7 +78,7 @@ public class AAUtils {
      * @param profileList
      * @return ArrayList by key year and month for sorted list
      */
-    public static ArrayList<ArrayList<ArrayList<AAProfile>>> sortProfileByDate(List<AAProfile> profileList) {
+    public static synchronized ArrayList<ArrayList<ArrayList<AAProfile>>> sortProfileByDate(List<AAProfile> profileList) {
         ArrayList<ArrayList<ArrayList<AAProfile>>> sortListMap = new ArrayList<ArrayList<ArrayList<AAProfile>>>();
         ArrayList<String> yearList = new ArrayList<String>();
         String year = UNSORT;
@@ -113,6 +113,8 @@ public class AAUtils {
                 for (int i = 0; i < 12; i++) {
                     sortListMap.get(indexYear).add(new ArrayList<AAProfile>());
                 }
+            } else {
+                indexYear = findStElemInArray(yearList, year);
             }
 
             ArrayList<AAProfile> list = sortListMap.get(indexYear).get(indexMonth);

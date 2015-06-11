@@ -49,6 +49,7 @@ public class AddNewOrder extends Activity implements OnClickListener {
     }
 
     private void setLayoutView() {
+        mSharedPre = getSharedPreferences(AAUtils.SHARED_PRE_NAME, 0);
         mItemACT = (AutoCompleteTextView) findViewById(R.id.act_add_item);
         ArrayAdapter<String> sAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, getStringArray());
         mItemACT.setAdapter(sAdapter);
@@ -63,8 +64,6 @@ public class AddNewOrder extends Activity implements OnClickListener {
 
         mSubmit = (Button) findViewById(R.id.bt_submit);
         mSubmit.setOnClickListener(this);
-
-        mSharedPre = getSharedPreferences(AAUtils.SHARED_PRE_NAME, 0);
     }
 
     @Override
