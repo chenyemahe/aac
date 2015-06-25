@@ -34,6 +34,11 @@
     <string name="dialog_summary">Please enter the order date. Show today by default!</string>
     <string name="dialog_submit">Submit</string>
     
+    <!-- Summary Report -->
+    <string name="tv_summary">Summary</string>
+    <string name="tv_summary_total">Total Report</string>
+    <string name="tv_item_summary_total">Order Total Report</string>
+    
     <!-- Toast Message -->
     <string name="no_item_info">Please entre products name, quanatity and prime cost!</string>
     <string name="number_item_quanatity">Please entre numbers for quanatity!</string>

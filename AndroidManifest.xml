@@ -36,6 +36,11 @@
             android:windowSoftInputMode="adjustResize|stateHidden"
             android:screenOrientation="portrait" >
         </activity>
+        
+        <activity
+            android:name=".SummaryPage"
+            android:screenOrientation="portrait" >
+        </activity>
 
         <provider
             android:name=".databaseHelper.AAProvider"

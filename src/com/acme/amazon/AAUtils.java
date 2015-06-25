@@ -1,3 +1,4 @@
+
 package com.acme.amazon;
 
 import java.util.ArrayList;
@@ -16,10 +17,15 @@ import com.acme.amazon.orderrecord.databaseHelper.AAProvider.ProfileColumns;
 public class AAUtils {
 
     public static final String INTENT_PROFILE_ID = "Item_ID";
+
     public static final String UNSORT = "unsort";
+
     public static final String SHARED_PRE_NAME = "aa_shared_pre_name";
+
     public static final int PRODUCT_LIST_INI_STATE = -1;
+
     public static final int PRODUCT_LIST_EDIT_STATE = 1;
+
     public static final int PRODUCT_LIST_SHOW_STATE = 0;
 
     public static void toContentValues(AAProfile profile, ContentValues values) {
@@ -84,7 +90,8 @@ public class AAUtils {
      * @param profileList
      * @return ArrayList by key year and month for sorted list
      */
-    public static synchronized ArrayList<ArrayList<ArrayList<AAProfile>>> sortProfileByDate(List<AAProfile> profileList) {
+    public static synchronized ArrayList<ArrayList<ArrayList<AAProfile>>> sortProfileByDate(
+            List<AAProfile> profileList) {
         ArrayList<ArrayList<ArrayList<AAProfile>>> sortListMap = new ArrayList<ArrayList<ArrayList<AAProfile>>>();
         ArrayList<String> yearList = new ArrayList<String>();
         String year = UNSORT;
@@ -149,36 +156,54 @@ public class AAUtils {
         }
         return -1;
     }
-    
+
     /**
      * Parse Set to ArrayList
+     * 
      * @param set
      * @return ArrayList
      */
     public static <T> ArrayList<T> setToArrayList(Set<T> set) {
-        if(set == null)
+        if (set == null)
             return null;
         ArrayList<T> tArray = new ArrayList<T>();
         Iterator<T> it = set.iterator();
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             T t = it.next();
             tArray.add(t);
         }
         return tArray;
     }
-    
+
     /**
      * Parse ArrayList to Set
+     * 
      * @param ArrayList
      * @return Set
      */
     public static <T> Set<T> arrayListToSet(ArrayList<T> list) {
-        if(list == null)
+        if (list == null)
             return null;
         Set<T> set = new HashSet<T>();
-        for(T t : list) {
+        for (T t : list) {
             set.add(t);
         }
         return set;
-    } 
+    }
+    
+    public static String getTotalProCost(ArrayList<AAProfile> proList) {
+        Double cost = 0.0;
+        for (AAProfile profile : proList) {
+            cost += Double.parseDouble(profile.getCost());
+        }
+        return String.valueOf(cost);
+    }
+    
+    public static String getTotalProExtra1(ArrayList<AAProfile> proList) {
+        Double cost = 0.0;
+        for (AAProfile profile : proList) {
+            cost += Double.parseDouble(profile.getExtra1());
+        }
+        return String.valueOf(cost);
+    }
 }

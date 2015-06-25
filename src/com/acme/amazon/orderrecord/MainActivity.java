@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.acme.amazon.AAConstant;
+import com.acme.amazon.listsupport.AAListViewAdapter;
 
 public class MainActivity extends ActionBarActivity implements OnClickListener{
     private ListView mListView;
