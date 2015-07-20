@@ -49,4 +49,10 @@
     <string name="bt_setting_add">ADD</string>
     <string name="bt_setting_edit">EDIT</string>
     <string name="bt_setting_hint">Enter Product Name</string>
+    
+    <!-- Product detail page -->
+    <string name="tv_real_price">Base:</string>
+    <string name="tv_amazon_min">Amazon Min:</string>
+    <string name="tv_sale_price">Sale Price:</string>
+    <string name="tv_profit">Profit:</string>
 </resources>
