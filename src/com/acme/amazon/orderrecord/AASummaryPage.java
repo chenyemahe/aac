@@ -17,9 +17,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SummaryPage extends Activity implements OnClickListener {
+public class AASummaryPage extends Activity implements OnClickListener {
 
-    public static final int SUM_TOTAL = 0;
+    public static final String SUMMARY_PAGE = "summary_page";
 
     private Map<String, String> summaryData;
 
@@ -41,11 +41,11 @@ public class SummaryPage extends Activity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.aa_sumary_page);
-        mTotalButton = (Button) findViewById(R.id.tv_total);
+        mTotalButton = (Button) findViewById(R.id.total_report);
         mTotalButton.setOnClickListener(this);
         summaryData = new HashMap<String, String>();
         list1 = (ListView) findViewById(R.id.list_total);
-        adapter1 = new AANormalListViewAdapter(this, R.layout.aa_sumary_list_item, SUM_TOTAL);
+        adapter1 = new AANormalListViewAdapter(this, R.layout.aa_sumary_list_item, SUMMARY_PAGE);
         list1.setAdapter(adapter1);
     }
 
@@ -59,7 +59,7 @@ public class SummaryPage extends Activity implements OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_total:
+            case R.id.list_total:
                 updateTotalList();
                 break;
         }

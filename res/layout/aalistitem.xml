@@ -24,18 +24,18 @@
             android:text="@string/tv_date" />
 
         <TextView
-            android:id="@+id/tv_total"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:text="@string/tv_total" />
-
-        <TextView
             android:id="@+id/tv_cost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:text="@string/tv_cost" />
+
+        <TextView
+            android:id="@+id/tv_bv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="@string/tv_bv" />
     </LinearLayout>
 
     <LinearLayout

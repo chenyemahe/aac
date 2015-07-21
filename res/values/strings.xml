@@ -18,17 +18,19 @@
     <string name="tv_date">Date</string>
     <string name="tv_title">title</string>
     <string name="tv_total">Prime Cost</string>
+    <string name="tv_bv">BV </string>
     <string name="tv_cost">Cost</string>
     <string name="tv_item_quantity">Quanatity</string>
     <string name="tv_item_cost">Prime Cost</string>
     
     <!-- Add New Order -->
-    <string name="tv_add_order">Add New Order</string>
+    <string name="tv_add_order">Submit New Order</string>
     <string name="bt_submit">Submit</string>
-    <string name="bt_add_item">Add</string>
+    <string name="bt_add_item">Add Item</string>
     <string name="ed_item_name">Product Name</string>
     <string name="ed_item_quantity">Quantity</string>
     <string name="ed_item_cost">Item Prime Cost</string>
+    <string name="ed_item_bv">BV Point</string>
     
     <!-- Date pick dialog -->
     <string name="dialog_summary">Please enter the order date. Show today by default!</string>

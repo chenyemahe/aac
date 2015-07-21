@@ -2,6 +2,7 @@ package com.acme.amazon.orderrecord;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,6 +18,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+
 import com.acme.amazon.AAManager;
 import com.acme.amazon.AAProfile;
 import com.acme.amazon.AAUtils;
@@ -24,10 +26,11 @@ import com.acme.amazon.listsupport.AAExpandableListAdapter;
 import com.acme.amazon.listsupport.AAListDataHolder;
 import com.acme.amazon.listsupport.AAListViewHodler;
 
-public class AAMainOrderListPage extends ActionBarActivity implements OnClickListener, OnItemClickListener, OnItemLongClickListener,
+public class AAMainOrderListPage extends Activity implements OnClickListener, OnItemClickListener, OnItemLongClickListener,
         OnChildClickListener {
     private ExpandableListView mListView;
     private Button mAdd;
+    private Button mSummary;
     // private AAListViewAdapter mAdapter;
     private AAExpandableListAdapter mExpandAdapter;
     private AAListDataHolder<AAProfile> mListHolder;
@@ -46,6 +49,8 @@ public class AAMainOrderListPage extends ActionBarActivity implements OnClickLis
         mListView.setAdapter(mExpandAdapter);
         mAdd = (Button) findViewById(R.id.bt_add);
         mAdd.setOnClickListener(this);
+        mSummary = (Button) findViewById(R.id.bt_summary);
+        mSummary.setOnClickListener(this);
     }
 
     @Override
@@ -82,6 +87,9 @@ public class AAMainOrderListPage extends ActionBarActivity implements OnClickLis
         switch (v.getId()) {
         case R.id.bt_add:
             startActivity(new Intent(this, AddNewOrder.class));
+            break;
+        case R.id.bt_summary:
+            startActivity(new Intent(this, AASummaryPage.class));
             break;
 
         default:

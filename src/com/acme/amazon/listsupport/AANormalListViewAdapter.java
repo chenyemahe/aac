@@ -1,6 +1,6 @@
 package com.acme.amazon.listsupport;
 
-import com.acme.amazon.orderrecord.SummaryPage;
+import com.acme.amazon.orderrecord.AASummaryPage;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -18,9 +18,9 @@ public class AANormalListViewAdapter extends BaseAdapter{
     private int mLayoutID;
     private Map<String, String> mapData;
     private String[] keyWordList;
-    private int mAdapterStyle;
+    private String mAdapterStyle;
 
-    public AANormalListViewAdapter(Context context, int layoutID, int style) {
+    public AANormalListViewAdapter(Context context, int layoutID, String style) {
         mContext = context;
         mLayoutID = layoutID;
         mAdapterStyle = style;
@@ -52,7 +52,7 @@ public class AANormalListViewAdapter extends BaseAdapter{
             contentView = LayoutInflater.from(mContext).inflate(mLayoutID,
                     parent, false);
         }
-        if (mAdapterStyle == SummaryPage.SUM_TOTAL) {
+        if (mAdapterStyle.equals(AASummaryPage.SUMMARY_PAGE)) {
             ViewHolderTotal holder = new ViewHolderTotal();
             holder.setUpView(contentView);
             holder.setData(index);

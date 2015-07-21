@@ -14,31 +14,42 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:text="@string/tv_add_order" />
+        
+
+        <Button
+            android:id="@+id/bt_add_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="2"
+            android:singleLine="true"
+            android:text="@string/bt_add_item" />
 
     <LinearLayout
         android:id="@+id/ll_add_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@id/bt_add_item"
         android:orientation="horizontal"
-        android:weightSum="6" >
+        android:weightSum="2" >
 
         <EditText
             android:id="@+id/ed_cost"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="4"
+            android:layout_weight="1"
             android:ems="10"
             android:hint="@string/ed_item_cost"
             android:scrollHorizontally="true" />
 
-        <Button
-            android:id="@+id/bt_add_item"
+        <EditText
+            android:id="@+id/ed_bv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:singleLine="true"
-            android:text="@string/bt_add_item" />
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="@string/ed_item_bv"
+            android:scrollHorizontally="true" />
     </LinearLayout>
 
     <LinearLayout
@@ -47,13 +58,13 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/ll_add_2"
         android:orientation="horizontal"
-        android:weightSum="6" >
+        android:weightSum="2" >
 
         <AutoCompleteTextView
             android:id="@+id/act_add_item"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="4"
+            android:layout_weight="1"
             android:hint="@string/ed_item_name"
             android:scrollHorizontally="true" >
 
@@ -64,7 +75,7 @@
             android:id="@+id/ed_quantity"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:ems="10"
             android:hint="@string/ed_item_quantity"
             android:scrollHorizontally="true" />

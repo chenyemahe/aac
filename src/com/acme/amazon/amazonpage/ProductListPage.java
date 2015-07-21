@@ -1,17 +1,17 @@
 package com.acme.amazon.amazonpage;
 
+import com.acme.amazon.listsupport.AANormalListViewAdapter;
 import com.acme.amazon.orderrecord.R;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class ProductListPage extends Activity {
-
-	private TextView mBasePrice;
-	private TextView mAmazonMinPrice;
-	private TextView mSalePrice;
-	private TextView mProfit;
+    public static final String PRODUCT_LIST_PAGE = "product_list_page";
+    
+    private ListView mListView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -21,9 +21,8 @@ public class ProductListPage extends Activity {
 	}
 
 	private void setLayout() {
-		mBasePrice = (TextView) findViewById(R.id.tv_real_price_number);
-		mAmazonMinPrice = (TextView) findViewById(R.id.tv_amazon_min_number);
-		mSalePrice = (TextView) findViewById(R.id.tv_sale_price_number);
-		mProfit = (TextView) findViewById(R.id.tv_profit_number);
+	    AANormalListViewAdapter productListAdapter = new AANormalListViewAdapter(this, R.layout.aa_prod_list_detal_page, PRODUCT_LIST_PAGE);
+	    mListView = (ListView) findViewById(R.id.lv_prod_detail_list);
+	    mListView.setAdapter(productListAdapter);
 	}
 }
