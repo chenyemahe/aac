@@ -24,13 +24,18 @@ public class AAProvider extends ContentProvider{
     private static final int DB_VERSION = 1;
     private static final String TAG = "AAProvider";
     
-    // URL matcher path constants.
+    // URL matcher path constants
+    // Product order from merchant
     private static final int AA_PROFILE = 1;
     private static final int AA_PROFILE_ID = 2;
     private static final int AA_ITEM = 3;
     private static final int AA_ITEM_ID = 4;
     private static final int AA_MATCH = 5;
     private static final int AA_MATCH_ID = 6;
+    
+    // Amazon product page detail
+    private static final int AA_PRODUCT = 7;
+    private static final int AA_PRODUCT_ID = 8;
     
     private AADatabaseHelper mHelper;
     
@@ -67,6 +72,19 @@ public class AAProvider extends ContentProvider{
     	public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.acme.match";
     	public static final String PROFILE_ID = "profile_id";
     	public static final String ITEM_ID = "item_id";
+    }
+    
+    //Amazon Order Item and profile match info
+    public interface ProductColumns extends BaseColumns {
+    	public static final String TBL_AA_PRODUCT = "aa_product";
+    	public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + TBL_AA_PRODUCT);
+    	public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.acme.product";
+    	public static final String PRODUCT_ID = "product_id";
+    	public static final String PRODUCT_PRIME_PRICE = "product_prime_price";
+    	public static final String PRODUCT_BV_POINT = "product_bv_point";
+    	public static final String PRODUCT_PRIME_PRICE = "product_prime_id";
+    	public static final String PRODUCT_PRIME_PRICE = "product_prime_id";
+    	public static final String PRODUCT_PRIME_PRICE = "product_prime_id";
     }
     
     @Override
