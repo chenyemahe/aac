@@ -79,12 +79,13 @@ public class AAProvider extends ContentProvider{
     	public static final String TBL_AA_PRODUCT = "aa_product";
     	public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + TBL_AA_PRODUCT);
     	public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.acme.product";
-    	public static final String PRODUCT_ID = "product_id";
+    	public static final String PRODUCT_NAME = "product_id";
     	public static final String PRODUCT_PRIME_PRICE = "product_prime_price";
     	public static final String PRODUCT_BV_POINT = "product_bv_point";
-    	public static final String PRODUCT_PRIME_PRICE = "product_prime_id";
-    	public static final String PRODUCT_PRIME_PRICE = "product_prime_id";
-    	public static final String PRODUCT_PRIME_PRICE = "product_prime_id";
+    	public static final String PRODUCT_BV_TO_MONEY = "product_bv_to_money";
+        public static final String PRODUCT_FBA_PRE_FEE = "product_fba_pre_fee";
+    	public static final String PRODUCT_FBA_SHIPPING_FEE = "product_fba_shipping_fee";
+    	public static final String PRODUCT_AMAZON_REF_FEE = "product_amazon_ref_fee";
     }
     
     @Override
@@ -153,6 +154,14 @@ public class AAProvider extends ContentProvider{
             qb.setTables(ItemColumns.TBL_AA_ITEM);
             qb.appendWhere("_id=" + uri.getPathSegments().get(1));
             break;
+        case AA_PRODUCT:
+            qb.setTables(ProductColumns.TBL_AA_PRODUCT);
+            sortOrder = (sort != null ? sort : ProductColumns._ID);
+            break;
+        case AA_PRODUCT_ID:
+            qb.setTables(ProductColumns.TBL_AA_PRODUCT);
+            qb.appendWhere("_id=" + uri.getPathSegments().get(1));
+            break;
         default:
             throw new IllegalArgumentException("Unknown URL " + uri);
         }
@@ -199,10 +208,10 @@ public class AAProvider extends ContentProvider{
 
     public static class AADatabaseHelper extends SQLiteOpenHelper {
 
-        private Context ctx;
+        //private Context ctx;
         public AADatabaseHelper(Context context) {
             super(context, DB_NAME, null, DB_VERSION);
-            this.ctx = context;
+            //this.ctx = context;
         }
 		@Override
 		public void onCreate(SQLiteDatabase db) {
@@ -224,6 +233,16 @@ public class AAProvider extends ContentProvider{
                     + ItemColumns.ITEM_CURRENCY_TYPE + " VARCHAR, "
                     + ItemColumns.ITEM_ORDER_EXTRA_1 + " VARCHAR, "
                     + ItemColumns.ITEM_TOTAL_COST + " VARCHAR);");
+            
+            db.execSQL("CREATE TABLE " + ProductColumns.TBL_AA_PRODUCT + " ("
+                    + ProductColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + ProductColumns.PRODUCT_NAME + " VARCHAR, "
+                    + ProductColumns.PRODUCT_PRIME_PRICE + " VARCHAR, "
+                    + ProductColumns.PRODUCT_BV_POINT + " VARCHAR, "
+                    + ProductColumns.PRODUCT_BV_TO_MONEY + " VARCHAR, "
+                    + ProductColumns.PRODUCT_FBA_PRE_FEE + " VARCHAR, "
+                    + ProductColumns.PRODUCT_FBA_SHIPPING_FEE + " VARCHAR, "
+                    + ProductColumns.PRODUCT_AMAZON_REF_FEE + " VARCHAR);");
 		}
 		@Override
 		public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -253,6 +272,9 @@ public class AAProvider extends ContentProvider{
 
         urlMatcher.addURI(AUTHORITY, ItemColumns.TBL_AA_ITEM, AA_ITEM);
         urlMatcher.addURI(AUTHORITY, ItemColumns.TBL_AA_ITEM + "/#", AA_ITEM_ID);
+        
+        urlMatcher.addURI(AUTHORITY, ProductColumns.TBL_AA_PRODUCT, AA_PRODUCT);
+        urlMatcher.addURI(AUTHORITY, ProductColumns.TBL_AA_PRODUCT + "/#", AA_PRODUCT_ID);
     }
     /**
      * Get the targeting table based on given url match.
@@ -275,6 +297,9 @@ public class AAProvider extends ContentProvider{
         case AA_MATCH_ID:
             whichTable = MatchColumns.TBL_AA_MATCH;
             break;
+        case AA_PRODUCT:
+        case AA_PRODUCT_ID:
+            whichTable = ProductColumns.TBL_AA_PRODUCT;
         default:
                 throw new IllegalArgumentException("Unknown URL: " + uri);
         }

@@ -12,6 +12,7 @@ import android.database.Cursor;
 
 import com.acme.amazon.orderrecord.databaseHelper.AAProvider.ItemColumns;
 import com.acme.amazon.orderrecord.databaseHelper.AAProvider.MatchColumns;
+import com.acme.amazon.orderrecord.databaseHelper.AAProvider.ProductColumns;
 import com.acme.amazon.orderrecord.databaseHelper.AAProvider.ProfileColumns;
 
 public class AAUtils {
@@ -49,6 +50,16 @@ public class AAUtils {
         values.put(ItemColumns.ITEM_CURRENCY_TYPE, item.getCurrencyType());
         values.put(ItemColumns.ITEM_ORDER_EXTRA_1, item.getExtra1());
     }
+    
+    public static void toContentValues(AAProduct product, ContentValues values) {
+        values.put(ProductColumns.PRODUCT_NAME, product.getProductName());
+        values.put(ProductColumns.PRODUCT_PRIME_PRICE, product.getMaFullPrice());
+        values.put(ProductColumns.PRODUCT_BV_POINT, product.getBVpoint());
+        values.put(ProductColumns.PRODUCT_BV_TO_MONEY, product.getBVtoDollar());
+        values.put(ProductColumns.PRODUCT_FBA_PRE_FEE, product.getFbaPreFee());
+        values.put(ProductColumns.PRODUCT_FBA_SHIPPING_FEE, product.getFBAShipping());
+        values.put(ProductColumns.PRODUCT_AMAZON_REF_FEE, product.getAmazonRefFee());
+    }
 
     public static void fromCursor(Cursor cursor, AAProfile profile) {
         int idxId = cursor.getColumnIndexOrThrow(ProfileColumns._ID);
@@ -84,6 +95,26 @@ public class AAUtils {
         item.setExtra1(cursor.getString(idxExtra1));
     }
 
+    public static void fromCursor(Cursor cursor, AAProduct product) {
+        int idxId = cursor.getColumnIndexOrThrow(ProductColumns._ID);
+        int idxName = cursor.getColumnIndexOrThrow(ProductColumns.PRODUCT_NAME);
+        int idxPrice = cursor.getColumnIndexOrThrow(ProductColumns.PRODUCT_PRIME_PRICE);
+        int idxBv = cursor.getColumnIndexOrThrow(ProductColumns.PRODUCT_BV_POINT);
+        int idxBvTo = cursor.getColumnIndexOrThrow(ProductColumns.PRODUCT_BV_TO_MONEY);
+        int idxPreFee = cursor.getColumnIndexOrThrow(ProductColumns.PRODUCT_FBA_PRE_FEE);
+        int idxFbaShipFee = cursor.getColumnIndexOrThrow(ProductColumns.PRODUCT_FBA_SHIPPING_FEE);
+        int idxAmazonRef = cursor.getColumnIndexOrThrow(ProductColumns.PRODUCT_AMAZON_REF_FEE);
+
+        product.setID(cursor.getString(idxId));
+        product.setProductName(cursor.getString(idxName));
+        product.setMaFullPrice(cursor.getString(idxPrice));
+        product.setBVpoint(cursor.getString(idxBv));
+        product.setBVtoDollar(cursor.getString(idxBvTo));
+        product.setFbaPreFee(cursor.getString(idxPreFee));
+        product.setFBAShipping(cursor.getString(idxFbaShipFee));
+        product.setAmazonRefFee(cursor.getString(idxAmazonRef));
+    }
+    
     /**
      * Sort order profile list by date
      * 
