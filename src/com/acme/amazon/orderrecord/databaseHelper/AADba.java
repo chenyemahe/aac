@@ -13,9 +13,11 @@ import android.util.Log;
 
 import com.acem.amazon.logging.Logging;
 import com.acme.amazon.AAItem;
+import com.acme.amazon.AAProduct;
 import com.acme.amazon.AAProfile;
 import com.acme.amazon.AAUtils;
 import com.acme.amazon.orderrecord.databaseHelper.AAProvider.ItemColumns;
+import com.acme.amazon.orderrecord.databaseHelper.AAProvider.ProductColumns;
 import com.acme.amazon.orderrecord.databaseHelper.AAProvider.ProfileColumns;
 
 public class AADba {
@@ -25,6 +27,7 @@ public class AADba {
     // Query string constants to work with database.
     private static String PROFILE_SELECTION_BY_DATE = ProfileColumns.ORDER_DATE + " LIKE ? ";
     private static String PROFILE_SELECTION_BY_ID = ProfileColumns._ID + " LIKE ? ";
+    private static String PRODUCT_SELECTION_BY_NAME = ProductColumns.PRODUCT_NAME + " LIKE ? ";
     private static String ITEM_SELECTION = ItemColumns._ID + " LIKE ? ";
 
     public static String ID_SELECTION = BaseColumns._ID + "=?";
@@ -234,7 +237,7 @@ public class AADba {
         }
         return count;
     }
-    
+
     public int deleteAAProfile(ContentResolver cr, String id) {
         int count = 0;
         AAProfile profile = getAAProfileById(cr, id);
@@ -250,5 +253,86 @@ public class AADba {
 
     public void deleteItem(ContentResolver cr, String id) {
         cr.delete(ItemColumns.CONTENT_URI, ID_SELECTION, new String[] { id });
+    }
+
+    // Amazon product database
+
+    /**
+     * Save product Info
+     * 
+     * @param cr
+     * @param product
+     * @return
+     */
+    public Uri saveAAProduct(ContentResolver cr, AAProduct product) {
+        if (product == null) {
+            return null;
+        }
+
+        ContentValues values = new ContentValues();
+        AAUtils.toContentValues(product, values);
+
+        Log.d(TAG, "insert product " + product.getProductName());
+        return cr.insert(ProductColumns.CONTENT_URI, values);
+    }
+
+    public AAProduct getAAProductByName(ContentResolver cr, String name) {
+        AAProduct product = new AAProduct();
+        Logging.logD(TAG, "{getAAProduct} the name is : " + name);
+        if (name == null)
+            return null;
+
+        Cursor cursor = null;
+
+        try {
+            cursor = cr.query(ProductColumns.CONTENT_URI, null, PRODUCT_SELECTION_BY_NAME, new String[] { name }, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                AAUtils.fromCursor(cursor, product);
+
+            }
+        } catch (SQLException e) {
+            Logging.logE(TAG, "Error in retrieve Date: " + name, e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+
+        return product;
+    }
+    
+    public List<AAProduct> getAllProduct(ContentResolver cr) {
+        List<AAProduct> productList = new ArrayList<AAProduct>();
+
+        AAProduct product = null;
+        Cursor cursor = null;
+
+        try {
+            cursor = cr.query(ProductColumns.CONTENT_URI, null, null, null, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    product = new AAProduct();
+                    AAUtils.fromCursor(cursor, product);
+                    productList.add(product);
+                } while (cursor.moveToNext());
+
+            }
+        } catch (SQLException e) {
+            Logging.logE(TAG, e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+
+        return productList;
+    }
+    
+    public int deleteAAProduct(ContentResolver cr, AAProduct product) {
+        int count = 0;
+        if (product != null) {
+            count = cr.delete(ProfileColumns.CONTENT_URI, ID_SELECTION, new String[] { product.getID() });
+        }
+        return count;
     }
 }

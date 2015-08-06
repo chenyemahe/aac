@@ -41,6 +41,11 @@
             android:name=".AASummaryPage"
             android:screenOrientation="portrait" >
         </activity>
+        
+        <activity
+            android:name=".amazonpage.AASummaryPage"
+            android:screenOrientation="portrait" >
+        </activity>
 
         <provider
             android:name=".databaseHelper.AAProvider"

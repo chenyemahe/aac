@@ -57,4 +57,17 @@
     <string name="tv_amazon_min">Amazon Min:</string>
     <string name="tv_sale_price">Sale Price:</string>
     <string name="tv_profit">Profit:</string>
+    <string name="bt_add_prodcut">Add New Product</string>
+    <string name="tv_prod_title">Name</string>
+    <string name="tb_tr_1_1">Shop.com Price:</string>
+    <string name="tb_tr_1_3">Base Price:</string>
+    <string name="tb_tr_2_1">BV Point:</string>
+    <string name="tb_tr_2_3">BV To Dollar:</string>
+    <string name="tb_tr_3_1">FBA Pre Fee:</string>
+    <string name="tb_tr_3_3">FBA Pre Shipping Fee:</string>
+    <string name="tb_tr_4_1">FBA Sale Fee:</string>
+    <string name="tb_tr_4_3">Amazon Base Price:</string>
+    <string name="tb_tr_5_1">Amazon Base with Exta:</string>
+    <string name="tb_tr_5_3">Amazon Sale Price:</string>
+    <string name="tb_tr_6_1">Profit:</string>
 </resources>

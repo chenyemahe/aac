@@ -69,7 +69,7 @@ public class AAProduct {
         mAmazonRefFee = s;
     }
 
-    public String setID() {
+    public String getID() {
         return mID;
     }
     

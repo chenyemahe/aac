@@ -1,7 +1,10 @@
 
 package com.acme.amazon.amazonpage;
 
+import com.acme.amazon.AAManager;
+import com.acme.amazon.AAProduct;
 import com.acme.amazon.AAProfile;
+import com.acme.amazon.AAUtils;
 import com.acme.amazon.listsupport.AANormalListViewAdapter;
 import com.acme.amazon.orderrecord.R;
 
@@ -12,6 +15,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 
+import java.util.List;
 import java.util.Map;
 
 public class ProductListPage extends Activity {
@@ -20,7 +24,8 @@ public class ProductListPage extends Activity {
     private ListView mListView;
     private Button mAddBT;
 
-    private Map<String, AAProfile> mProductMap;
+    private Map<String, AAProduct> mProductMap;
+    private List<AAProduct> mProductList;
 
     private AANormalListViewAdapter productListAdapter;
 
@@ -49,6 +54,8 @@ public class ProductListPage extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+        mProductList = AAManager.getManager().getDB().getAllProduct(getContentResolver());
+        AAUtils.cvtProListToMap(mProductList, mProductMap);
         productListAdapter.updateData(mProductMap);
     }
 }

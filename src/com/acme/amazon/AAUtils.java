@@ -1,10 +1,10 @@
-
 package com.acme.amazon;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import android.content.ContentValues;
@@ -50,7 +50,7 @@ public class AAUtils {
         values.put(ItemColumns.ITEM_CURRENCY_TYPE, item.getCurrencyType());
         values.put(ItemColumns.ITEM_ORDER_EXTRA_1, item.getExtra1());
     }
-    
+
     public static void toContentValues(AAProduct product, ContentValues values) {
         values.put(ProductColumns.PRODUCT_NAME, product.getProductName());
         values.put(ProductColumns.PRODUCT_PRIME_PRICE, product.getMaFullPrice());
@@ -114,15 +114,14 @@ public class AAUtils {
         product.setFBAShipping(cursor.getString(idxFbaShipFee));
         product.setAmazonRefFee(cursor.getString(idxAmazonRef));
     }
-    
+
     /**
      * Sort order profile list by date
      * 
      * @param profileList
      * @return ArrayList by key year and month for sorted list
      */
-    public static synchronized ArrayList<ArrayList<ArrayList<AAProfile>>> sortProfileByDate(
-            List<AAProfile> profileList) {
+    public static synchronized ArrayList<ArrayList<ArrayList<AAProfile>>> sortProfileByDate(List<AAProfile> profileList) {
         ArrayList<ArrayList<ArrayList<AAProfile>>> sortListMap = new ArrayList<ArrayList<ArrayList<AAProfile>>>();
         ArrayList<String> yearList = new ArrayList<String>();
         String year = UNSORT;
@@ -221,7 +220,7 @@ public class AAUtils {
         }
         return set;
     }
-    
+
     public static String getTotalProCost(ArrayList<AAProfile> proList) {
         Double cost = 0.0;
         for (AAProfile profile : proList) {
@@ -229,12 +228,18 @@ public class AAUtils {
         }
         return String.valueOf(cost);
     }
-    
+
     public static String getTotalProExtra1(ArrayList<AAProfile> proList) {
         Double cost = 0.0;
         for (AAProfile profile : proList) {
             cost += Double.parseDouble(profile.getExtra1());
         }
         return String.valueOf(cost);
+    }
+
+    public static void cvtProListToMap(List<AAProduct> l, Map<String, AAProduct> m) {
+        for(AAProduct p : l) {
+            m.put(p.getProductName(), p);
+        }
     }
 }
