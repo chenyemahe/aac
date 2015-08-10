@@ -223,11 +223,16 @@
                 android:gravity="center_vertical"
                 android:text="@string/tb_tr_1_1" />
 
-            <TextView
+            <EditText
                 android:id="@+id/tr2_1_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical" />
+                android:ems="10" 
+                android:gravity="center_vertical"
+                android:inputType="number">
+
+                <requestFocus />
+            </EditText>
 
             <TextView
                 android:id="@+id/tr2_1_3"
@@ -235,12 +240,14 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:text="@string/tb_tr_1_3" />
-
-            <TextView
+            
+            <EditText
                 android:id="@+id/tr2_1_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical" />
+                android:ems="10" 
+                android:gravity="center_vertical"
+                android:inputType="number"/>
         </TableRow>
 
         <TableRow
@@ -255,12 +262,14 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:text="@string/tb_tr_2_1" />
-
-            <TextView
+            
+            <EditText
                 android:id="@+id/tr2_2_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical" />
+                android:ems="10" 
+                android:gravity="center_vertical"
+                android:inputType="number"/>
 
             <TextView
                 android:id="@+id/tr2_2_3"
@@ -268,12 +277,14 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:text="@string/tb_tr_2_3" />
-
-            <TextView
+            
+            <EditText
                 android:id="@+id/tr2_2_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical" />
+                android:ems="10" 
+                android:gravity="center_vertical"
+                android:inputType="number"/>
         </TableRow>
 
         <TableRow
@@ -288,12 +299,14 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:text="@string/tb_tr_3_1" />
-
-            <TextView
+            
+            <EditText
                 android:id="@+id/tr2_3_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical" />
+                android:ems="10" 
+                android:gravity="center_vertical"
+                android:inputType="number"/>
 
             <TextView
                 android:id="@+id/tr2_3_3"
@@ -302,11 +315,13 @@
                 android:gravity="center_vertical"
                 android:text="@string/tb_tr_3_3" />
 
-            <TextView
+            <EditText
                 android:id="@+id/tr2_3_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical" />
+                android:ems="10" 
+                android:gravity="center_vertical"
+                android:inputType="number"/>
         </TableRow>
 
         <TableRow
