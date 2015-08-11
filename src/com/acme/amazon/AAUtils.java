@@ -18,6 +18,8 @@ import com.acme.amazon.orderrecord.databaseHelper.AAProvider.ProfileColumns;
 public class AAUtils {
 
     public static final String INTENT_PROFILE_ID = "Item_ID";
+    
+    public static final String INTENT_PRODUCT_NAME = "product_name";
 
     public static final String UNSORT = "unsort";
 
