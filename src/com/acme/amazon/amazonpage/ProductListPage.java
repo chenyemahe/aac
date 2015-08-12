@@ -3,18 +3,20 @@ package com.acme.amazon.amazonpage;
 
 import com.acme.amazon.AAManager;
 import com.acme.amazon.AAProduct;
-import com.acme.amazon.AAProfile;
 import com.acme.amazon.AAUtils;
 import com.acme.amazon.listsupport.AANormalListViewAdapter;
 import com.acme.amazon.orderrecord.R;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +28,7 @@ public class ProductListPage extends Activity {
 
     private Map<String, AAProduct> mProductMap;
     private List<AAProduct> mProductList;
+    private Context mContext;
 
     private AANormalListViewAdapter productListAdapter;
 
@@ -33,6 +36,8 @@ public class ProductListPage extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.aa_prod_price_info_list);
+        mContext = this;
+        mProductMap = new HashMap<String, AAProduct>();
         setLayout();
     }
 
@@ -46,7 +51,9 @@ public class ProductListPage extends Activity {
             
             @Override
             public void onClick(View v) {
-                
+                Intent intent = new Intent(mContext, ProductListDetailPage.class);
+                intent.putExtra(ProductListDetailPage.INTENT_EXTRA_DETAIL_PAGE, ProductListDetailPage.AMAZON_PRODUCT_ADD);
+                startActivity(intent);
             }
         });
     }

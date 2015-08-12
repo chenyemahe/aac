@@ -86,6 +86,7 @@ public class AAProvider extends ContentProvider{
         public static final String PRODUCT_FBA_PRE_FEE = "product_fba_pre_fee";
     	public static final String PRODUCT_FBA_SHIPPING_FEE = "product_fba_shipping_fee";
     	public static final String PRODUCT_AMAZON_REF_FEE = "product_amazon_ref_fee";
+        public static final String PRODUCT_AMAZON_SALE_PRICE = "product_amazon_sale_price";
     }
     
     @Override
@@ -242,7 +243,8 @@ public class AAProvider extends ContentProvider{
                     + ProductColumns.PRODUCT_BV_TO_MONEY + " VARCHAR, "
                     + ProductColumns.PRODUCT_FBA_PRE_FEE + " VARCHAR, "
                     + ProductColumns.PRODUCT_FBA_SHIPPING_FEE + " VARCHAR, "
-                    + ProductColumns.PRODUCT_AMAZON_REF_FEE + " VARCHAR);");
+                    + ProductColumns.PRODUCT_AMAZON_REF_FEE + " VARCHAR,)"
+                    + ProductColumns.PRODUCT_AMAZON_SALE_PRICE + " VARCHAR);");
 		}
 		@Override
 		public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -300,6 +302,7 @@ public class AAProvider extends ContentProvider{
         case AA_PRODUCT:
         case AA_PRODUCT_ID:
             whichTable = ProductColumns.TBL_AA_PRODUCT;
+            break;
         default:
                 throw new IllegalArgumentException("Unknown URL: " + uri);
         }

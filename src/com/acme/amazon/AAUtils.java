@@ -1,3 +1,4 @@
+
 package com.acme.amazon;
 
 import java.util.ArrayList;
@@ -5,6 +6,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import android.content.ContentValues;
@@ -18,7 +20,7 @@ import com.acme.amazon.orderrecord.databaseHelper.AAProvider.ProfileColumns;
 public class AAUtils {
 
     public static final String INTENT_PROFILE_ID = "Item_ID";
-    
+
     public static final String INTENT_PRODUCT_NAME = "product_name";
 
     public static final String UNSORT = "unsort";
@@ -30,6 +32,10 @@ public class AAUtils {
     public static final int PRODUCT_LIST_EDIT_STATE = 1;
 
     public static final int PRODUCT_LIST_SHOW_STATE = 0;
+
+    public static final double RATE_BV = 0.15;
+
+    public static final double RATE_AMAZON_REF_HEALTHY = 0.15;
 
     public static void toContentValues(AAProfile profile, ContentValues values) {
         values.put(ProfileColumns.ORDER_DATE, profile.getDate());
@@ -61,6 +67,7 @@ public class AAUtils {
         values.put(ProductColumns.PRODUCT_FBA_PRE_FEE, product.getFbaPreFee());
         values.put(ProductColumns.PRODUCT_FBA_SHIPPING_FEE, product.getFBAShipping());
         values.put(ProductColumns.PRODUCT_AMAZON_REF_FEE, product.getAmazonRefFee());
+        values.put(ProductColumns.PRODUCT_AMAZON_SALE_PRICE, product.getSalePriceOnAm());
     }
 
     public static void fromCursor(Cursor cursor, AAProfile profile) {
@@ -106,6 +113,7 @@ public class AAUtils {
         int idxPreFee = cursor.getColumnIndexOrThrow(ProductColumns.PRODUCT_FBA_PRE_FEE);
         int idxFbaShipFee = cursor.getColumnIndexOrThrow(ProductColumns.PRODUCT_FBA_SHIPPING_FEE);
         int idxAmazonRef = cursor.getColumnIndexOrThrow(ProductColumns.PRODUCT_AMAZON_REF_FEE);
+        int idxAmazonSalePrice = cursor.getColumnIndexOrThrow(ProductColumns.PRODUCT_AMAZON_SALE_PRICE);
 
         product.setID(cursor.getString(idxId));
         product.setProductName(cursor.getString(idxName));
@@ -115,6 +123,13 @@ public class AAUtils {
         product.setFbaPreFee(cursor.getString(idxPreFee));
         product.setFBAShipping(cursor.getString(idxFbaShipFee));
         product.setAmazonRefFee(cursor.getString(idxAmazonRef));
+        product.setSalePriceOnAm(cursor.getString(idxAmazonSalePrice));
+        
+
+        product.setProductName(cursor.getString(idxName));
+        product.setProductName(cursor.getString(idxName));
+        product.setProductName(cursor.getString(idxName));
+        product.setShop_comPrice(cursor.getString(idxName));
     }
 
     /**
@@ -123,7 +138,8 @@ public class AAUtils {
      * @param profileList
      * @return ArrayList by key year and month for sorted list
      */
-    public static synchronized ArrayList<ArrayList<ArrayList<AAProfile>>> sortProfileByDate(List<AAProfile> profileList) {
+    public static synchronized ArrayList<ArrayList<ArrayList<AAProfile>>> sortProfileByDate(
+            List<AAProfile> profileList) {
         ArrayList<ArrayList<ArrayList<AAProfile>>> sortListMap = new ArrayList<ArrayList<ArrayList<AAProfile>>>();
         ArrayList<String> yearList = new ArrayList<String>();
         String year = UNSORT;
@@ -240,8 +256,92 @@ public class AAUtils {
     }
 
     public static void cvtProListToMap(List<AAProduct> l, Map<String, AAProduct> m) {
-        for(AAProduct p : l) {
+        for (AAProduct p : l) {
             m.put(p.getProductName(), p);
+        }
+    }
+
+    public static String[] cvtMapKeyToList(Map<String, AAProduct> m, String[] array) {
+        array = new String[m.size()];
+        Iterator<Entry<String, AAProduct>> it = m.entrySet().iterator();
+        int i = 0;
+        while (it.hasNext()) {
+            Map.Entry<String, AAProduct> pair = it.next();
+            array[i] = pair.getKey();
+            i++;
+            it.remove();
+        }
+        return array;
+    }
+    
+    /**
+     * Calculate total value (dollar) fro BV point
+     * 
+     * @param bv
+     * @return
+     */
+    public static String calBVtoDollar(String bv) {
+        float bv_f = convertStringToFloat(bv);
+        return String.format("%.02f",(bv_f * RATE_BV));
+    }
+
+    /**
+     * Calculate reference fee for amazon product (Healthy Product)
+     * 
+     * @param bv
+     * @return
+     */
+    public static String calAmazonRefFee(String salePriceOnAm) {
+        float ref_f = convertStringToFloat(salePriceOnAm);
+        return String.format("%.02f",(ref_f * RATE_AMAZON_REF_HEALTHY));
+    }
+
+    /**
+     * Calculate lowest price for amazon product (Healthy Product)
+     * 
+     * @param bv
+     * @return
+     */
+    public static String calAmazonBasePrice(String maFullPrice, String fBAShipping, String fbaPreFee) {
+        float full_price = convertStringToFloat(maFullPrice);
+        float fba_ship = convertStringToFloat(fBAShipping);
+        float fba_pre = convertStringToFloat(fbaPreFee);
+        return String.format("%.02f",(full_price + fba_pre + fba_ship) / (1 - RATE_AMAZON_REF_HEALTHY));
+    }
+
+    /**
+     * Calculate lowest price + BV for amazon product (Healthy Product)
+     * 
+     * @param bv
+     * @return
+     */
+    public static String calAmazonPricewithBV(String maFullPrice, String fBAShipping,
+            String fbaPreFee, String bvToDoallor) {
+        float full_price = convertStringToFloat(maFullPrice);
+        float fba_ship = convertStringToFloat(fBAShipping);
+        float fba_pre = convertStringToFloat(fbaPreFee);
+        float bv_to_dollar = convertStringToFloat(bvToDoallor);
+        return String.format("%.02f",(full_price + fba_pre + fba_ship - bv_to_dollar)
+                / (1 - RATE_AMAZON_REF_HEALTHY));
+    }
+
+    /**
+     * Calculate Profit for amazon product (Healthy Product)
+     * 
+     * @param bv
+     * @return
+     */
+    public static String calProfit(String amazonBasePrice, String salePriceOnAm) {
+        float amazon_base_price = convertStringToFloat(amazonBasePrice);
+        float sale_amazon_price = convertStringToFloat(salePriceOnAm);
+        return String.format("%.02f",(sale_amazon_price - amazon_base_price));
+    }
+
+    public static float convertStringToFloat(String s) {
+        try {
+            return Float.parseFloat(s);
+        } catch (Exception e) {
+            return 0;
         }
     }
 }

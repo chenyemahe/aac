@@ -3,6 +3,7 @@ package com.acme.amazon.listsupport;
 
 import com.acem.amazon.logging.Logging;
 import com.acme.amazon.AAProduct;
+import com.acme.amazon.AAUtils;
 import com.acme.amazon.amazonpage.ProductListHodler;
 import com.acme.amazon.amazonpage.ProductListPage;
 import com.acme.amazon.orderrecord.AASummaryPage;
@@ -86,6 +87,7 @@ public class AANormalListViewAdapter extends BaseAdapter {
 
     /**
      * Set Data for Adapter, must called for data setting
+     * 
      * @param m
      */
     @SuppressWarnings("unchecked")
@@ -102,7 +104,9 @@ public class AANormalListViewAdapter extends BaseAdapter {
         if (TextUtils.equals(mAdapterStyle, ProductListPage.PRODUCT_LIST_PAGE)) {
             try {
                 productMapData = (Map<String, AAProduct>) m;
-                productMapData.keySet().toArray(keyWordList);
+                if (!productMapData.isEmpty()) {
+                    keyWordList = AAUtils.cvtMapKeyToList((Map<String, AAProduct>)m, keyWordList);
+                }
             } catch (ClassCastException e) {
                 Logging.logE("Summary list page data parsing fail! Not a String Map.");
                 productMapData = new HashMap<String, AAProduct>();

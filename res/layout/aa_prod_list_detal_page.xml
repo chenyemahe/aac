@@ -219,7 +219,7 @@
             android:id="@+id/tl_prod_add"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:shrinkColumns="0,2" >
+            android:shrinkColumns="0,1,2,3" >
 
             <TableRow
                 android:id="@+id/tableRow2_1"
