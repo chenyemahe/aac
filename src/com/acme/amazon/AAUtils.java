@@ -68,6 +68,7 @@ public class AAUtils {
         values.put(ProductColumns.PRODUCT_FBA_SHIPPING_FEE, product.getFBAShipping());
         values.put(ProductColumns.PRODUCT_AMAZON_REF_FEE, product.getAmazonRefFee());
         values.put(ProductColumns.PRODUCT_AMAZON_SALE_PRICE, product.getSalePriceOnAm());
+        values.put(ProductColumns.PRODUCT_SHOP_COM_Price, product.getShop_comPrice());
     }
 
     public static void fromCursor(Cursor cursor, AAProfile profile) {
@@ -114,6 +115,7 @@ public class AAUtils {
         int idxFbaShipFee = cursor.getColumnIndexOrThrow(ProductColumns.PRODUCT_FBA_SHIPPING_FEE);
         int idxAmazonRef = cursor.getColumnIndexOrThrow(ProductColumns.PRODUCT_AMAZON_REF_FEE);
         int idxAmazonSalePrice = cursor.getColumnIndexOrThrow(ProductColumns.PRODUCT_AMAZON_SALE_PRICE);
+        int idxShopComPrice = cursor.getColumnIndexOrThrow(ProductColumns.PRODUCT_SHOP_COM_Price);
 
         product.setID(cursor.getString(idxId));
         product.setProductName(cursor.getString(idxName));
@@ -124,12 +126,12 @@ public class AAUtils {
         product.setFBAShipping(cursor.getString(idxFbaShipFee));
         product.setAmazonRefFee(cursor.getString(idxAmazonRef));
         product.setSalePriceOnAm(cursor.getString(idxAmazonSalePrice));
+        product.setShop_comPrice(cursor.getString(idxShopComPrice));
         
 
-        product.setProductName(cursor.getString(idxName));
-        product.setProductName(cursor.getString(idxName));
-        product.setProductName(cursor.getString(idxName));
-        product.setShop_comPrice(cursor.getString(idxName));
+        product.setAmazonBasePrice(AAUtils.calAmazonBasePrice(product.getMaFullPrice(), product.getFBAShipping(), product.getFbaPreFee()));
+        product.setAmazonPricewithBV(AAUtils.calAmazonPricewithBV(product.getMaFullPrice(), product.getFBAShipping(), product.getFbaPreFee(), product.getBVtoDollar()));
+        product.setProfit(AAUtils.calProfit(product.getAmazonBasePrice(), product.getSalePriceOnAm()));
     }
 
     /**
@@ -256,6 +258,7 @@ public class AAUtils {
     }
 
     public static void cvtProListToMap(List<AAProduct> l, Map<String, AAProduct> m) {
+        m.clear();
         for (AAProduct p : l) {
             m.put(p.getProductName(), p);
         }
@@ -269,7 +272,6 @@ public class AAUtils {
             Map.Entry<String, AAProduct> pair = it.next();
             array[i] = pair.getKey();
             i++;
-            it.remove();
         }
         return array;
     }

@@ -331,7 +331,7 @@ public class AADba {
     public int deleteAAProduct(ContentResolver cr, AAProduct product) {
         int count = 0;
         if (product != null) {
-            count = cr.delete(ProfileColumns.CONTENT_URI, ID_SELECTION, new String[] { product.getID() });
+            count = cr.delete(ProductColumns.CONTENT_URI, ID_SELECTION, new String[] { product.getID() });
         }
         return count;
     }

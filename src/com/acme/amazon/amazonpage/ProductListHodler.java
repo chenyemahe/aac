@@ -8,12 +8,14 @@ import android.widget.TextView;
 
 public class ProductListHodler {
 
+    private TextView mProductName;
     private TextView mRealPrice;
     private TextView mAmazonMinPrice;
     private TextView mSalePrice;
     private TextView mProfit;
     
     public void setUpView(View v) {
+        mProductName = (TextView) v.findViewById(R.id.tv_title);
         mRealPrice = (TextView) v.findViewById(R.id.tv_real_price_number);
         mAmazonMinPrice = (TextView) v.findViewById(R.id.tv_amazon_min_number);
         mSalePrice = (TextView) v.findViewById(R.id.tv_sale_price_number);
@@ -21,6 +23,7 @@ public class ProductListHodler {
     }
 
     public void setData(AAProduct product) {
+        mProductName.setText(product.getProductName());
         mRealPrice.setText(product.getMaFullPrice());
         mAmazonMinPrice.setText(product.getAmazonBasePrice());
         mSalePrice.setText(product.getSalePriceOnAm());

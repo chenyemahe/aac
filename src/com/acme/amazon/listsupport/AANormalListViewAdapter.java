@@ -45,7 +45,7 @@ public class AANormalListViewAdapter extends BaseAdapter {
     public int getCount() {
         if (keyWordList == null)
             return 0;
-        return keyWordList.hashCode();
+        return keyWordList.length;
     }
 
     @Override
@@ -113,6 +113,10 @@ public class AANormalListViewAdapter extends BaseAdapter {
             }
         }
         notifiListUpdate();
+    }
+    
+    public String[] getkeyWordList() {
+        return keyWordList;
     }
 
     // For Summary Page
