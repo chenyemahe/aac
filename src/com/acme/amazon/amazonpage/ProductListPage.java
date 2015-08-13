@@ -81,13 +81,7 @@ public class ProductListPage extends Activity implements OnItemClickListener,
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         AAProduct product = mProductMap.get(productListAdapter.getkeyWordList()[position]);
-        if (product != null) {
-            Intent intent = new Intent(mContext, ProductListDetailPage.class);
-            intent.putExtra(ProductListDetailPage.INTENT_EXTRA_DETAIL_PAGE,
-                    ProductListDetailPage.AMAZON_PRODUCT_VIEW);
-            intent.putExtra(AAUtils.INTENT_PRODUCT_NAME, product.getProductName());
-            startActivity(intent);
-        }
+        startDetailPage(product, ProductListDetailPage.AMAZON_PRODUCT_VIEW);
     }
 
     @Override
@@ -107,6 +101,7 @@ public class ProductListPage extends Activity implements OnItemClickListener,
             public void onClick(DialogInterface dialog, int itemPos) {
                 switch (itemPos) {
                     case 0:
+                        startDetailPage(product, ProductListDetailPage.AMAZON_PRODUCT_EDIT);
                         break;
                     case 1:
                         AAManager.getManager().getDB()
@@ -125,5 +120,14 @@ public class ProductListPage extends Activity implements OnItemClickListener,
         AAUtils.cvtProListToMap(mProductList, mProductMap);
         productListAdapter.updateData(mProductMap);
         productListAdapter.notifiListUpdate();
+    }
+
+    private void startDetailPage(AAProduct product, String action) {
+        if (product != null) {
+            Intent intent = new Intent(mContext, ProductListDetailPage.class);
+            intent.putExtra(ProductListDetailPage.INTENT_EXTRA_DETAIL_PAGE, action);
+            intent.putExtra(AAUtils.INTENT_PRODUCT_NAME, product.getProductName());
+            startActivity(intent);
+        }
     }
 }

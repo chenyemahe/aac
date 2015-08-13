@@ -188,10 +188,12 @@ public class AAProvider extends ContentProvider{
         switch (match) {
         case AA_PROFILE:
         case AA_ITEM:
+        case AA_PRODUCT:
             count = db.update(whichTable, values, selection, selectionArgs);
             break;
         case AA_PROFILE_ID:
         case AA_ITEM_ID:
+        case AA_PRODUCT_ID:
             String segment = uri.getPathSegments().get(1);
             count = db.update(whichTable, values, "_id=" + segment
                     + (!TextUtils.isEmpty(selection) ? " AND (" + selection + ')' : ""), selectionArgs);

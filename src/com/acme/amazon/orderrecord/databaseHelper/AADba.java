@@ -1,3 +1,4 @@
+
 package com.acme.amazon.orderrecord.databaseHelper;
 
 import java.util.ArrayList;
@@ -23,11 +24,16 @@ import com.acme.amazon.orderrecord.databaseHelper.AAProvider.ProfileColumns;
 public class AADba {
 
     private static final String TAG = "AADba";
+
     private static AADba mDba;
+
     // Query string constants to work with database.
     private static String PROFILE_SELECTION_BY_DATE = ProfileColumns.ORDER_DATE + " LIKE ? ";
+
     private static String PROFILE_SELECTION_BY_ID = ProfileColumns._ID + " LIKE ? ";
+
     private static String PRODUCT_SELECTION_BY_NAME = ProductColumns.PRODUCT_NAME + " LIKE ? ";
+
     private static String ITEM_SELECTION = ItemColumns._ID + " LIKE ? ";
 
     public static String ID_SELECTION = BaseColumns._ID + "=?";
@@ -124,7 +130,8 @@ public class AADba {
                 do {
                     profile = new AAProfile();
                     AAUtils.fromCursor(cursor, profile);
-                    profile.setItemList((ArrayList<AAItem>) getAAItem(cr, profile.getDate(), profile.getID()));
+                    profile.setItemList((ArrayList<AAItem>) getAAItem(cr, profile.getDate(),
+                            profile.getID()));
                     profileList.add(profile);
                 } while (cursor.moveToNext());
 
@@ -149,10 +156,14 @@ public class AADba {
         Cursor cursor = null;
 
         try {
-            cursor = cr.query(ProfileColumns.CONTENT_URI, null, PROFILE_SELECTION_BY_ID, new String[] { id }, null);
+            cursor = cr.query(ProfileColumns.CONTENT_URI, null, PROFILE_SELECTION_BY_ID,
+                    new String[] {
+                        id
+                    }, null);
             if (cursor != null && cursor.moveToFirst()) {
                 AAUtils.fromCursor(cursor, profile);
-                profile.setItemList((ArrayList<AAItem>) getAAItem(cr, profile.getDate(), profile.getID()));
+                profile.setItemList((ArrayList<AAItem>) getAAItem(cr, profile.getDate(),
+                        profile.getID()));
 
             }
         } catch (SQLException e) {
@@ -176,12 +187,16 @@ public class AADba {
         Cursor cursor = null;
 
         try {
-            cursor = cr.query(ProfileColumns.CONTENT_URI, null, PROFILE_SELECTION_BY_DATE, new String[] { Date }, null);
+            cursor = cr.query(ProfileColumns.CONTENT_URI, null, PROFILE_SELECTION_BY_DATE,
+                    new String[] {
+                        Date
+                    }, null);
             if (cursor != null && cursor.moveToFirst()) {
                 do {
                     profile = new AAProfile();
                     AAUtils.fromCursor(cursor, profile);
-                    profile.setItemList((ArrayList<AAItem>) getAAItem(cr, profile.getDate(), profile.getID()));
+                    profile.setItemList((ArrayList<AAItem>) getAAItem(cr, profile.getDate(),
+                            profile.getID()));
                     profileList.add(profile);
                 } while (cursor.moveToNext());
 
@@ -209,7 +224,9 @@ public class AADba {
         try {
             for (int i = 0; i < idArray.length; i++) {
                 String itemId = idArray[i];
-                cursor = cr.query(ItemColumns.CONTENT_URI, null, ITEM_SELECTION, new String[] { itemId }, null);
+                cursor = cr.query(ItemColumns.CONTENT_URI, null, ITEM_SELECTION, new String[] {
+                    itemId
+                }, null);
                 if (cursor != null && cursor.moveToFirst()) {
                     item = new AAItem();
                     AAUtils.fromCursor(cursor, item);
@@ -233,7 +250,9 @@ public class AADba {
             for (int i = 0; i < idArray.length; i++) {
                 deleteItem(cr, idArray[i]);
             }
-            count = cr.delete(ProfileColumns.CONTENT_URI, ID_SELECTION, new String[] { profile.getProfileId() });
+            count = cr.delete(ProfileColumns.CONTENT_URI, ID_SELECTION, new String[] {
+                profile.getProfileId()
+            });
         }
         return count;
     }
@@ -246,13 +265,17 @@ public class AADba {
             for (int i = 0; i < idArray.length; i++) {
                 deleteItem(cr, idArray[i]);
             }
-            count = cr.delete(ProfileColumns.CONTENT_URI, ID_SELECTION, new String[] { profile.getProfileId() });
+            count = cr.delete(ProfileColumns.CONTENT_URI, ID_SELECTION, new String[] {
+                profile.getProfileId()
+            });
         }
         return count;
     }
 
     public void deleteItem(ContentResolver cr, String id) {
-        cr.delete(ItemColumns.CONTENT_URI, ID_SELECTION, new String[] { id });
+        cr.delete(ItemColumns.CONTENT_URI, ID_SELECTION, new String[] {
+            id
+        });
     }
 
     // Amazon product database
@@ -276,6 +299,17 @@ public class AADba {
         return cr.insert(ProductColumns.CONTENT_URI, values);
     }
 
+    public int updateAAProduct(ContentResolver cr, AAProduct product) {
+        if (product == null) {
+            return 0;
+        }
+        ContentValues contentValues = new ContentValues();
+        AAUtils.toContentValues(product, contentValues);
+        return cr.update(ProductColumns.CONTENT_URI, contentValues, ID_SELECTION, new String[] {
+            product.getID()
+        });
+    }
+
     public AAProduct getAAProductByName(ContentResolver cr, String name) {
         AAProduct product = new AAProduct();
         Logging.logD(TAG, "{getAAProduct} the name is : " + name);
@@ -285,7 +319,10 @@ public class AADba {
         Cursor cursor = null;
 
         try {
-            cursor = cr.query(ProductColumns.CONTENT_URI, null, PRODUCT_SELECTION_BY_NAME, new String[] { name }, null);
+            cursor = cr.query(ProductColumns.CONTENT_URI, null, PRODUCT_SELECTION_BY_NAME,
+                    new String[] {
+                        name
+                    }, null);
             if (cursor != null && cursor.moveToFirst()) {
                 AAUtils.fromCursor(cursor, product);
 
@@ -300,7 +337,7 @@ public class AADba {
 
         return product;
     }
-    
+
     public List<AAProduct> getAllProduct(ContentResolver cr) {
         List<AAProduct> productList = new ArrayList<AAProduct>();
 
@@ -327,11 +364,13 @@ public class AADba {
 
         return productList;
     }
-    
+
     public int deleteAAProduct(ContentResolver cr, AAProduct product) {
         int count = 0;
         if (product != null) {
-            count = cr.delete(ProductColumns.CONTENT_URI, ID_SELECTION, new String[] { product.getID() });
+            count = cr.delete(ProductColumns.CONTENT_URI, ID_SELECTION, new String[] {
+                product.getID()
+            });
         }
         return count;
     }

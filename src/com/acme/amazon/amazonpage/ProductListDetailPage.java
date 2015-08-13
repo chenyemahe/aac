@@ -18,23 +18,21 @@ import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
-public class ProductListDetailPage extends Activity implements OnClickListener{
+public class ProductListDetailPage extends Activity implements OnClickListener {
 
     public static final String AMAZON_PRODUCT_ADD = "amazon_product_add";
 
     public static final String AMAZON_PRODUCT_VIEW = "amazon_product_view";
 
+    public static final String AMAZON_PRODUCT_EDIT = "amazon_product_edit";
+
     public static final String INTENT_EXTRA_DETAIL_PAGE = "extra_detail_page";
 
     private String mPageType;
 
-    private String mProductName;
-
     private TableLayout mViewLayout;
 
     private TableLayout mAddLayout;
-
-    private AAProduct mProduct;
 
     private TextView mProduct_Name;
 
@@ -99,16 +97,10 @@ public class ProductListDetailPage extends Activity implements OnClickListener{
         mProduct_Name = (TextView) findViewById(R.id.product_name);
 
         if (TextUtils.equals(mPageType, AMAZON_PRODUCT_VIEW)) {
-            mProductName = getIntent().getStringExtra(AAUtils.INTENT_PRODUCT_NAME);
-            if (mProduct_Name != null) {
-                mProduct = AAManager.getManager().getDB()
-                        .getAAProductByName(getContentResolver(), mProductName);
-                if (mProduct != null) {
-                    setViewPage();
-                }
-            }
+            setViewPage();
         }
-        if (TextUtils.equals(mPageType, AMAZON_PRODUCT_ADD)) {
+        if (TextUtils.equals(mPageType, AMAZON_PRODUCT_ADD)
+                || TextUtils.equals(mPageType, AMAZON_PRODUCT_EDIT)) {
             setAddPage();
         }
     }
@@ -132,18 +124,7 @@ public class ProductListDetailPage extends Activity implements OnClickListener{
         mSalePriceOnAm = (TextView) findViewById(R.id.tr_5_4);
         mProfit = (TextView) findViewById(R.id.tr_6_2);
 
-        mProduct_Name.setText(mProduct.getProductName());
-        mShop_comPrice.setText(mProduct.getShop_comPrice());
-        mMaFullPrice.setText(mProduct.getMaFullPrice());
-        mBVpoint.setText(mProduct.getBVpoint());
-        mBVtoDollar.setText(mProduct.getBVtoDollar());
-        mFbaPreFee.setText(mProduct.getFbaPreFee());
-        mFBAShipping.setText(mProduct.getFBAShipping());
-        mAmazonRefFee.setText(mProduct.getAmazonRefFee());
-        mAmazonBasePrice.setText(mProduct.getAmazonBasePrice());
-        mAmazonPricewithBV.setText(mProduct.getAmazonPricewithBV());
-        mSalePriceOnAm.setText(mProduct.getSalePriceOnAm());
-        mProfit.setText(mProduct.getProfit());
+        setViewText();
 
         statusChangeView(View.VISIBLE);
         statusChangeAddView(View.GONE);
@@ -263,6 +244,10 @@ public class ProductListDetailPage extends Activity implements OnClickListener{
 
         statusChangeView(View.GONE);
         statusChangeAddView(View.VISIBLE);
+
+        if (TextUtils.equals(mPageType, AMAZON_PRODUCT_EDIT)) {
+            setViewText();
+        }
     }
 
     private void statusChangeAddView(int status) {
@@ -276,7 +261,7 @@ public class ProductListDetailPage extends Activity implements OnClickListener{
         mProduct_Name.setVisibility(status);
     }
 
-    private AAProduct getProdFromAddView() {
+    private AAProduct getProdFromAddView(String ID, boolean isIdNeed) {
         AAProduct product = new AAProduct();
         product.setAmazonBasePrice(mAmazonBasePrice_ADD.getText().toString());
         product.setAmazonPricewithBV(mAmazonPricewithBV_ADD.getText().toString());
@@ -290,14 +275,66 @@ public class ProductListDetailPage extends Activity implements OnClickListener{
         product.setProfit(mProfit_ADD.getText().toString());
         product.setSalePriceOnAm(mSalePriceOnAm_ED.getText().toString());
         product.setShop_comPrice(mShop_comPrice_ED.getText().toString());
+        if(isIdNeed) {
+            product.setID(ID);
+        }
         return product;
     }
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.submit) {
-            AAManager.getManager().getDB().saveAAProduct(getContentResolver(), getProdFromAddView());
+        if (v.getId() == R.id.submit) {
+            AAProduct product = AAManager
+                    .getManager()
+                    .getDB()
+                    .getAAProductByName(getContentResolver(), getIntent().getStringExtra(AAUtils.INTENT_PRODUCT_NAME));
+            if (product == null) {
+                AAManager.getManager().getDB()
+                        .saveAAProduct(getContentResolver(), getProdFromAddView(null, false));
+            } else {
+                AAManager.getManager().getDB()
+                        .updateAAProduct(getContentResolver(), getProdFromAddView(product.getID(), true));
+            }
             finish();
+        }
+    }
+
+    private void setViewText() {
+        String mProductName = getIntent().getStringExtra(AAUtils.INTENT_PRODUCT_NAME);
+        if (mProduct_Name != null) {
+            AAProduct product = AAManager.getManager().getDB()
+                    .getAAProductByName(getContentResolver(), mProductName);
+            if (product != null) {
+                if (TextUtils.equals(mPageType, AMAZON_PRODUCT_VIEW)) {
+                    mProduct_Name.setText(product.getProductName());
+                    mShop_comPrice.setText(product.getShop_comPrice());
+                    mMaFullPrice.setText(product.getMaFullPrice());
+                    mBVpoint.setText(product.getBVpoint());
+                    mBVtoDollar.setText(product.getBVtoDollar());
+                    mFbaPreFee.setText(product.getFbaPreFee());
+                    mFBAShipping.setText(product.getFBAShipping());
+                    mAmazonRefFee.setText(product.getAmazonRefFee());
+                    mAmazonBasePrice.setText(product.getAmazonBasePrice());
+                    mAmazonPricewithBV.setText(product.getAmazonPricewithBV());
+                    mSalePriceOnAm.setText(product.getSalePriceOnAm());
+                    mProfit.setText(product.getProfit());
+                }
+                if (TextUtils.equals(mPageType, AMAZON_PRODUCT_EDIT)) {
+                    mProduct_Name_ED.setText(product.getProductName());
+                    mShop_comPrice_ED.setText(product.getShop_comPrice());
+                    mMaFullPrice_ED.setText(product.getMaFullPrice());
+                    mBVpoint_ED.setText(product.getBVpoint());
+                    mFbaPreFee_ED.setText(product.getFbaPreFee());
+                    mFBAShipping_ED.setText(product.getFBAShipping());
+                    mSalePriceOnAm_ED.setText(product.getSalePriceOnAm());
+
+                    mBVtoDollar_ADD.setText(product.getBVtoDollar());
+                    mAmazonRefFee_ADD.setText(product.getAmazonRefFee());
+                    mAmazonBasePrice_ADD.setText(product.getAmazonPricewithBV());
+                    mAmazonPricewithBV_ADD.setText(product.getAmazonPricewithBV());
+                    mProfit_ADD.setText(product.getProfit());;
+                }
+            }
         }
     }
 }
