@@ -70,4 +70,8 @@
     <string name="tb_tr_5_1">Amazon Base with Exta:</string>
     <string name="tb_tr_5_3">Amazon Sale Price:</string>
     <string name="tb_tr_6_1">Profit:</string>
+    
+    <!-- Product inventor -->
+    <string name="product_receive">FBA shipping received List</string>
+    <string name="product_list">Product Info List</string>
 </resources>

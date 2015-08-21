@@ -48,6 +48,14 @@
             android:name="com.acme.amazon.amazonpage.ProductListDetailPage"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name="com.acme.amazon.amazonpage.ProductInventory"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.acme.amazon.amazonpage.FbaShippingReportPage"
+            android:screenOrientation="portrait" >
+        </activity>
 
         <provider
             android:name=".databaseHelper.AAProvider"

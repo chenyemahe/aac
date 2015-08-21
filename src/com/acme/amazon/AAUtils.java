@@ -12,6 +12,8 @@ import java.util.Set;
 import android.content.ContentValues;
 import android.database.Cursor;
 
+import com.acme.amazon.orderrecord.databaseHelper.AAProvider.FbaShipReportColumns;
+import com.acme.amazon.orderrecord.databaseHelper.AAProvider.FbaShipReportItemColumns;
 import com.acme.amazon.orderrecord.databaseHelper.AAProvider.ItemColumns;
 import com.acme.amazon.orderrecord.databaseHelper.AAProvider.MatchColumns;
 import com.acme.amazon.orderrecord.databaseHelper.AAProvider.ProductColumns;
@@ -71,6 +73,19 @@ public class AAUtils {
         values.put(ProductColumns.PRODUCT_SHOP_COM_Price, product.getShop_comPrice());
     }
 
+    public static void toContentValues(AAFbaProfile profile, ContentValues values) {
+        values.put(FbaShipReportColumns.SHIP_DATE, profile.getDate());
+        values.put(FbaShipReportColumns.SHIP_ITEM_ID, profile.getID());
+        values.put(FbaShipReportColumns.SHIP_TITLE, profile.getTitle());
+        values.put(FbaShipReportColumns.SHIP_TOTAL_NUM, profile.getCost());
+    }
+    
+    public static void toContentValues(AAFbaItem item, ContentValues values) {
+        values.put(FbaShipReportItemColumns.SHIP_DATE, item.getDate());
+        values.put(FbaShipReportItemColumns.ITEM_QUALITY, item.getQuality());
+        values.put(FbaShipReportItemColumns.ITEM_NAME, item.getName());
+    }
+    
     public static void fromCursor(Cursor cursor, AAProfile profile) {
         int idxId = cursor.getColumnIndexOrThrow(ProfileColumns._ID);
         int idxDate = cursor.getColumnIndexOrThrow(ProfileColumns.ORDER_DATE);
@@ -114,7 +129,8 @@ public class AAUtils {
         int idxPreFee = cursor.getColumnIndexOrThrow(ProductColumns.PRODUCT_FBA_PRE_FEE);
         int idxFbaShipFee = cursor.getColumnIndexOrThrow(ProductColumns.PRODUCT_FBA_SHIPPING_FEE);
         int idxAmazonRef = cursor.getColumnIndexOrThrow(ProductColumns.PRODUCT_AMAZON_REF_FEE);
-        int idxAmazonSalePrice = cursor.getColumnIndexOrThrow(ProductColumns.PRODUCT_AMAZON_SALE_PRICE);
+        int idxAmazonSalePrice = cursor
+                .getColumnIndexOrThrow(ProductColumns.PRODUCT_AMAZON_SALE_PRICE);
         int idxShopComPrice = cursor.getColumnIndexOrThrow(ProductColumns.PRODUCT_SHOP_COM_Price);
 
         product.setID(cursor.getString(idxId));
@@ -127,13 +143,29 @@ public class AAUtils {
         product.setAmazonRefFee(cursor.getString(idxAmazonRef));
         product.setSalePriceOnAm(cursor.getString(idxAmazonSalePrice));
         product.setShop_comPrice(cursor.getString(idxShopComPrice));
-        
 
-        product.setAmazonBasePrice(AAUtils.calAmazonBasePrice(product.getMaFullPrice(), product.getFBAShipping(), product.getFbaPreFee()));
-        product.setAmazonPricewithBV(AAUtils.calAmazonPricewithBV(product.getMaFullPrice(), product.getFBAShipping(), product.getFbaPreFee(), product.getBVtoDollar()));
-        product.setProfit(AAUtils.calProfit(product.getAmazonBasePrice(), product.getSalePriceOnAm()));
+        product.setAmazonBasePrice(AAUtils.calAmazonBasePrice(product.getMaFullPrice(),
+                product.getFBAShipping(), product.getFbaPreFee()));
+        product.setAmazonPricewithBV(AAUtils.calAmazonPricewithBV(product.getMaFullPrice(),
+                product.getFBAShipping(), product.getFbaPreFee(), product.getBVtoDollar()));
+        product.setProfit(AAUtils.calProfit(product.getAmazonBasePrice(),
+                product.getSalePriceOnAm()));
     }
 
+    public static void fromCursor(Cursor cursor, AAFbaProfile profile) {
+        int idxId = cursor.getColumnIndexOrThrow(FbaShipReportColumns._ID);
+        int idxDate = cursor.getColumnIndexOrThrow(FbaShipReportColumns.SHIP_DATE);
+        int idxOrderId = cursor.getColumnIndexOrThrow(FbaShipReportColumns.SHIP_ITEM_ID);
+        int idxTitle = cursor.getColumnIndexOrThrow(FbaShipReportColumns.SHIP_TITLE);
+        int idxCost = cursor.getColumnIndexOrThrow(FbaShipReportColumns.SHIP_TOTAL_NUM);
+
+        profile.setProfileId(cursor.getString(idxId));
+        profile.setDate(cursor.getString(idxDate));
+        profile.setID(cursor.getString(idxOrderId));
+        profile.setTitle(cursor.getString(idxTitle));
+        profile.setCost(cursor.getString(idxCost));
+    }
+    
     /**
      * Sort order profile list by date
      * 
@@ -275,7 +307,7 @@ public class AAUtils {
         }
         return array;
     }
-    
+
     /**
      * Calculate total value (dollar) fro BV point
      * 
@@ -284,7 +316,7 @@ public class AAUtils {
      */
     public static String calBVtoDollar(String bv) {
         float bv_f = convertStringToFloat(bv);
-        return String.format("%.02f",(bv_f * RATE_BV));
+        return String.format("%.02f", (bv_f * RATE_BV));
     }
 
     /**
@@ -295,7 +327,7 @@ public class AAUtils {
      */
     public static String calAmazonRefFee(String salePriceOnAm) {
         float ref_f = convertStringToFloat(salePriceOnAm);
-        return String.format("%.02f",(ref_f * RATE_AMAZON_REF_HEALTHY));
+        return String.format("%.02f", (ref_f * RATE_AMAZON_REF_HEALTHY));
     }
 
     /**
@@ -308,7 +340,8 @@ public class AAUtils {
         float full_price = convertStringToFloat(maFullPrice);
         float fba_ship = convertStringToFloat(fBAShipping);
         float fba_pre = convertStringToFloat(fbaPreFee);
-        return String.format("%.02f",(full_price + fba_pre + fba_ship) / (1 - RATE_AMAZON_REF_HEALTHY));
+        return String.format("%.02f", (full_price + fba_pre + fba_ship)
+                / (1 - RATE_AMAZON_REF_HEALTHY));
     }
 
     /**
@@ -323,7 +356,7 @@ public class AAUtils {
         float fba_ship = convertStringToFloat(fBAShipping);
         float fba_pre = convertStringToFloat(fbaPreFee);
         float bv_to_dollar = convertStringToFloat(bvToDoallor);
-        return String.format("%.02f",(full_price + fba_pre + fba_ship - bv_to_dollar)
+        return String.format("%.02f", (full_price + fba_pre + fba_ship - bv_to_dollar)
                 / (1 - RATE_AMAZON_REF_HEALTHY));
     }
 
@@ -336,7 +369,7 @@ public class AAUtils {
     public static String calProfit(String amazonBasePrice, String salePriceOnAm) {
         float amazon_base_price = convertStringToFloat(amazonBasePrice);
         float sale_amazon_price = convertStringToFloat(salePriceOnAm);
-        return String.format("%.02f",(sale_amazon_price - amazon_base_price));
+        return String.format("%.02f", (sale_amazon_price - amazon_base_price));
     }
 
     public static float convertStringToFloat(String s) {

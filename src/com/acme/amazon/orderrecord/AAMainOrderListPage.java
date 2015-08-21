@@ -21,6 +21,7 @@ import android.widget.ExpandableListView;
 import com.acme.amazon.AAManager;
 import com.acme.amazon.AAProfile;
 import com.acme.amazon.AAUtils;
+import com.acme.amazon.amazonpage.ProductInventory;
 import com.acme.amazon.amazonpage.ProductListPage;
 import com.acme.amazon.listsupport.AAExpandableListAdapter;
 import com.acme.amazon.listsupport.AAListDataHolder;
@@ -68,8 +69,8 @@ public class AAMainOrderListPage extends Activity implements OnClickListener, On
         // mListHolder = new
         // AAListDataHolder<>(AAManager.getManager().getDB().getAllProfile(getContentResolver()));
         // mAdapter.setDataHolder(mListHolder);
-        setExpViewData();
         super.onResume();
+        setExpViewData();
     }
 
     @Override
@@ -95,7 +96,7 @@ public class AAMainOrderListPage extends Activity implements OnClickListener, On
             startActivity(new Intent(this, AASummaryPage.class));
             break;
         case R.id.bt_amazon:
-            startActivity(new Intent(this, ProductListPage.class));
+            startActivity(new Intent(this, ProductInventory.class));
             break;
         default:
             break;
