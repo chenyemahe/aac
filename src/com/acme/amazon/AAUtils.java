@@ -79,13 +79,13 @@ public class AAUtils {
         values.put(FbaShipReportColumns.SHIP_TITLE, profile.getTitle());
         values.put(FbaShipReportColumns.SHIP_TOTAL_NUM, profile.getCost());
     }
-    
+
     public static void toContentValues(AAFbaItem item, ContentValues values) {
         values.put(FbaShipReportItemColumns.SHIP_DATE, item.getDate());
         values.put(FbaShipReportItemColumns.ITEM_QUALITY, item.getQuality());
         values.put(FbaShipReportItemColumns.ITEM_NAME, item.getName());
     }
-    
+
     public static void fromCursor(Cursor cursor, AAProfile profile) {
         int idxId = cursor.getColumnIndexOrThrow(ProfileColumns._ID);
         int idxDate = cursor.getColumnIndexOrThrow(ProfileColumns.ORDER_DATE);
@@ -165,7 +165,19 @@ public class AAUtils {
         profile.setTitle(cursor.getString(idxTitle));
         profile.setCost(cursor.getString(idxCost));
     }
-    
+
+    public static void fromCursor(Cursor cursor, AAFbaItem item) {
+        int idxId = cursor.getColumnIndexOrThrow(FbaShipReportItemColumns._ID);
+        int idxDate = cursor.getColumnIndexOrThrow(FbaShipReportItemColumns.SHIP_DATE);
+        int idxTitle = cursor.getColumnIndexOrThrow(FbaShipReportItemColumns.ITEM_NAME);
+        int idxQuality = cursor.getColumnIndexOrThrow(FbaShipReportItemColumns.ITEM_QUALITY);
+
+        item.setItemId(cursor.getString(idxId));
+        item.setDate(cursor.getString(idxDate));
+        item.setName(cursor.getString(idxTitle));
+        item.setQuality(Integer.parseInt(cursor.getString(idxQuality)));
+    }
+
     /**
      * Sort order profile list by date
      * 
