@@ -74,4 +74,7 @@
     <!-- Product inventor -->
     <string name="product_receive">FBA shipping received List</string>
     <string name="product_list">Product Info List</string>
+    
+    <!-- FBA Strings -->
+    <string name="add_fba_shipment">Add FBA Shipping</string>
 </resources>

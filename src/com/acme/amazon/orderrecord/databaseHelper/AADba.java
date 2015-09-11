@@ -34,16 +34,17 @@ public class AADba {
     // Query string constants to work with database.
     private static String PROFILE_SELECTION_BY_DATE = ProfileColumns.ORDER_DATE + " LIKE ? ";
 
-    private static String FBA_PROFILE_SELECTION_BY_DATE = FbaShipReportColumns.SHIP_DATE + " LIKE ? ";
+    private static String FBA_PROFILE_SELECTION_BY_DATE = FbaShipReportColumns.SHIP_DATE
+            + " LIKE ? ";
 
     private static String PROFILE_SELECTION_BY_ID = ProfileColumns._ID + " LIKE ? ";
-    
-    private static String FBA_PROFILE_SELECTION_BY_ID = FbaShipReportColumns._ID +  " LIKE ? ";
+
+    private static String FBA_PROFILE_SELECTION_BY_ID = FbaShipReportColumns._ID + " LIKE ? ";
 
     private static String PRODUCT_SELECTION_BY_NAME = ProductColumns.PRODUCT_NAME + " LIKE ? ";
-    
+
     private static String ITEM_SELECTION = ItemColumns._ID + " LIKE ? ";
-    
+
     private static String FBA_ITEM_SELECTION = FbaShipReportItemColumns._ID + " LIKE ? ";
 
     public static String ID_SELECTION = BaseColumns._ID + "=?";
@@ -384,9 +385,9 @@ public class AADba {
         }
         return count;
     }
-    
+
     // FBA Shipping
-    
+
     public Uri saveAAFbaProfile(ContentResolver cr, AAFbaProfile profile) {
         if (profile == null) {
             return null;
@@ -403,8 +404,9 @@ public class AADba {
         Log.d(TAG, "insert fba shipping order " + profile.getDate());
         return cr.insert(FbaShipReportColumns.CONTENT_URI, values);
     }
-    
-    private void saveAAFbaItemList(ContentResolver cr, List<AAFbaItem> itemList, AAFbaProfile profile) {
+
+    private void saveAAFbaItemList(ContentResolver cr, List<AAFbaItem> itemList,
+            AAFbaProfile profile) {
         String id = "";
 
         if (itemList == null) {
@@ -425,7 +427,7 @@ public class AADba {
         }
         profile.setID(id);
     }
-    
+
     private Uri saveAAFbaItem(ContentResolver cr, AAFbaItem item) {
         if (item == null) {
             return null;
@@ -435,7 +437,7 @@ public class AADba {
         Log.d(TAG, "insert fba item " + item.getName());
         return cr.insert(FbaShipReportItemColumns.CONTENT_URI, values);
     }
-    
+
     public AAFbaProfile getAAFbaProfileById(ContentResolver cr, String id) {
         AAFbaProfile profile = new AAFbaProfile();
         Logging.logD(TAG, "{getAAFbaProfile} the ID is : " + id);
@@ -476,16 +478,16 @@ public class AADba {
         Cursor cursor = null;
 
         try {
-            cursor = cr.query(FbaShipReportColumns.CONTENT_URI, null, FBA_PROFILE_SELECTION_BY_DATE,
-                    new String[] {
+            cursor = cr.query(FbaShipReportColumns.CONTENT_URI, null,
+                    FBA_PROFILE_SELECTION_BY_DATE, new String[] {
                         Date
                     }, null);
             if (cursor != null && cursor.moveToFirst()) {
                 do {
                     profile = new AAFbaProfile();
                     AAUtils.fromCursor(cursor, profile);
-                    profile.setFbaItemList((ArrayList<AAFbaItem>) getAAFbaItem(cr, profile.getDate(),
-                            profile.getID()));
+                    profile.setFbaItemList((ArrayList<AAFbaItem>) getAAFbaItem(cr,
+                            profile.getDate(), profile.getID()));
                     profileList.add(profile);
                 } while (cursor.moveToNext());
 
@@ -500,7 +502,36 @@ public class AADba {
 
         return profileList;
     }
-    
+
+    public List<AAFbaProfile> getAllFbaProfile(ContentResolver cr) {
+        List<AAFbaProfile> profileList = new ArrayList<AAFbaProfile>();
+
+        AAFbaProfile profile = null;
+        Cursor cursor = null;
+
+        try {
+            cursor = cr.query(FbaShipReportColumns.CONTENT_URI, null, null, null, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    profile = new AAFbaProfile();
+                    AAUtils.fromCursor(cursor, profile);
+                    profile.setFbaItemList((ArrayList<AAFbaItem>) getAAFbaItem(cr, profile.getDate(),
+                            profile.getID()));
+                    profileList.add(profile);
+                } while (cursor.moveToNext());
+
+            }
+        } catch (SQLException e) {
+            Logging.logE(TAG, e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+
+        return profileList;
+    }
+
     public List<AAFbaItem> getAAFbaItem(ContentResolver cr, String date, String id) {
         List<AAFbaItem> itemList = new ArrayList<AAFbaItem>();
         String[] idArray = id.split(",");
@@ -513,9 +544,10 @@ public class AADba {
         try {
             for (int i = 0; i < idArray.length; i++) {
                 String itemId = idArray[i];
-                cursor = cr.query(FbaShipReportItemColumns.CONTENT_URI, null, FBA_ITEM_SELECTION, new String[] {
-                    itemId
-                }, null);
+                cursor = cr.query(FbaShipReportItemColumns.CONTENT_URI, null, FBA_ITEM_SELECTION,
+                        new String[] {
+                            itemId
+                        }, null);
                 if (cursor != null && cursor.moveToFirst()) {
                     item = new AAFbaItem();
                     AAUtils.fromCursor(cursor, item);
@@ -530,5 +562,25 @@ public class AADba {
             }
         }
         return itemList;
+    }
+
+    public int deleteAAFbaProfile(ContentResolver cr, AAFbaProfile profile) {
+        int count = 0;
+        String[] idArray = profile.getID().split(",");
+        if (profile != null) {
+            for (int i = 0; i < idArray.length; i++) {
+                deleteFbaItem(cr, idArray[i]);
+            }
+            count = cr.delete(FbaShipReportColumns.CONTENT_URI, ID_SELECTION, new String[] {
+                profile.getProfileId()
+            });
+        }
+        return count;
+    }
+
+    public void deleteFbaItem(ContentResolver cr, String id) {
+        cr.delete(FbaShipReportItemColumns.CONTENT_URI, ID_SELECTION, new String[] {
+            id
+        });
     }
 }

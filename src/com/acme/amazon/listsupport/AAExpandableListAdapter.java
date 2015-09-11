@@ -1,32 +1,60 @@
+
 package com.acme.amazon.listsupport;
 
 import java.util.ArrayList;
+
+import com.acme.amazon.AAFbaProfile;
 import com.acme.amazon.AAProfile;
+import com.acme.amazon.AAUtils;
 import com.acme.amazon.orderrecord.R;
 
 import android.content.Context;
-import android.view.Gravity;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 public class AAExpandableListAdapter extends BaseExpandableListAdapter {
 
-    private ArrayList<ArrayList<ArrayList<AAProfile>>> mList;
+    private String mStyle;
+
+    private ArrayList<ArrayList<ArrayList<AAProfile>>> mOrderList;
+
+    private ArrayList<ArrayList<ArrayList<AAFbaProfile>>> mFbaList;
+
     private ArrayList<String> mGroupNameList;
+
     private ArrayList<ArrayList<AAProfile>> mChildList;
+
+    private ArrayList<ArrayList<AAFbaProfile>> mFbaChildList;
+
     private AAListDataHolder<?> mListDataHodler;
+
     private Context mContext;
+
     private static final int GROUP_PADDING = 10;
+
+    public AAExpandableListAdapter(String style) {
+        mStyle = style;
+    }
 
     @Override
     public int getGroupCount() {
-        if(mList == null)
-            return 0;
-        return mList.size();
+        if (TextUtils.equals(mStyle, AAUtils.EXPAND_ADAPTER_ORDER)) {
+            if (mOrderList == null)
+                return 0;
+            else
+                return mOrderList.size();
+        }
+        if (TextUtils.equals(mStyle, AAUtils.EXPAND_ADAPTER_FBA)) {
+            if (mFbaList == null)
+                return 0;
+            else
+                return mFbaList.size();
+        }
+        return 0;
     }
 
     @Override
@@ -36,16 +64,32 @@ public class AAExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getGroup(int groupPosition) {
-        if(mList == null)
-            return null;
-        return mList.get(groupPosition);
+        if (TextUtils.equals(mStyle, AAUtils.EXPAND_ADAPTER_ORDER)) {
+            if (mOrderList == null)
+                return null;
+            return mOrderList.get(groupPosition);
+        }
+        if (TextUtils.equals(mStyle, AAUtils.EXPAND_ADAPTER_FBA)) {
+            if (mFbaList == null)
+                return 0;
+            return mFbaList.get(groupPosition);
+        }
+        return null;
     }
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        if(mChildList == null)
-            return null;
-        return mChildList.get(groupPosition).get(childPosition);
+        if (TextUtils.equals(mStyle, AAUtils.EXPAND_ADAPTER_ORDER)) {
+            if (mChildList == null)
+                return null;
+            return mChildList.get(groupPosition).get(childPosition);
+        }
+        if (TextUtils.equals(mStyle, AAUtils.EXPAND_ADAPTER_FBA)) {
+            if (mFbaChildList == null)
+                return null;
+            return mFbaChildList.get(groupPosition).get(childPosition);
+        }
+        return null;
     }
 
     @Override
@@ -67,10 +111,12 @@ public class AAExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+    public View getGroupView(int groupPosition, boolean isExpanded, View convertView,
+            ViewGroup parent) {
         TextView text = null;
         if (convertView == null) {
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.aa_group_view, parent, false);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.aa_group_view, parent,
+                    false);
             convertView.setLongClickable(false);
         }
         text = (TextView) convertView.findViewById(R.id.tv_group_name);
@@ -79,13 +125,19 @@ public class AAExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(int groupPosition, int childPosition, boolean isLastChild,
+            View convertView, ViewGroup parent) {
         if (convertView == null) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.aalistitem, parent, false);
         }
         AAListViewHodler holder = new AAListViewHodler();
         holder.setOrderListView(convertView);
-        holder.setData(mChildList.get(groupPosition).get(childPosition));
+        if (TextUtils.equals(mStyle, AAUtils.EXPAND_ADAPTER_ORDER)) {
+            holder.setData(mChildList.get(groupPosition).get(childPosition));
+        }
+        if (TextUtils.equals(mStyle, AAUtils.EXPAND_ADAPTER_FBA)) {
+            holder.setData(mFbaChildList.get(groupPosition).get(childPosition));
+        }
         holder.setExpandId(groupPosition, childPosition);
         convertView.setTag(holder);
         return convertView;
@@ -99,28 +151,53 @@ public class AAExpandableListAdapter extends BaseExpandableListAdapter {
 
     private int getSignleLevelChildNum(int groupPosition) {
         int childNum = 0;
-        if(mChildList.get(groupPosition).size() != 0) {
-            childNum = mChildList.get(groupPosition).size();
+        if (TextUtils.equals(mStyle, AAUtils.EXPAND_ADAPTER_ORDER)) {
+            if (mChildList.get(groupPosition).size() != 0) {
+                childNum = mChildList.get(groupPosition).size();
+            }
+        }
+        if (TextUtils.equals(mStyle, AAUtils.EXPAND_ADAPTER_FBA)) {
+            if (mFbaChildList.get(groupPosition).size() != 0) {
+                childNum = mFbaChildList.get(groupPosition).size();
+            }
         }
         return childNum;
     }
 
-    public void setListData(ArrayList<ArrayList<ArrayList<AAProfile>>> list, ArrayList<ArrayList<AAProfile>> childList, Context context) {
-        mList = list;
+    public void setListData(ArrayList<ArrayList<ArrayList<AAProfile>>> list,
+            ArrayList<ArrayList<AAProfile>> childList, Context context) {
+        mOrderList = list;
         mContext = context;
         mGroupNameList = new ArrayList<String>();
         mChildList = childList;
-        for (int i = 0; i < mList.size(); i++) {
-            for (int j = 0; j < mList.get(i).size(); j++) {
-                if (mList.get(i).get(j).size() != 0) {
-                    mGroupNameList.add(mList.get(i).get(j).get(0).getDate().split("/")[2]);
+        for (int i = 0; i < mOrderList.size(); i++) {
+            for (int j = 0; j < mOrderList.get(i).size(); j++) {
+                if (mOrderList.get(i).get(j).size() != 0) {
+                    mGroupNameList.add(mOrderList.get(i).get(j).get(0).getDate().split("/")[2]);
                     break;
                 }
             }
         }
         notifiListUpdate();
     }
-    
+
+    public void setFbaListData(ArrayList<ArrayList<ArrayList<AAFbaProfile>>> list,
+            ArrayList<ArrayList<AAFbaProfile>> childList, Context context) {
+        mFbaList = list;
+        mContext = context;
+        mGroupNameList = new ArrayList<String>();
+        mFbaChildList = childList;
+        for (int i = 0; i < mFbaList.size(); i++) {
+            for (int j = 0; j < mFbaList.get(i).size(); j++) {
+                if (mFbaList.get(i).get(j).size() != 0) {
+                    mGroupNameList.add(mFbaList.get(i).get(j).get(0).getDate().split("/")[2]);
+                    break;
+                }
+            }
+        }
+        notifiListUpdate();
+    }
+
     public void notifiListUpdate() {
         notifyDataSetChanged();
     }

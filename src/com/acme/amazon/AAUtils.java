@@ -39,6 +39,10 @@ public class AAUtils {
 
     public static final double RATE_AMAZON_REF_HEALTHY = 0.15;
 
+    public static final String EXPAND_ADAPTER_ORDER = "expand_adapter_order";
+
+    public static final String EXPAND_ADAPTER_FBA = "expand_adapter_fba";
+
     public static void toContentValues(AAProfile profile, ContentValues values) {
         values.put(ProfileColumns.ORDER_DATE, profile.getDate());
         values.put(ProfileColumns.ORDER_ID, profile.getID());
@@ -225,6 +229,62 @@ public class AAUtils {
             }
 
             ArrayList<AAProfile> list = sortListMap.get(indexYear).get(indexMonth);
+            for (int i = 0; i <= list.size(); i++) {
+                if (i == list.size()) {
+                    list.add(profile);
+                    break;
+                }
+                // sort by latest date
+                if (Integer.parseInt(list.get(i).getDate().split("/")[1]) < Integer.parseInt(day)) {
+                    list.add(i, profile);
+                    break;
+                }
+            }
+        }
+        return sortListMap;
+    }
+
+    public static synchronized ArrayList<ArrayList<ArrayList<AAFbaProfile>>> sortFbaProfileByDate(
+            List<AAFbaProfile> profileList) {
+        ArrayList<ArrayList<ArrayList<AAFbaProfile>>> sortListMap = new ArrayList<ArrayList<ArrayList<AAFbaProfile>>>();
+        ArrayList<String> yearList = new ArrayList<String>();
+        String year = UNSORT;
+        String month = UNSORT;
+        String day = UNSORT;
+        // date structure Month/Date/Year
+        for (AAFbaProfile profile : profileList) {
+            String[] mdate = profile.getDate().split("/");
+            if (mdate.length == 3) {
+                year = mdate[2];
+                month = mdate[0];
+                day = mdate[1];
+            } else {
+                return null;
+            }
+            int indexYear = -1;
+            int indexMonth = Integer.parseInt(month);
+            if (!yearList.contains(year)) {
+                for (int i = 0; i <= yearList.size(); i++) {
+                    if (i == yearList.size()) {
+                        sortListMap.add(new ArrayList<ArrayList<AAFbaProfile>>());
+                        yearList.add(year);
+                        break;
+                    }
+                    if (Integer.parseInt(yearList.get(i)) < Integer.parseInt(year)) {
+                        sortListMap.add(i, new ArrayList<ArrayList<AAFbaProfile>>());
+                        yearList.add(i, year);
+                        break;
+                    }
+                }
+                indexYear = findStElemInArray(yearList, year);
+                for (int i = 0; i < 12; i++) {
+                    sortListMap.get(indexYear).add(new ArrayList<AAFbaProfile>());
+                }
+            } else {
+                indexYear = findStElemInArray(yearList, year);
+            }
+
+            ArrayList<AAFbaProfile> list = sortListMap.get(indexYear).get(indexMonth);
             for (int i = 0; i <= list.size(); i++) {
                 if (i == list.size()) {
                     list.add(profile);

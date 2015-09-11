@@ -47,7 +47,7 @@ public class AAMainOrderListPage extends Activity implements OnClickListener, On
         setViewClickListener();
         // mAdapter = new AAListViewAdapter(this, R.layout.aalistitem,
         // AAConstant.ADAPTER_ORIDER_LIST);
-        mExpandAdapter = new AAExpandableListAdapter();
+        mExpandAdapter = new AAExpandableListAdapter(AAUtils.EXPAND_ADAPTER_ORDER);
         mListView.setAdapter(mExpandAdapter);
         mAdd = (Button) findViewById(R.id.bt_add);
         mAdd.setOnClickListener(this);
