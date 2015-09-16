@@ -6,7 +6,7 @@
     android:padding="@dimen/activity_vertical_margin" >
 
     <Button
-        android:id="@+id/tb_add"
+        android:id="@+id/bt_add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/add_fba_shipment" />

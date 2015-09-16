@@ -36,7 +36,7 @@ public class AddNewOrder extends Activity implements OnClickListener {
 	private Button mSubmit;
 	private EditText mItemPrice;
 	private ListView mListView;
-	private AAListDataHolder<AAItem> mListHolder;
+	private AAListDataHolder<AAItem> mListHolder = new AAListDataHolder<>(new ArrayList<AAItem>());
 	private AAListViewAdapter mAdapter;
 	private SharedPreferences mSharedPre;
 	private String mDate;
@@ -51,7 +51,7 @@ public class AddNewOrder extends Activity implements OnClickListener {
 	private void setLayoutView() {
 		mSharedPre = getSharedPreferences(AAUtils.SHARED_PRE_NAME, 0);
 		mItemACT = (AutoCompleteTextView) findViewById(R.id.act_add_item);
-		ArrayAdapter<String> sAdapter = new ArrayAdapter<String>(this,
+		ArrayAdapter<String> sAdapter = new ArrayAdapter<>(this,
 				android.R.layout.simple_list_item_1, getStringArray());
 		mItemACT.setAdapter(sAdapter);
 		mItemQuantity = (EditText) findViewById(R.id.ed_quantity);
@@ -62,7 +62,6 @@ public class AddNewOrder extends Activity implements OnClickListener {
 		mAdapter = new AAListViewAdapter(this, R.layout.aaitemlistitem,
 				AAConstant.ADAPTER_ITEM_LIST);
 		mListView.setAdapter(mAdapter);
-		mListHolder = new AAListDataHolder<>(new ArrayList<AAItem>());
 
 		mSubmit = (Button) findViewById(R.id.bt_submit);
 		mSubmit.setOnClickListener(this);
@@ -91,14 +90,14 @@ public class AddNewOrder extends Activity implements OnClickListener {
 
 	private void saveItem() {
 		String itemName = mItemACT.getText().toString();
-		String itemQuanatity = mItemQuantity.getText().toString();
+		String itemQuantity = mItemQuantity.getText().toString();
 		String itemCost = mItemPrice.getText().toString();
-		if (TextUtils.isEmpty(itemName) || TextUtils.isEmpty(itemQuanatity)
+		if (TextUtils.isEmpty(itemName) || TextUtils.isEmpty(itemQuantity)
 				|| TextUtils.isEmpty(itemCost)) {
 			Toast.makeText(this,
 					getResources().getString(R.string.no_item_info),
 					Toast.LENGTH_LONG).show();
-		} else if (!TextUtils.isDigitsOnly(itemQuanatity)) {
+		} else if (!TextUtils.isDigitsOnly(itemQuantity)) {
 			Toast.makeText(this,
 					getResources().getString(R.string.number_item_quanatity),
 					Toast.LENGTH_LONG).show();
@@ -109,7 +108,7 @@ public class AddNewOrder extends Activity implements OnClickListener {
 		} else {
 			AAItem item = new AAItem();
 			item.setName(itemName);
-			item.setQuality(Integer.parseInt(itemQuanatity));
+			item.setQuality(Integer.parseInt(itemQuantity));
 			item.setCost(itemCost);
 			mListHolder.addListData(item);
 			mAdapter.setDataHolder(mListHolder);
@@ -118,17 +117,18 @@ public class AddNewOrder extends Activity implements OnClickListener {
 	}
 
 	private void submitItem() {
-		AADialogFragment mDialog = new AADialogFragment();
+		final AADialogFragment mDialog = new AADialogFragment();
 		mDialog.setListener(new AADialogListener() {
 
 			@Override
 			public void onSubmitChange() {
 				AAProfile profile = new AAProfile();
-				for (AAItem item : (ArrayList<AAItem>) mListHolder.getList()) {
+				for (AAItem item : mListHolder.getList()) {
 					item.setDate(mDate);
 				}
 				profile.setItemList((ArrayList<AAItem>) mListHolder.getList());
 				profile.setCost(totalCost());
+				setDate(mDialog.getDate());
 				profile.setDate(mDate);
 				AAManager.getManager().getDB()
 						.saveAAProfile(getContentResolver(), profile);

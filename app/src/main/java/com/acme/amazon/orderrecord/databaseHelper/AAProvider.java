@@ -67,88 +67,88 @@ public class AAProvider extends ContentProvider {
 
     // Amazon Order profile
     public interface ProfileColumns extends BaseColumns {
-        public static final String TBL_AA_PROFILES = "aa_profiles";
+        String TBL_AA_PROFILES = "aa_profiles";
 
-        public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/"
+        Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/"
                 + TBL_AA_PROFILES);
 
-        public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.acme.profile";
+        String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.acme.profile";
 
-        public static final String ORDER_ID = "order_id";
+        String ORDER_ID = "order_id";
 
-        public static final String ORDER_DATE = "order_date";
+        String ORDER_DATE = "order_date";
 
-        public static final String ORDER_ITEM_ID = "order_detial_ID";
+        String ORDER_ITEM_ID = "order_detial_ID";
 
-        public static final String ORDER_TITLE = "order_tilte";
+        String ORDER_TITLE = "order_tilte";
 
-        public static final String ORDER_TOTAL_COST = "order_total_cost";
+        String ORDER_TOTAL_COST = "order_total_cost";
 
-        public static final String ORDER_EXTRA_1 = "order_extra_1";
+        String ORDER_EXTRA_1 = "order_extra_1";
     }
 
     // Amazon Order Item Info
     public interface ItemColumns extends BaseColumns {
-        public static final String TBL_AA_ITEM = "aa_item";
+        String TBL_AA_ITEM = "aa_item";
 
-        public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/"
+        Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/"
                 + TBL_AA_ITEM);
 
-        public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.acme.item";
+        String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.acme.item";
 
-        public static final String ITEM_NAME = "item_name";
+        String ITEM_NAME = "item_name";
 
-        public static final String ITEM_QUALITY = "item_quality";
+        String ITEM_QUALITY = "item_quality";
 
-        public static final String ITEM_TOTAL_COST = "order_total_cost";
+        String ITEM_TOTAL_COST = "order_total_cost";
 
-        public static final String ORDER_DATE = "order_date";
+        String ORDER_DATE = "order_date";
 
-        public static final String ITEM_CURRENCY_TYPE = "item_currency_type";
+        String ITEM_CURRENCY_TYPE = "item_currency_type";
 
-        public static final String ITEM_ORDER_EXTRA_1 = "item_order_extra_1";
+        String ITEM_ORDER_EXTRA_1 = "item_order_extra_1";
     }
 
     // Amazon Order Item and profile match info
     public interface MatchColumns extends BaseColumns {
-        public static final String TBL_AA_MATCH = "aa_match";
+        String TBL_AA_MATCH = "aa_match";
 
-        public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/"
+        Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/"
                 + TBL_AA_MATCH);
 
-        public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.acme.match";
+        String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.acme.match";
 
-        public static final String PROFILE_ID = "profile_id";
+        String PROFILE_ID = "profile_id";
 
-        public static final String ITEM_ID = "item_id";
+        String ITEM_ID = "item_id";
     }
 
     // Amazon Order Item and profile match info
     public interface ProductColumns extends BaseColumns {
-        public static final String TBL_AA_PRODUCT = "aa_product";
+        String TBL_AA_PRODUCT = "aa_product";
 
-        public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/"
+        Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/"
                 + TBL_AA_PRODUCT);
 
-        public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.acme.product";
+        String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.acme.product";
 
-        public static final String PRODUCT_NAME = "product_id";
+        String PRODUCT_NAME = "product_id";
 
-        public static final String PRODUCT_PRIME_PRICE = "product_prime_price";
+        String PRODUCT_PRIME_PRICE = "product_prime_price";
 
-        public static final String PRODUCT_BV_POINT = "product_bv_point";
+        String PRODUCT_BV_POINT = "product_bv_point";
 
-        public static final String PRODUCT_BV_TO_MONEY = "product_bv_to_money";
+        String PRODUCT_BV_TO_MONEY = "product_bv_to_money";
 
-        public static final String PRODUCT_FBA_PRE_FEE = "product_fba_pre_fee";
+        String PRODUCT_FBA_PRE_FEE = "product_fba_pre_fee";
 
-        public static final String PRODUCT_FBA_SHIPPING_FEE = "product_fba_shipping_fee";
+        String PRODUCT_FBA_SHIPPING_FEE = "product_fba_shipping_fee";
 
-        public static final String PRODUCT_AMAZON_REF_FEE = "product_amazon_ref_fee";
+        String PRODUCT_AMAZON_REF_FEE = "product_amazon_ref_fee";
 
-        public static final String PRODUCT_AMAZON_SALE_PRICE = "product_amazon_sale_price";
+        String PRODUCT_AMAZON_SALE_PRICE = "product_amazon_sale_price";
 
-        public static final String PRODUCT_SHOP_COM_Price = "product_shop_com_price";
+        String PRODUCT_SHOP_COM_Price = "product_shop_com_price";
     }
 
     /*
@@ -169,35 +169,35 @@ public class AAProvider extends ContentProvider {
      */
 
     public interface FbaShipReportColumns extends BaseColumns {
-        public static final String TBL_AA_REPORT_PROFILES = "aa_report_profiles";
+        String TBL_AA_REPORT_PROFILES = "aa_report_profiles";
 
-        public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/"
+        Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/"
                 + TBL_AA_REPORT_PROFILES);
 
-        public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.acme.report.profile";
+        String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.acme.report.profile";
 
-        public static final String SHIP_DATE = "ship_date";
+        String SHIP_DATE = "ship_date";
 
-        public static final String SHIP_ITEM_ID = "ship_item_ID";
+        String SHIP_ITEM_ID = "ship_item_ID";
 
-        public static final String SHIP_TITLE = "ship_tilte";
+        String SHIP_TITLE = "ship_tilte";
 
-        public static final String SHIP_TOTAL_NUM = "ship_total_num";
+        String SHIP_TOTAL_NUM = "ship_total_num";
     }
 
     public interface FbaShipReportItemColumns extends BaseColumns {
-        public static final String TBL_AA_REPORT_ITEM = "aa_report_item";
+        String TBL_AA_REPORT_ITEM = "aa_report_item";
 
-        public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/"
+        Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/"
                 + TBL_AA_REPORT_ITEM);
 
-        public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.acme.report.item";
+        String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.acme.report.item";
 
-        public static final String ITEM_NAME = "item_name";
+        String ITEM_NAME = "item_name";
 
-        public static final String ITEM_QUALITY = "item_quality";
+        String ITEM_QUALITY = "item_quality";
 
-        public static final String SHIP_DATE = "ship_date";
+        String SHIP_DATE = "ship_date";
 
     }
 
@@ -213,8 +213,13 @@ public class AAProvider extends ContentProvider {
 
     @Override
     public String getType(Uri uri) {
-        // TODO Auto-generated method stub
-        return null;
+        String type = null;
+        switch (urlMatcher.match(uri)) {
+            case AA_PROFILE:
+                type = ProfileColumns.CONTENT_TYPE;
+                break;
+        }
+        return type;
     }
 
     @Override
@@ -322,7 +327,7 @@ public class AAProvider extends ContentProvider {
 
         String whichTable = getTable(uri);
 
-        int count = 0;
+        int count;
         int match = urlMatcher.match(uri);
         switch (match) {
             case AA_PROFILE:
@@ -472,11 +477,11 @@ public class AAProvider extends ContentProvider {
     /**
      * Get the targeting table based on given url match.
      * 
-     * @param url
-     * @return
+     * @param uri uri for the table
+     * @return table
      */
     private String getTable(Uri uri) {
-        String whichTable = null;
+        String whichTable;
         int match = urlMatcher.match(uri);
         switch (match) {
             case AA_PROFILE:
@@ -498,9 +503,11 @@ public class AAProvider extends ContentProvider {
             case FBA_SHIP_REPORT:
             case FBA_SHIP_REPORT_ID:
                 whichTable = FbaShipReportColumns.TBL_AA_REPORT_PROFILES;
+                break;
             case FBA_SHIP_REPORT_ITEM:
             case FBA_SHIP_REPORT_ITEM_ID:
                 whichTable = FbaShipReportItemColumns.TBL_AA_REPORT_ITEM;
+                break;
             default:
                 throw new IllegalArgumentException("Unknown URL: " + uri);
         }

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.acme.amazon.orderrecord"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.0">
 
     <uses-sdk
         android:minSdkVersion="11"
@@ -12,11 +12,11 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".AAMainOrderListPage"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,44 +25,38 @@
         </activity>
         <activity
             android:name=".AddNewOrder"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".AAItemListPage"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".AAProductListPage"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
-        </activity>
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity
             android:name=".AASummaryPage"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.acme.amazon.amazonpage.ProductListPage"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.acme.amazon.amazonpage.ProductListDetailPage"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.acme.amazon.amazonpage.ProductInventory"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.acme.amazon.amazonpage.FbaShippingReportPage"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.acme.amazon.amazonpage.FbaShippingAddPage"
+            android:screenOrientation="portrait"/>
 
         <provider
             android:name=".databaseHelper.AAProvider"
             android:authorities="com.acme.amazon.orderrecord.provider"
             android:label="@string/provider_label"
-            android:multiprocess="false" >
-        </provider>
+            android:multiprocess="false"/>
     </application>
 
 </manifest>

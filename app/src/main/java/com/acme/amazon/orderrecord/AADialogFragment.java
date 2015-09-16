@@ -13,52 +13,59 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.DatePicker.OnDateChangedListener;
 
-public class AADialogFragment extends DialogFragment{
-	
-	private AADialogListener listener;
-	private DatePicker mDatePicker;
-	@Override
-	public Dialog onCreateDialog(Bundle savedInstanceState) {
+public class AADialogFragment extends DialogFragment {
+
+    private AADialogListener listener;
+    private DatePicker mDatePicker;
+    private String mDate;
+
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
         // create dialog
-		View mView = LayoutInflater.from(getActivity()).inflate(R.layout.timepicker, null);
-		setDate(mView);
+        View mView = LayoutInflater.from(getActivity()).inflate(R.layout.timepicker, null);
+        setDate(mView);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(mView)
-         .setPositiveButton(R.string.dialog_submit, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.dialog_submit, new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                    	if(listener != null) {
-                    		listener.onSubmitChange();}
+                        if (listener != null) {
+                            listener.onSubmitChange();
+                        }
                         getActivity().finish();
                     }
                 });
         AlertDialog myDialog = builder.create();
         return myDialog;
-	}
-	
-	public void setListener(AADialogListener l) {
-		listener = l;
-	}
-	
-	private void setDate(View v) {
-		mDatePicker = (DatePicker) v.findViewById(R.id.datePicker);
-		Calendar c = Calendar.getInstance();
-		int year = c.get(Calendar.YEAR);
-		int month = c.get(Calendar.MONTH);
-		int day = c.get(Calendar.DAY_OF_MONTH);
-		((AddNewOrder) getActivity()).setDate(String.valueOf(month) + "/" + String.valueOf(day) + "/" +String.valueOf(year));
-		mDatePicker.init(year,month,day,new OnDateChangedListener() {
-			
-			@Override
-			public void onDateChanged(DatePicker view, int year, int monthOfYear,
-					int dayOfMonth) {
-				((AddNewOrder) getActivity()).setDate(String.valueOf(monthOfYear) + "/" + String.valueOf(dayOfMonth) + "/" +String.valueOf(year));
-			}
-		});
-	}
-	
-	public interface AADialogListener {
-		public void onSubmitChange();
-	}
+    }
+
+    public void setListener(AADialogListener l) {
+        listener = l;
+    }
+
+    private void setDate(View v) {
+        mDatePicker = (DatePicker) v.findViewById(R.id.datePicker);
+        Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        mDate  = String.valueOf(month) + "/" + String.valueOf(day) + "/" + String.valueOf(year);
+        mDatePicker.init(year, month, day, new OnDateChangedListener() {
+
+            @Override
+            public void onDateChanged(DatePicker view, int year, int monthOfYear,
+                                      int dayOfMonth) {
+                mDate = String.valueOf(monthOfYear) + "/" + String.valueOf(dayOfMonth) + "/" + String.valueOf(year);
+            }
+        });
+    }
+
+    public interface AADialogListener {
+        void onSubmitChange();
+    }
+
+    public String getDate() {
+        return mDate;
+    }
 }

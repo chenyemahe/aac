@@ -8,6 +8,7 @@ import com.acme.amazon.listsupport.AAExpandableListAdapter;
 import com.acme.amazon.orderrecord.R;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -70,7 +71,10 @@ public class FbaShippingReportPage extends Activity implements OnClickListener{
 
     @Override
     public void onClick(View v) {
-        // TODO Auto-generated method stub
-        
+        switch (v.getId()) {
+            case R.id.bt_add:
+                startActivity(new Intent(this,FbaShippingAddPage.class));
+                break;
+        }
     }
 }
