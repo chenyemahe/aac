@@ -43,6 +43,8 @@ public class AAUtils {
 
     public static final String EXPAND_ADAPTER_FBA = "expand_adapter_fba";
 
+    public static final String INTENT_EXTRA_ITEM_STYLE = "intent_extra_item_style";
+
     public static void toContentValues(AAProfile profile, ContentValues values) {
         values.put(ProfileColumns.ORDER_DATE, profile.getDate());
         values.put(ProfileColumns.ORDER_ID, profile.getID());

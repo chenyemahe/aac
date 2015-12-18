@@ -1,6 +1,7 @@
 package com.acme.amazon.orderrecord;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import android.app.Activity;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 import com.acme.amazon.AAConstant;
 import com.acme.amazon.AAItem;
 import com.acme.amazon.AAManager;
+import com.acme.amazon.AAProduct;
 import com.acme.amazon.AAProfile;
 import com.acme.amazon.AAUtils;
 import com.acme.amazon.listsupport.AAListDataHolder;
@@ -38,7 +40,6 @@ public class AddNewOrder extends Activity implements OnClickListener {
 	private ListView mListView;
 	private AAListDataHolder<AAItem> mListHolder = new AAListDataHolder<>(new ArrayList<AAItem>());
 	private AAListViewAdapter mAdapter;
-	private SharedPreferences mSharedPre;
 	private String mDate;
 
 	@Override
@@ -49,7 +50,6 @@ public class AddNewOrder extends Activity implements OnClickListener {
 	}
 
 	private void setLayoutView() {
-		mSharedPre = getSharedPreferences(AAUtils.SHARED_PRE_NAME, 0);
 		mItemACT = (AutoCompleteTextView) findViewById(R.id.act_add_item);
 		ArrayAdapter<String> sAdapter = new ArrayAdapter<>(this,
 				android.R.layout.simple_list_item_1, getStringArray());
@@ -60,7 +60,7 @@ public class AddNewOrder extends Activity implements OnClickListener {
 		mItemAddBT.setOnClickListener(this);
 		mListView = (ListView) findViewById(R.id.lv_add_item);
 		mAdapter = new AAListViewAdapter(this, R.layout.aaitemlistitem,
-				AAConstant.ADAPTER_ITEM_LIST);
+				AAConstant.ADAPTER_ITEM_LIST, AAUtils.EXPAND_ADAPTER_ORDER);
 		mListView.setAdapter(mAdapter);
 
 		mSubmit = (Button) findViewById(R.id.bt_submit);
@@ -150,17 +150,16 @@ public class AddNewOrder extends Activity implements OnClickListener {
 	}
 
 	private String[] getStringArray() {
+		List<AAProduct> productList = AAManager.getManager().getDB().getAllProduct(getContentResolver());
 		String[] array;
-		Set<String> productList = mSharedPre.getStringSet(
-				AAUtils.SHARED_PRE_NAME, null);
 		String[] stringArrayFromRes = getResources().getStringArray(
 				R.array.list_of_item);
 		int a = stringArrayFromRes.length;
 		if (productList != null) {
 			String[] stringArrayFromSettings = new String[productList.size()];
 			int b = stringArrayFromSettings.length;
-			stringArrayFromSettings = productList
-					.toArray(stringArrayFromSettings);
+			for(int i = 0; i < stringArrayFromSettings.length; i++) {
+				stringArrayFromSettings[i] = productList.get(i).getProductName();}
 			array = new String[a + stringArrayFromSettings.length];
 			System.arraycopy(stringArrayFromRes, 0, array, 0, a);
 			System.arraycopy(stringArrayFromSettings, 0, array, a, b);

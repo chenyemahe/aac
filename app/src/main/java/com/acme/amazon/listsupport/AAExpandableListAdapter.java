@@ -130,7 +130,7 @@ public class AAExpandableListAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.aalistitem, parent, false);
         }
-        AAListViewHodler holder = new AAListViewHodler();
+        AAListViewHodler holder = new AAListViewHodler(mStyle);
         holder.setOrderListView(convertView);
         if (TextUtils.equals(mStyle, AAUtils.EXPAND_ADAPTER_ORDER)) {
             holder.setData(mChildList.get(groupPosition).get(childPosition));

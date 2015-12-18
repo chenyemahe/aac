@@ -64,7 +64,7 @@ public class FbaShippingAddPage extends Activity implements View.OnClickListener
         mItemAddBT.setOnClickListener(this);
         mListView = (ListView) findViewById(R.id.lv_add_item);
         mAdapter = new AAListViewAdapter(this, R.layout.aaitemlistitem,
-                AAConstant.ADAPTER_ITEM_LIST);
+                AAConstant.ADAPTER_ITEM_LIST, AAUtils.EXPAND_ADAPTER_FBA);
         mListView.setAdapter(mAdapter);
 
         mSubmit = (Button) findViewById(R.id.bt_submit);

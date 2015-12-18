@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.Button;
@@ -27,7 +26,7 @@ import com.acme.amazon.listsupport.AAExpandableListAdapter;
 import com.acme.amazon.listsupport.AAListDataHolder;
 import com.acme.amazon.listsupport.AAListViewHodler;
 
-public class AAMainOrderListPage extends Activity implements OnClickListener, OnItemClickListener, OnItemLongClickListener,
+public class AAMainOrderListPage extends Activity implements OnClickListener, OnItemLongClickListener,
         OnChildClickListener {
     private ExpandableListView mListView;
     private Button mAdd;
@@ -80,7 +79,7 @@ public class AAMainOrderListPage extends Activity implements OnClickListener, On
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.edit_product_list) {
-            startActivity(new Intent(this, AAProductListPage.class));
+            startActivity(new Intent(this, ProductListPage.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -105,18 +104,8 @@ public class AAMainOrderListPage extends Activity implements OnClickListener, On
     }
 
     private void setViewClickListener() {
-        mListView.setOnItemClickListener(this);
         mListView.setOnItemLongClickListener(this);
         mListView.setOnChildClickListener(this);
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        AAProfile profile = mListHolder.getList().get(position);
-        String itemId = profile.getProfileId();
-        Intent intent = new Intent(this, AAItemListPage.class);
-        intent.putExtra(AAUtils.INTENT_PROFILE_ID, itemId);
-        startActivity(intent);
     }
 
     @Override
