@@ -446,6 +446,18 @@ public class AAUtils {
         return String.format("%.02f", (sale_amazon_price - amazon_base_price));
     }
 
+    /**
+     * Calculate 2 string times result
+     *
+     * @param bv
+     * @return
+     */
+    public static String calStringTimes(String a, String b) {
+        float f_a = convertStringToFloat(a);
+        float f_b = convertStringToFloat(b);
+        return String.format("%.02f", (f_a * f_b));
+    }
+
     public static float convertStringToFloat(String s) {
         try {
             return Float.parseFloat(s);

@@ -240,7 +240,7 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:gravity="center_vertical"
-                    android:inputType="number" >
+                    android:inputType="numberDecimal" >
 
                     <requestFocus />
                 </EditText>
@@ -258,7 +258,7 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:gravity="center_vertical"
-                    android:inputType="number" />
+                    android:inputType="numberDecimal"/>
             </TableRow>
 
             <TableRow
@@ -280,7 +280,7 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:gravity="center_vertical"
-                    android:inputType="number" />
+                    android:inputType="numberDecimal" />
 
                 <TextView
                     android:id="@+id/tr2_2_3"
@@ -315,7 +315,7 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:gravity="center_vertical"
-                    android:inputType="number" />
+                    android:inputType="numberDecimal" />
 
                 <TextView
                     android:id="@+id/tr2_3_3"
@@ -330,7 +330,7 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:gravity="center_vertical"
-                    android:inputType="number" />
+                    android:inputType="numberDecimal" />
             </TableRow>
 
             <TableRow
@@ -398,7 +398,7 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:gravity="center_vertical"
-                    android:inputType="number" />
+                    android:inputType="numberDecimal" />
             </TableRow>
 
             <TableRow
