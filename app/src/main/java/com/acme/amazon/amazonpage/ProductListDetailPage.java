@@ -237,8 +237,8 @@ public class ProductListDetailPage extends Activity implements OnClickListener {
             public void afterTextChanged(Editable s) {
                 mAmazonRefFee_ADD.setText(AAUtils.calAmazonRefFee(mSalePriceOnAm_ED.getText()
                         .toString()));
-                mProfit_ADD.setText(AAUtils.calProfit(mAmazonBasePrice_ADD.getText().toString(),
-                        mSalePriceOnAm_ED.getText().toString()));
+                mProfit_ADD.setText(AAUtils.calProfit(mMaFullPrice_ED.getText().toString(),
+                        mSalePriceOnAm_ED.getText().toString(),mFbaPreFee_ED.getText().toString(),mFBAShipping_ED.getText().toString(), mAmazonRefFee_ADD.getText().toString()));
             }
         });
 

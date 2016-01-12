@@ -154,8 +154,8 @@ public class AAUtils {
                 product.getFBAShipping(), product.getFbaPreFee()));
         product.setAmazonPricewithBV(AAUtils.calAmazonPricewithBV(product.getMaFullPrice(),
                 product.getFBAShipping(), product.getFbaPreFee(), product.getBVtoDollar()));
-        product.setProfit(AAUtils.calProfit(product.getAmazonBasePrice(),
-                product.getSalePriceOnAm()));
+        product.setProfit(AAUtils.calProfit(product.getMaFullPrice(),
+                product.getSalePriceOnAm(), product.getFbaPreFee(), product.getFBAShipping(), product.getAmazonRefFee()));
     }
 
     public static void fromCursor(Cursor cursor, AAFbaProfile profile) {
@@ -440,10 +440,13 @@ public class AAUtils {
      * @param bv
      * @return
      */
-    public static String calProfit(String amazonBasePrice, String salePriceOnAm) {
-        float amazon_base_price = convertStringToFloat(amazonBasePrice);
+    public static String calProfit(String basePrice, String salePriceOnAm, String fbaPreFee, String fbaShippingFee, String fbaSaleFee) {
+        float base_price = convertStringToFloat(basePrice);
         float sale_amazon_price = convertStringToFloat(salePriceOnAm);
-        return String.format("%.02f", (sale_amazon_price - amazon_base_price));
+        float fba_pre_fee = convertStringToFloat(fbaPreFee);
+        float fba_shipping_fee = convertStringToFloat(fbaShippingFee);
+        float fba_sale_fee = convertStringToFloat(fbaSaleFee);
+        return String.format("%.02f", (sale_amazon_price - base_price - fba_pre_fee - fba_shipping_fee - fba_sale_fee));
     }
 
     /**
