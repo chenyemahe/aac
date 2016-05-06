@@ -1,6 +1,7 @@
 
-package com.acme.amazon.amazonpage;
+package com.acme.amazon.amazonpage.productlist;
 
+import com.acme.amazon.amazonpage.fba.FbaShippingReportPage;
 import com.acme.amazon.orderrecord.R;
 
 import android.app.Activity;

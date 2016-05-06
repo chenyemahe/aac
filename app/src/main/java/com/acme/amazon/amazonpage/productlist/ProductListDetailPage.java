@@ -1,5 +1,5 @@
 
-package com.acme.amazon.amazonpage;
+package com.acme.amazon.amazonpage.productlist;
 
 import com.acme.amazon.AAManager;
 import com.acme.amazon.AAProduct;
@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ProductListDetailPage extends Activity implements OnClickListener {
 
@@ -238,7 +239,7 @@ public class ProductListDetailPage extends Activity implements OnClickListener {
                 mAmazonRefFee_ADD.setText(AAUtils.calAmazonRefFee(mSalePriceOnAm_ED.getText()
                         .toString()));
                 mProfit_ADD.setText(AAUtils.calProfit(mMaFullPrice_ED.getText().toString(),
-                        mSalePriceOnAm_ED.getText().toString(),mFbaPreFee_ED.getText().toString(),mFBAShipping_ED.getText().toString(), mAmazonRefFee_ADD.getText().toString()));
+                        mSalePriceOnAm_ED.getText().toString(), mFbaPreFee_ED.getText().toString(), mFBAShipping_ED.getText().toString(), mAmazonRefFee_ADD.getText().toString()));
             }
         });
 
@@ -279,6 +280,14 @@ public class ProductListDetailPage extends Activity implements OnClickListener {
             product.setID(ID);
         }
         return product;
+    }
+
+    private void checkInputInfo() {
+        if(TextUtils.isEmpty(mProduct_Name_ED.getText().toString())) {
+            Toast.makeText(this,
+                    getResources().getString(R.string.no_product_name),
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override

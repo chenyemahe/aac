@@ -1,4 +1,4 @@
-package com.acme.amazon.amazonpage;
+package com.acme.amazon.amazonpage.fba;
 
 import android.app.Activity;
 import android.content.SharedPreferences;

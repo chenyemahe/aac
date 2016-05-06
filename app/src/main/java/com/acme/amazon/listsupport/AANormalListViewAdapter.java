@@ -4,8 +4,8 @@ package com.acme.amazon.listsupport;
 import com.acem.amazon.logging.Logging;
 import com.acme.amazon.AAProduct;
 import com.acme.amazon.AAUtils;
-import com.acme.amazon.amazonpage.ProductListHodler;
-import com.acme.amazon.amazonpage.ProductListPage;
+import com.acme.amazon.amazonpage.productlist.ProductListHodler;
+import com.acme.amazon.amazonpage.productlist.ProductListPage;
 import com.acme.amazon.orderrecord.AASummaryPage;
 
 import android.content.Context;

@@ -1,9 +1,8 @@
 
-package com.acme.amazon.amazonpage;
+package com.acme.amazon.amazonpage.fba;
 
 import com.acme.amazon.AAFbaProfile;
 import com.acme.amazon.AAManager;
-import com.acme.amazon.AAProfile;
 import com.acme.amazon.AAUtils;
 import com.acme.amazon.listsupport.AAExpandableListAdapter;
 import com.acme.amazon.listsupport.AAListViewHodler;

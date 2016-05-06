@@ -1,7 +1,9 @@
 package com.acme.amazon.orderrecord;
 
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -18,6 +20,7 @@ public class AADialogFragment extends DialogFragment {
     private AADialogListener listener;
     private DatePicker mDatePicker;
     private String mDate;
+    public static final SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -50,13 +53,15 @@ public class AADialogFragment extends DialogFragment {
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
-        mDate  = String.valueOf(month) + "/" + String.valueOf(day) + "/" + String.valueOf(year);
+        mDate  = dateFormatter.format(c.getTime());
         mDatePicker.init(year, month, day, new OnDateChangedListener() {
 
             @Override
             public void onDateChanged(DatePicker view, int year, int monthOfYear,
                                       int dayOfMonth) {
-                mDate = String.valueOf(monthOfYear) + "/" + String.valueOf(dayOfMonth) + "/" + String.valueOf(year);
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                mDate = dateFormatter.format(newDate.getTime());
             }
         });
     }

@@ -98,6 +98,7 @@ public class AddNewOrder extends Activity implements OnClickListener {
             case R.id.bt_add_item:
                 saveItem();
                 mItemACT.setText("");
+                mItemACT.requestFocus();
                 mItemQuantity.setText("");
                 mItemPrice.setText("");
                 break;

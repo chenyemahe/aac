@@ -1,37 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.acme.amazon.orderrecord"
-    android:sharedUserId="com.oem.wificalling"
     android:versionCode="1"
     android:versionName="1.0">
 
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="23" />
-
-    <uses-permission android:name="com.oem.smartwifisupport.WfcApplication" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS" />
-    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <!-- <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> -->
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_LOGS" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="com.sprint.internal.permission.SYSTEMPROPERTIES" />
-    <uses-permission android:name="android.permission.DEVICE_POWER" />
-    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <!-- For start Permission Settings page -->
-    <uses-permission android:name="android.permission.GRANT_RUNTIME_PERMISSIONS" />
 
     <application
         android:allowBackup="true"
@@ -62,19 +37,19 @@
             android:name=".AASummaryPage"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.acme.amazon.amazonpage.ProductListPage"
+            android:name="com.acme.amazon.amazonpage.productlist.ProductListPage"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.acme.amazon.amazonpage.ProductListDetailPage"
+            android:name="com.acme.amazon.amazonpage.productlist.ProductListDetailPage"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.acme.amazon.amazonpage.ProductInventory"
+            android:name="com.acme.amazon.amazonpage.productlist.ProductInventory"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.acme.amazon.amazonpage.FbaShippingReportPage"
+            android:name="com.acme.amazon.amazonpage.fba.FbaShippingReportPage"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.acme.amazon.amazonpage.FbaShippingAddPage"
+            android:name="com.acme.amazon.amazonpage.fba.FbaShippingAddPage"
             android:screenOrientation="portrait"/>
 
         <provider

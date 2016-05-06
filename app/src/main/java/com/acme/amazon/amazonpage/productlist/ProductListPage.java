@@ -1,11 +1,9 @@
 
-package com.acme.amazon.amazonpage;
+package com.acme.amazon.amazonpage.productlist;
 
 import com.acme.amazon.AAManager;
 import com.acme.amazon.AAProduct;
-import com.acme.amazon.AAProfile;
 import com.acme.amazon.AAUtils;
-import com.acme.amazon.listsupport.AAListViewHodler;
 import com.acme.amazon.listsupport.AANormalListViewAdapter;
 import com.acme.amazon.orderrecord.R;
 

@@ -1,4 +1,4 @@
-package com.acme.amazon.amazonpage;
+package com.acme.amazon.amazonpage.productlist;
 
 import com.acme.amazon.AAProduct;
 import com.acme.amazon.orderrecord.R;
