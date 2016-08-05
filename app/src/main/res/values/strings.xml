@@ -53,23 +53,23 @@
     <string name="bt_setting_hint">Enter Product Name</string>
     
     <!-- Product detail page -->
-    <string name="tv_real_price">Base:</string>
-    <string name="tv_amazon_min">Amazon Min:</string>
+    <string name="tv_real_price">Prime Cost:</string>
+    <string name="tv_amazon_min">Lowest Price:</string>
     <string name="tv_sale_price">Sale Price:</string>
     <string name="tv_profit">Profit:</string>
     <string name="bt_add_prodcut">Add New Product</string>
     <string name="tv_prod_title">Name</string>
     <string name="tb_tr_0_1">Product Name</string>
-    <string name="tb_tr_1_1">Shop.com Price</string>
-    <string name="tb_tr_1_3">Base Price</string>
-    <string name="tb_tr_2_1">BV Point</string>
-    <string name="tb_tr_2_3">BV To Dollar</string>
-    <string name="tb_tr_3_1">FBA Pre Fee</string>
-    <string name="tb_tr_3_3">FBA Shipping Fee</string>
-    <string name="tb_tr_4_1">FBA Sale Fee</string>
-    <string name="tb_tr_4_3">Amazon Base Price</string>
-    <string name="tb_tr_5_1">Amazon Base with Exta</string>
-    <string name="tb_tr_5_3">Amazon Sale Price</string>
+    <string name="tb_tr_1_1">Prime Cost</string>
+    <string name="tb_tr_1_3">Amazon Sale Price</string>
+    <string name="tb_tr_2_1">FBA Handle Fee</string>
+    <string name="tb_tr_2_3">Category</string>
+    <string name="tb_tr_3_1">Ship to Center Fee</string>
+    <string name="tb_tr_3_3">Referral Fee</string>
+    <string name="tb_tr_4_1">Lowest Sale Price</string>
+    <string name="tb_tr_4_3">BV Point</string>
+    <string name="tb_tr_5_1">Convert BV</string>
+    <string name="tb_tr_5_3">Lowest Sale Price with BV</string>
     <string name="tb_tr_6_1">Profit</string>
     <string name="no_product_name">Please Enter the products name!</string>
     

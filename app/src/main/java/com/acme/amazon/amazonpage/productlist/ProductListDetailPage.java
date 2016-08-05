@@ -275,7 +275,7 @@ public class ProductListDetailPage extends Activity implements OnClickListener {
         product.setProductName(mProduct_Name_ED.getText().toString());
         product.setProfit(mProfit_ADD.getText().toString());
         product.setSalePriceOnAm(mSalePriceOnAm_ED.getText().toString());
-        product.setShop_comPrice(mShop_comPrice_ED.getText().toString());
+        product.setCategory(mShop_comPrice_ED.getText().toString());
         if(isIdNeed) {
             product.setID(ID);
         }
@@ -316,7 +316,7 @@ public class ProductListDetailPage extends Activity implements OnClickListener {
             if (product != null) {
                 if (TextUtils.equals(mPageType, AMAZON_PRODUCT_VIEW)) {
                     mProduct_Name.setText(product.getProductName());
-                    mShop_comPrice.setText(product.getShop_comPrice());
+                    mShop_comPrice.setText(product.getCategory());
                     mMaFullPrice.setText(product.getMaFullPrice());
                     mBVpoint.setText(product.getBVpoint());
                     mBVtoDollar.setText(product.getBVtoDollar());
@@ -330,7 +330,7 @@ public class ProductListDetailPage extends Activity implements OnClickListener {
                 }
                 if (TextUtils.equals(mPageType, AMAZON_PRODUCT_EDIT)) {
                     mProduct_Name_ED.setText(product.getProductName());
-                    mShop_comPrice_ED.setText(product.getShop_comPrice());
+                    mShop_comPrice_ED.setText(product.getCategory());
                     mMaFullPrice_ED.setText(product.getMaFullPrice());
                     mBVpoint_ED.setText(product.getBVpoint());
                     mFbaPreFee_ED.setText(product.getFbaPreFee());

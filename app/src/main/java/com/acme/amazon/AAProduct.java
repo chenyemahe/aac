@@ -11,7 +11,7 @@ public class AAProduct {
 	private String mFbaPreFee;
 	private String mAmazonRefFee;
 
-	private String mShop_comPrice;
+	private String mCategory;
 	private String mAmazonBasePrice;
 	private String mAmazonPricewithBV;
 	private String mSalePriceOnAm;
@@ -25,8 +25,8 @@ public class AAProduct {
 		mProductName = s;
 	}
 
-	public void setShop_comPrice(String s) {
-		mShop_comPrice = s;
+	public void setCategory(String s) {
+		mCategory = s;
 	}
 
 	public void setMaFullPrice(String s) {
@@ -77,8 +77,8 @@ public class AAProduct {
 		return mProductName;
 	}
 
-	public String getShop_comPrice() {
-		return mShop_comPrice;
+	public String getCategory() {
+		return mCategory;
 	}
 
 	public String getMaFullPrice() {
