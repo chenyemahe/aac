@@ -253,7 +253,8 @@
         <TableLayout
             android:id="@+id/tl_prod_add"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:stretchColumns="0,1">
 
             <TableRow
                 android:id="@+id/tableRow2_0"
@@ -264,14 +265,14 @@
                 <TextView
                     android:id="@+id/tr2_0_1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:gravity="center_vertical"
                     android:singleLine="true"
-                    android:text="@string/tb_tr_1_1" />
+                    android:text="@string/tb_tr_0_1" />
                 <EditText
                     android:id="@+id/product_name_ed"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:ems="10"
                     android:gravity="center_vertical" >
                     <requestFocus />
@@ -288,14 +289,14 @@
                 <TextView
                     android:id="@+id/tr2_1_1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:gravity="center_vertical"
                     android:text="@string/tb_tr_1_1" />
 
                 <EditText
                     android:id="@+id/tr2_1_2"
                     android:layout_width="@dimen/aa_add_table_ed"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:ems="10"
                     android:gravity="center_vertical"
                     android:inputType="numberDecimal" >
@@ -310,14 +311,14 @@
                 <TextView
                     android:id="@+id/tr2_1_3"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:gravity="center_vertical"
                     android:text="@string/tb_tr_1_3" />
 
                 <EditText
                     android:id="@+id/tr2_1_4"
                     android:layout_width="@dimen/aa_add_table_ed"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:ems="10"
                     android:gravity="center_vertical"
                     android:inputType="numberDecimal"/>
@@ -332,14 +333,14 @@
                 <TextView
                     android:id="@+id/tr2_2_1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:gravity="center_vertical"
                     android:text="@string/tb_tr_2_1" />
 
                 <EditText
                     android:id="@+id/tr2_2_2"
                     android:layout_width="@dimen/aa_add_table_ed"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:ems="10"
                     android:gravity="center_vertical"
                     android:inputType="numberDecimal" />
@@ -354,14 +355,14 @@
                 <TextView
                     android:id="@+id/tr2_3_1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:gravity="center_vertical"
                     android:text="@string/tb_tr_3_1" />
 
                 <EditText
                     android:id="@+id/tr2_3_2"
                     android:layout_width="@dimen/aa_add_table_ed"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:ems="10"
                     android:gravity="center_vertical"
                     android:inputType="numberDecimal" />
@@ -375,14 +376,14 @@
                 <TextView
                     android:id="@+id/tr2_3_3"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:gravity="center_vertical"
                     android:text="@string/tb_tr_3_3" />
 
                 <EditText
                     android:id="@+id/tr2_3_4"
                     android:layout_width="@dimen/aa_add_table_ed"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:ems="10"
                     android:gravity="center_vertical"
                     android:inputType="numberDecimal" />
@@ -397,14 +398,14 @@
                 <TextView
                     android:id="@+id/tr2_5_3"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:gravity="center_vertical"
                     android:text="@string/tb_tr_5_3" />
 
                 <EditText
                     android:id="@+id/tr2_5_4"
                     android:layout_width="@dimen/aa_add_table_ed"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:ems="10"
                     android:gravity="center_vertical"
                     android:inputType="numberDecimal" />
@@ -419,14 +420,14 @@
                 <TextView
                     android:id="@+id/tr2_4_1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:gravity="center_vertical"
                     android:text="@string/tb_tr_4_1" />
 
                 <TextView
                     android:id="@+id/tr2_4_2"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:gravity="center_vertical" />
             </TableRow>
 
@@ -439,14 +440,14 @@
                 <TextView
                     android:id="@+id/tr2_4_3"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:gravity="center_vertical"
                     android:text="@string/tb_tr_4_3" />
 
                 <TextView
                     android:id="@+id/tr2_4_4"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:gravity="center_vertical" />
             </TableRow>
 
@@ -459,14 +460,14 @@
                 <TextView
                     android:id="@+id/tr2_5_1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:gravity="center_vertical"
                     android:text="@string/tb_tr_5_1" />
 
                 <TextView
                     android:id="@+id/tr2_5_2"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:gravity="center_vertical" />
             </TableRow>
 
@@ -478,14 +479,14 @@
                 <TextView
                     android:id="@+id/tr2_2_3"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:gravity="center_vertical"
                     android:text="@string/tb_tr_2_3" />
 
                 <TextView
                     android:id="@+id/tr2_2_4"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:gravity="center_vertical" />
             </TableRow>
 
@@ -498,14 +499,14 @@
                 <TextView
                     android:id="@+id/tr2_6_1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:gravity="center_vertical"
                     android:text="@string/tb_tr_6_1" />
 
                 <TextView
                     android:id="@+id/tr2_6_2"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:gravity="center_vertical" />
             </TableRow>
 
