@@ -37,7 +37,7 @@ public class ProductListDetailPage extends Activity implements OnClickListener {
 
     private TextView mProduct_Name;
 
-    private TextView mShop_comPrice;
+    private TextView mCategory_tv;
 
     private TextView mMaFullPrice;
 
@@ -75,13 +75,15 @@ public class ProductListDetailPage extends Activity implements OnClickListener {
 
     private EditText mSalePriceOnAm_ED;
 
-    private TextView mBVtoDollar_ADD;
+    private String mBVtoDollar_ADD;
 
     private TextView mAmazonRefFee_ADD;
 
     private TextView mAmazonBasePrice_ADD;
 
     private TextView mAmazonPricewithBV_ADD;
+
+    private TextView mCategory;
 
     private TextView mProfit_ADD;
 
@@ -94,7 +96,6 @@ public class ProductListDetailPage extends Activity implements OnClickListener {
         mAddLayout = (TableLayout) findViewById(R.id.tl_prod_add);
         mSubmitBT = (Button) findViewById(R.id.submit);
         mSubmitBT.setOnClickListener(this);
-        mProduct_Name_ED = (EditText) findViewById(R.id.product_name_ed);
         mProduct_Name = (TextView) findViewById(R.id.product_name);
 
         if (TextUtils.equals(mPageType, AMAZON_PRODUCT_VIEW)) {
@@ -113,7 +114,7 @@ public class ProductListDetailPage extends Activity implements OnClickListener {
 
     private void setViewPage() {
         mProduct_Name = (TextView) findViewById(R.id.product_name);
-        mShop_comPrice = (TextView) findViewById(R.id.tr_1_2);
+        mCategory_tv = (TextView) findViewById(R.id.tr_1_2);
         mMaFullPrice = (TextView) findViewById(R.id.tr_1_4);
         mBVpoint = (TextView) findViewById(R.id.tr_2_2);
         mBVtoDollar = (TextView) findViewById(R.id.tr_2_4);
@@ -132,18 +133,18 @@ public class ProductListDetailPage extends Activity implements OnClickListener {
     }
 
     private void setAddPage() {
-        mShop_comPrice_ED = (EditText) findViewById(R.id.tr2_1_2);
-        mMaFullPrice_ED = (EditText) findViewById(R.id.tr2_1_4);
-        mBVpoint_ED = (EditText) findViewById(R.id.tr2_2_2);
-        mFbaPreFee_ED = (EditText) findViewById(R.id.tr2_3_2);
-        mFBAShipping_ED = (EditText) findViewById(R.id.tr2_3_4);
-        mSalePriceOnAm_ED = (EditText) findViewById(R.id.tr2_5_4);
+        mProduct_Name_ED = (EditText) findViewById(R.id.et_pro_name_2);
+        mMaFullPrice_ED = (EditText) findViewById(R.id.et_primer_cost_2);
+        mSalePriceOnAm_ED = (EditText) findViewById(R.id.et_amazon_price);
+        mFbaPreFee_ED = (EditText) findViewById(R.id.et_fba_fee);
+        mFBAShipping_ED = (EditText) findViewById(R.id.et_ship_center_fee);
+        mCategory = (EditText) findViewById(R.id.et_category);
+        mBVpoint_ED = (EditText) findViewById(R.id.et_bv);
 
-        mBVtoDollar_ADD = (TextView) findViewById(R.id.tr2_2_4);
-        mAmazonRefFee_ADD = (TextView) findViewById(R.id.tr2_4_2);
-        mAmazonBasePrice_ADD = (TextView) findViewById(R.id.tr2_4_4);
-        mAmazonPricewithBV_ADD = (TextView) findViewById(R.id.tr2_5_2);
-        mProfit_ADD = (TextView) findViewById(R.id.tr2_6_2);
+        mAmazonRefFee_ADD = (TextView) findViewById(R.id.tv_amazon_fee_2);
+        mAmazonPricewithBV_ADD = (TextView) findViewById(R.id.tv_lowest_amazon_price_ma_2);
+        mAmazonBasePrice_ADD = (TextView) findViewById(R.id.tv_lowest_amazon_price_2);
+        mProfit_ADD = (TextView) findViewById(R.id.tv_profit_2);
 
         mMaFullPrice_ED.addTextChangedListener(new TextWatcher() {
 
@@ -162,7 +163,7 @@ public class ProductListDetailPage extends Activity implements OnClickListener {
                         .toString()));
                 mAmazonPricewithBV_ADD.setText(AAUtils.calAmazonPricewithBV(mMaFullPrice_ED
                         .getText().toString(), mFBAShipping_ED.getText().toString(), mFbaPreFee_ED
-                        .getText().toString(), mBVtoDollar_ADD.getText().toString()));
+                        .getText().toString(), mBVtoDollar_ADD));
             }
         });
 
@@ -178,7 +179,7 @@ public class ProductListDetailPage extends Activity implements OnClickListener {
 
             @Override
             public void afterTextChanged(Editable s) {
-                mBVtoDollar_ADD.setText(AAUtils.calBVtoDollar(mBVpoint_ED.getText().toString()));
+                mBVtoDollar_ADD = (AAUtils.calBVtoDollar(mBVpoint_ED.getText().toString()));
             }
         });
 
@@ -199,7 +200,7 @@ public class ProductListDetailPage extends Activity implements OnClickListener {
                         .toString()));
                 mAmazonPricewithBV_ADD.setText(AAUtils.calAmazonPricewithBV(mMaFullPrice_ED
                         .getText().toString(), mFBAShipping_ED.getText().toString(), mFbaPreFee_ED
-                        .getText().toString(), mBVtoDollar_ADD.getText().toString()));
+                        .getText().toString(), mBVtoDollar_ADD));
             }
         });
 
@@ -220,7 +221,7 @@ public class ProductListDetailPage extends Activity implements OnClickListener {
                         .toString()));
                 mAmazonPricewithBV_ADD.setText(AAUtils.calAmazonPricewithBV(mMaFullPrice_ED
                         .getText().toString(), mFBAShipping_ED.getText().toString(), mFbaPreFee_ED
-                        .getText().toString(), mBVtoDollar_ADD.getText().toString()));
+                        .getText().toString(), mBVtoDollar_ADD));
             }
         });
 
@@ -268,14 +269,14 @@ public class ProductListDetailPage extends Activity implements OnClickListener {
         product.setAmazonPricewithBV(mAmazonPricewithBV_ADD.getText().toString());
         product.setAmazonRefFee(mAmazonRefFee_ADD.getText().toString());
         product.setBVpoint(mBVpoint_ED.getText().toString());
-        product.setBVtoDollar(mBVtoDollar_ADD.getText().toString());
+        product.setBVtoDollar(mBVtoDollar_ADD);
         product.setFbaPreFee(mFbaPreFee_ED.getText().toString());
         product.setFBAShipping(mFBAShipping_ED.getText().toString());
         product.setMaFullPrice(mMaFullPrice_ED.getText().toString());
         product.setProductName(mProduct_Name_ED.getText().toString());
         product.setProfit(mProfit_ADD.getText().toString());
         product.setSalePriceOnAm(mSalePriceOnAm_ED.getText().toString());
-        product.setCategory(mShop_comPrice_ED.getText().toString());
+        product.setCategory(mCategory.getText().toString());
         if(isIdNeed) {
             product.setID(ID);
         }
@@ -316,7 +317,7 @@ public class ProductListDetailPage extends Activity implements OnClickListener {
             if (product != null) {
                 if (TextUtils.equals(mPageType, AMAZON_PRODUCT_VIEW)) {
                     mProduct_Name.setText(product.getProductName());
-                    mShop_comPrice.setText(product.getCategory());
+                    mCategory.setText(product.getCategory());
                     mMaFullPrice.setText(product.getMaFullPrice());
                     mBVpoint.setText(product.getBVpoint());
                     mBVtoDollar.setText(product.getBVtoDollar());
@@ -330,14 +331,14 @@ public class ProductListDetailPage extends Activity implements OnClickListener {
                 }
                 if (TextUtils.equals(mPageType, AMAZON_PRODUCT_EDIT)) {
                     mProduct_Name_ED.setText(product.getProductName());
-                    mShop_comPrice_ED.setText(product.getCategory());
+                    mCategory.setText(product.getCategory());
                     mMaFullPrice_ED.setText(product.getMaFullPrice());
                     mBVpoint_ED.setText(product.getBVpoint());
                     mFbaPreFee_ED.setText(product.getFbaPreFee());
                     mFBAShipping_ED.setText(product.getFBAShipping());
                     mSalePriceOnAm_ED.setText(product.getSalePriceOnAm());
 
-                    mBVtoDollar_ADD.setText(product.getBVtoDollar());
+                    mBVtoDollar_ADD = product.getBVtoDollar();
                     mAmazonRefFee_ADD.setText(product.getAmazonRefFee());
                     mAmazonBasePrice_ADD.setText(product.getAmazonPricewithBV());
                     mAmazonPricewithBV_ADD.setText(product.getAmazonPricewithBV());
