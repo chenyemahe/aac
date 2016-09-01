@@ -7,6 +7,6 @@
     <dimen name="table_padding">4dp</dimen>
     <dimen name="list_margin">5dp</dimen>
     <dimen name="aa_add_table_ed">150dp</dimen>
-    <dimen name="tb_row_hight">55dp</dimen>
+    <dimen name="tb_row_hight">70dp</dimen>
 
 </resources>

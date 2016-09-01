@@ -148,7 +148,7 @@ public class AAProvider extends ContentProvider {
 
         String PRODUCT_AMAZON_SALE_PRICE = "product_amazon_sale_price";
 
-        String PRODUCT_SHOP_COM_Price = "product_shop_com_price";
+        String PRODUCT_CATEGORY = "product_shop_com_price";
     }
 
     /*
@@ -401,7 +401,7 @@ public class AAProvider extends ContentProvider {
                     + ProductColumns.PRODUCT_FBA_SHIPPING_FEE + " VARCHAR, "
                     + ProductColumns.PRODUCT_AMAZON_REF_FEE + " VARCHAR, "
                     + ProductColumns.PRODUCT_AMAZON_SALE_PRICE + " VARCHAR, "
-                    + ProductColumns.PRODUCT_SHOP_COM_Price + " VARCHAR);");
+                    + ProductColumns.PRODUCT_CATEGORY + " VARCHAR);");
 
             /*
              * db.execSQL("CREATE TABLE " + FbaShipColumns.TBL_FBA_SHIP + " (" +

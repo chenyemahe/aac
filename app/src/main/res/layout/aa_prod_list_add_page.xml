@@ -36,16 +36,16 @@
                 android:padding="@dimen/table_padding" >
 
                 <TextView
-                    android:id="@+id/tr_1_1"
+                    android:id="@+id/tv_view_primer_cost"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:gravity="center_vertical"
                     android:text="@string/tb_tr_1_1" />
 
                 <TextView
-                    android:id="@+id/tr_1_2"
+                    android:id="@+id/tv_view_primer_cost_2"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:gravity="center_vertical" />
 
             </TableRow>
@@ -56,16 +56,16 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/table_padding" >
                 <TextView
-                    android:id="@+id/tr_1_3"
+                    android:id="@+id/tv_view_amazon_price"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:gravity="center_vertical"
                     android:text="@string/tb_tr_1_3" />
 
                 <TextView
-                    android:id="@+id/tr_1_4"
+                    android:id="@+id/tv_view_amazon_price_2"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:gravity="center_vertical" />
             </TableRow>
 
@@ -76,36 +76,16 @@
                 android:padding="@dimen/table_padding" >
 
                 <TextView
-                    android:id="@+id/tr_2_1"
+                    android:id="@+id/tv_view_fba_fee"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:gravity="center_vertical"
                     android:text="@string/tb_tr_2_1" />
 
                 <TextView
-                    android:id="@+id/tr_2_2"
+                    android:id="@+id/tv_view_fba_fee_2"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical" />
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/tableRow4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/table_padding" >
-
-                <TextView
-                    android:id="@+id/tr_2_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:text="@string/tb_tr_2_3" />
-
-                <TextView
-                    android:id="@+id/tr_2_4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:gravity="center_vertical" />
             </TableRow>
 
@@ -116,56 +96,36 @@
                 android:padding="@dimen/table_padding" >
 
                 <TextView
-                    android:id="@+id/tr_3_1"
+                    android:id="@+id/tv_view_ship_center_fee"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:gravity="center_vertical"
                     android:text="@string/tb_tr_3_1" />
 
                 <TextView
-                    android:id="@+id/tr_3_2"
+                    android:id="@+id/tv_view_ship_center_fee_2"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:gravity="center_vertical" />
             </TableRow>
 
             <TableRow
-                android:id="@+id/tableRow6"
+                android:id="@+id/tableRow4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/table_padding" >
 
                 <TextView
-                    android:id="@+id/tr_3_3"
+                    android:id="@+id/tv_view_category"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:gravity="center_vertical"
-                    android:text="@string/tb_tr_3_3" />
+                    android:text="@string/tb_tr_2_3" />
 
                 <TextView
-                    android:id="@+id/tr_3_4"
+                    android:id="@+id/tv_view_category_2"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical" />
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/tableRow7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/table_padding" >
-
-                <TextView
-                    android:id="@+id/tr_4_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:text="@string/tb_tr_4_1" />
-
-                <TextView
-                    android:id="@+id/tr_4_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:gravity="center_vertical" />
             </TableRow>
 
@@ -176,36 +136,36 @@
                 android:padding="@dimen/table_padding" >
 
                 <TextView
-                    android:id="@+id/tr_4_3"
+                    android:id="@+id/tv_view_bv"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:gravity="center_vertical"
                     android:text="@string/tb_tr_4_3" />
 
                 <TextView
-                    android:id="@+id/tr_4_4"
+                    android:id="@+id/tv_view_bv_2"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:gravity="center_vertical" />
             </TableRow>
 
             <TableRow
-                android:id="@+id/tableRow9"
+                android:id="@+id/tableRow6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/table_padding" >
 
                 <TextView
-                    android:id="@+id/tr_5_1"
+                    android:id="@+id/tv_view_amazon_fee"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:gravity="center_vertical"
-                    android:text="@string/tb_tr_5_1" />
+                    android:text="@string/tb_tr_3_3" />
 
                 <TextView
-                    android:id="@+id/tr_5_2"
+                    android:id="@+id/tv_view_amazon_fee_2"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:gravity="center_vertical" />
             </TableRow>
 
@@ -216,16 +176,36 @@
                 android:padding="@dimen/table_padding" >
 
                 <TextView
-                    android:id="@+id/tr_5_3"
+                    android:id="@+id/tv_view_lowest_price_ma"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:gravity="center_vertical"
                     android:text="@string/tb_tr_5_3" />
 
                 <TextView
-                    android:id="@+id/tr_5_4"
+                    android:id="@+id/tv_view_lowest_price_ma_2"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
+                    android:gravity="center_vertical" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/table_padding" >
+
+                <TextView
+                    android:id="@+id/tv_view_lowest_price"
+                    android:layout_width="wrap_content"
+                    style="@style/add_order_text_style"
+                    android:gravity="center_vertical"
+                    android:text="@string/tb_tr_4_1" />
+
+                <TextView
+                    android:id="@+id/tv_view_lowest_price_2"
+                    android:layout_width="wrap_content"
+                    style="@style/add_order_text_style"
                     android:gravity="center_vertical" />
             </TableRow>
 
@@ -236,16 +216,16 @@
                 android:padding="@dimen/table_padding" >
 
                 <TextView
-                    android:id="@+id/tr_6_1"
+                    android:id="@+id/tv_view_profit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:gravity="center_vertical"
                     android:text="@string/tb_tr_6_1" />
 
                 <TextView
-                    android:id="@+id/tr_6_2"
+                    android:id="@+id/tv_view_profit_2"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/add_order_text_style"
                     android:gravity="center_vertical" />
             </TableRow>
         </TableLayout>

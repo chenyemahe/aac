@@ -37,13 +37,13 @@ public class ProductListDetailPage extends Activity implements OnClickListener {
 
     private TextView mProduct_Name;
 
-    private TextView mCategory_tv;
+    private TextView mCategory;
 
     private TextView mMaFullPrice;
 
     private TextView mBVpoint;
 
-    private TextView mBVtoDollar;
+    private String mBVtoDollar;
 
     private TextView mFbaPreFee;
 
@@ -63,8 +63,6 @@ public class ProductListDetailPage extends Activity implements OnClickListener {
 
     private EditText mProduct_Name_ED;
 
-    private EditText mShop_comPrice_ED;
-
     private EditText mMaFullPrice_ED;
 
     private EditText mBVpoint_ED;
@@ -83,14 +81,14 @@ public class ProductListDetailPage extends Activity implements OnClickListener {
 
     private TextView mAmazonPricewithBV_ADD;
 
-    private TextView mCategory;
+    private TextView mCategory_ED;
 
     private TextView mProfit_ADD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.aa_prod_list_detal_page);
+        setContentView(R.layout.aa_prod_list_add_page);
         mPageType = getIntent().getStringExtra(INTENT_EXTRA_DETAIL_PAGE);
         mViewLayout = (TableLayout) findViewById(R.id.tl_prod_view);
         mAddLayout = (TableLayout) findViewById(R.id.tl_prod_add);
@@ -114,17 +112,16 @@ public class ProductListDetailPage extends Activity implements OnClickListener {
 
     private void setViewPage() {
         mProduct_Name = (TextView) findViewById(R.id.product_name);
-        mCategory_tv = (TextView) findViewById(R.id.tr_1_2);
-        mMaFullPrice = (TextView) findViewById(R.id.tr_1_4);
-        mBVpoint = (TextView) findViewById(R.id.tr_2_2);
-        mBVtoDollar = (TextView) findViewById(R.id.tr_2_4);
-        mFbaPreFee = (TextView) findViewById(R.id.tr_3_2);
-        mFBAShipping = (TextView) findViewById(R.id.tr_3_4);
-        mAmazonRefFee = (TextView) findViewById(R.id.tr_4_2);
-        mAmazonBasePrice = (TextView) findViewById(R.id.tr_4_4);
-        mAmazonPricewithBV = (TextView) findViewById(R.id.tr_5_2);
-        mSalePriceOnAm = (TextView) findViewById(R.id.tr_5_4);
-        mProfit = (TextView) findViewById(R.id.tr_6_2);
+        mMaFullPrice = (TextView) findViewById(R.id.tv_view_primer_cost_2);
+        mSalePriceOnAm = (TextView) findViewById(R.id.tv_view_amazon_price_2);
+        mFbaPreFee = (TextView) findViewById(R.id.tv_view_fba_fee_2);
+        mFBAShipping = (TextView) findViewById(R.id.tv_view_ship_center_fee_2);
+        mCategory = (TextView) findViewById(R.id.tv_view_category_2);
+        mBVpoint = (TextView) findViewById(R.id.tv_view_bv_2);
+        mAmazonRefFee = (TextView) findViewById(R.id.tv_view_amazon_fee_2);
+        mAmazonPricewithBV = (TextView) findViewById(R.id.tv_view_lowest_price_ma_2);
+        mAmazonBasePrice = (TextView) findViewById(R.id.tv_view_lowest_price_2);
+        mProfit = (TextView) findViewById(R.id.tv_view_profit_2);
 
         setViewText();
 
@@ -138,7 +135,7 @@ public class ProductListDetailPage extends Activity implements OnClickListener {
         mSalePriceOnAm_ED = (EditText) findViewById(R.id.et_amazon_price);
         mFbaPreFee_ED = (EditText) findViewById(R.id.et_fba_fee);
         mFBAShipping_ED = (EditText) findViewById(R.id.et_ship_center_fee);
-        mCategory = (EditText) findViewById(R.id.et_category);
+        mCategory_ED = (EditText) findViewById(R.id.et_category);
         mBVpoint_ED = (EditText) findViewById(R.id.et_bv);
 
         mAmazonRefFee_ADD = (TextView) findViewById(R.id.tv_amazon_fee_2);
@@ -255,7 +252,6 @@ public class ProductListDetailPage extends Activity implements OnClickListener {
     private void statusChangeAddView(int status) {
         mAddLayout.setVisibility(status);
         mSubmitBT.setVisibility(status);
-        mProduct_Name_ED.setVisibility(status);
     }
 
     private void statusChangeView(int status) {
@@ -276,7 +272,7 @@ public class ProductListDetailPage extends Activity implements OnClickListener {
         product.setProductName(mProduct_Name_ED.getText().toString());
         product.setProfit(mProfit_ADD.getText().toString());
         product.setSalePriceOnAm(mSalePriceOnAm_ED.getText().toString());
-        product.setCategory(mCategory.getText().toString());
+        product.setCategory(mCategory_ED.getText().toString());
         if(isIdNeed) {
             product.setID(ID);
         }
@@ -320,7 +316,7 @@ public class ProductListDetailPage extends Activity implements OnClickListener {
                     mCategory.setText(product.getCategory());
                     mMaFullPrice.setText(product.getMaFullPrice());
                     mBVpoint.setText(product.getBVpoint());
-                    mBVtoDollar.setText(product.getBVtoDollar());
+                    mBVtoDollar = product.getBVtoDollar();
                     mFbaPreFee.setText(product.getFbaPreFee());
                     mFBAShipping.setText(product.getFBAShipping());
                     mAmazonRefFee.setText(product.getAmazonRefFee());
@@ -331,7 +327,7 @@ public class ProductListDetailPage extends Activity implements OnClickListener {
                 }
                 if (TextUtils.equals(mPageType, AMAZON_PRODUCT_EDIT)) {
                     mProduct_Name_ED.setText(product.getProductName());
-                    mCategory.setText(product.getCategory());
+                    mCategory_ED.setText(product.getCategory());
                     mMaFullPrice_ED.setText(product.getMaFullPrice());
                     mBVpoint_ED.setText(product.getBVpoint());
                     mFbaPreFee_ED.setText(product.getFbaPreFee());

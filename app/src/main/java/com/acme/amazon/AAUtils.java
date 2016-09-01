@@ -76,7 +76,7 @@ public class AAUtils {
         values.put(ProductColumns.PRODUCT_FBA_SHIPPING_FEE, product.getFBAShipping());
         values.put(ProductColumns.PRODUCT_AMAZON_REF_FEE, product.getAmazonRefFee());
         values.put(ProductColumns.PRODUCT_AMAZON_SALE_PRICE, product.getSalePriceOnAm());
-        values.put(ProductColumns.PRODUCT_SHOP_COM_Price, product.getCategory());
+        values.put(ProductColumns.PRODUCT_CATEGORY, product.getCategory());
     }
 
     public static void toContentValues(AAFbaProfile profile, ContentValues values) {
@@ -137,7 +137,7 @@ public class AAUtils {
         int idxAmazonRef = cursor.getColumnIndexOrThrow(ProductColumns.PRODUCT_AMAZON_REF_FEE);
         int idxAmazonSalePrice = cursor
                 .getColumnIndexOrThrow(ProductColumns.PRODUCT_AMAZON_SALE_PRICE);
-        int idxShopComPrice = cursor.getColumnIndexOrThrow(ProductColumns.PRODUCT_SHOP_COM_Price);
+        int idxShopComPrice = cursor.getColumnIndexOrThrow(ProductColumns.PRODUCT_CATEGORY);
 
         product.setID(cursor.getString(idxId));
         product.setProductName(cursor.getString(idxName));

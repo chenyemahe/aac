@@ -60,17 +60,16 @@
     <string name="bt_add_prodcut">Add New Product</string>
     <string name="tv_prod_title">Name</string>
     <string name="tb_tr_0_1">Product Name</string>
-    <string name="tb_tr_1_1">Prime Cost</string>
-    <string name="tb_tr_1_3">Amazon Sale Price</string>
-    <string name="tb_tr_2_1">FBA Handle Fee</string>
+    <string name="tb_tr_1_1">Prime Cost ($)</string>
+    <string name="tb_tr_1_3">Sale Price ($)</string>
+    <string name="tb_tr_2_1">FBA handle\nFee ($)</string>
     <string name="tb_tr_2_3">Category</string>
-    <string name="tb_tr_3_1">Ship to Center Fee</string>
-    <string name="tb_tr_3_3">Referral Fee</string>
-    <string name="tb_tr_4_1">Lowest Sale Price</string>
+    <string name="tb_tr_3_1">Ship to\nCenter Fee ($)</string>
+    <string name="tb_tr_3_3">Amazon Referral\nFee ($)</string>
+    <string name="tb_tr_4_1">Lowest Sale\nPrice ($)</string>
     <string name="tb_tr_4_3">BV Point</string>
-    <string name="tb_tr_5_1">Convert BV</string>
-    <string name="tb_tr_5_3">Sale Price(MA)</string>
-    <string name="tb_tr_6_1">Profit</string>
+    <string name="tb_tr_5_3">Lowest Sale\nPrice(MA) ($)</string>
+    <string name="tb_tr_6_1">Profit ($)</string>
     <string name="no_product_name">Please Enter the products name!</string>
     
     <!-- Product inventor -->
