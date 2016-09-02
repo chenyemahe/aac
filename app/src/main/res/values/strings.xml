@@ -78,4 +78,8 @@
     
     <!-- FBA Strings -->
     <string name="add_fba_shipment">Add FBA Shipping</string>
+
+    <!-- Aa trans update -->
+    <string name="pick_file">Pick Amazon Transaction CSV File</string>
+    <string name="pick_file_title">Amazon Transaction Update</string>
 </resources>

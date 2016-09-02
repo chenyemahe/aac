@@ -20,8 +20,8 @@ import android.widget.ExpandableListView;
 import com.acme.amazon.AAManager;
 import com.acme.amazon.AAProfile;
 import com.acme.amazon.AAUtils;
-import com.acme.amazon.amazonpage.productlist.ProductInventory;
-import com.acme.amazon.amazonpage.productlist.ProductListPage;
+import com.acme.amazon.amazonpage.ProductInventory;
+import com.acme.amazon.amazonpage.productlist.AaProdPriceInfoListPage;
 import com.acme.amazon.listsupport.AAExpandableListAdapter;
 import com.acme.amazon.listsupport.AAListDataHolder;
 import com.acme.amazon.listsupport.AAListViewHodler;
@@ -79,7 +79,7 @@ public class AAMainOrderListPage extends Activity implements OnClickListener, On
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.edit_product_list) {
-            startActivity(new Intent(this, ProductListPage.class));
+            startActivity(new Intent(this, AaProdPriceInfoListPage.class));
             return true;
         }
         return super.onOptionsItemSelected(item);

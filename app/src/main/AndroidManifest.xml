@@ -37,19 +37,21 @@
             android:name=".AASummaryPage"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.acme.amazon.amazonpage.productlist.ProductListPage"
+            android:name="com.acme.amazon.amazonpage.productlist.AaProdPriceInfoListPage"
             android:screenOrientation="portrait"/>
         <activity
             android:name="com.acme.amazon.amazonpage.productlist.ProductListDetailPage"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.acme.amazon.amazonpage.productlist.ProductInventory"
+            android:name="com.acme.amazon.amazonpage.ProductInventory"
             android:screenOrientation="portrait"/>
         <activity
             android:name="com.acme.amazon.amazonpage.fba.FbaShippingReportPage"
             android:screenOrientation="portrait"/>
         <activity
             android:name="com.acme.amazon.amazonpage.fba.FbaShippingAddPage"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.acme.amazon.amazonpage.order.AaTransUpdatePage"
             android:screenOrientation="portrait"/>
 
         <provider

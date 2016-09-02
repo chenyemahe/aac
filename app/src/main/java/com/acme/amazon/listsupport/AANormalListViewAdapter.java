@@ -5,7 +5,7 @@ import com.acem.amazon.logging.Logging;
 import com.acme.amazon.AAProduct;
 import com.acme.amazon.AAUtils;
 import com.acme.amazon.amazonpage.productlist.ProductListHodler;
-import com.acme.amazon.amazonpage.productlist.ProductListPage;
+import com.acme.amazon.amazonpage.productlist.AaProdPriceInfoListPage;
 import com.acme.amazon.orderrecord.AASummaryPage;
 
 import android.content.Context;
@@ -72,7 +72,7 @@ public class AANormalListViewAdapter extends BaseAdapter {
             holder.setData(index);
             contentView.setTag(holder);
         }
-        if (TextUtils.equals(mAdapterStyle, ProductListPage.PRODUCT_LIST_PAGE)) {
+        if (TextUtils.equals(mAdapterStyle, AaProdPriceInfoListPage.PRODUCT_LIST_PAGE)) {
             ProductListHodler holder = new ProductListHodler();
             holder.setUpView(contentView);
             holder.setData(productMapData.get(keyWordList[index]));
@@ -101,7 +101,7 @@ public class AANormalListViewAdapter extends BaseAdapter {
                 summaryMapData = new HashMap<String, String>();
             }
         }
-        if (TextUtils.equals(mAdapterStyle, ProductListPage.PRODUCT_LIST_PAGE)) {
+        if (TextUtils.equals(mAdapterStyle, AaProdPriceInfoListPage.PRODUCT_LIST_PAGE)) {
             try {
                 productMapData = (Map<String, AAProduct>) m;
                 if (!productMapData.isEmpty()) {
