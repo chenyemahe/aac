@@ -125,9 +125,9 @@ public final class Logging {
             t = null;
 
             // By default, isLoggable() fails on VERBOSE and DEBUG levels
-            if (!Log.isLoggable(TAG, level)) {
+            /*if (!Log.isLoggable(TAG, level)) {
                 return;
-            }
+            }*/
         }
 
         if (!TextUtils.isEmpty(module)) {

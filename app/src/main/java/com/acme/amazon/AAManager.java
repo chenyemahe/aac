@@ -1,6 +1,6 @@
 package com.acme.amazon;
 
-import com.acme.amazon.orderrecord.databaseHelper.AADba;
+import com.acme.amazon.databaseHelper.AADba;
 
 public class AAManager {
 

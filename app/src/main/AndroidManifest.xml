@@ -55,7 +55,7 @@
             android:screenOrientation="portrait"/>
 
         <provider
-            android:name=".databaseHelper.AAProvider"
+            android:name="com.acme.amazon.databaseHelper.AAProvider"
             android:authorities="com.acme.amazon.orderrecord.provider"
             android:label="@string/provider_label"
             android:multiprocess="false"/>

@@ -82,4 +82,5 @@
     <!-- Aa trans update -->
     <string name="pick_file">Pick Amazon Transaction CSV File</string>
     <string name="pick_file_title">Amazon Transaction Update</string>
+    <string name="toast_csv_file_only">The input file do not supported. Please input CSV file.</string>
 </resources>

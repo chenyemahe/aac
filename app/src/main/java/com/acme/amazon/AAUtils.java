@@ -12,12 +12,12 @@ import java.util.Set;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import com.acme.amazon.orderrecord.databaseHelper.AAProvider.FbaShipReportColumns;
-import com.acme.amazon.orderrecord.databaseHelper.AAProvider.FbaShipReportItemColumns;
-import com.acme.amazon.orderrecord.databaseHelper.AAProvider.ItemColumns;
-import com.acme.amazon.orderrecord.databaseHelper.AAProvider.MatchColumns;
-import com.acme.amazon.orderrecord.databaseHelper.AAProvider.ProductColumns;
-import com.acme.amazon.orderrecord.databaseHelper.AAProvider.ProfileColumns;
+import com.acme.amazon.databaseHelper.AAProvider.FbaShipReportColumns;
+import com.acme.amazon.databaseHelper.AAProvider.FbaShipReportItemColumns;
+import com.acme.amazon.databaseHelper.AAProvider.ItemColumns;
+import com.acme.amazon.databaseHelper.AAProvider.MatchColumns;
+import com.acme.amazon.databaseHelper.AAProvider.ProductColumns;
+import com.acme.amazon.databaseHelper.AAProvider.ProfileColumns;
 
 public class AAUtils {
 
