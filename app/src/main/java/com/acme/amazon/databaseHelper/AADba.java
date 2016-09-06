@@ -19,6 +19,7 @@ import com.acme.amazon.AAItem;
 import com.acme.amazon.AAProduct;
 import com.acme.amazon.AAProfile;
 import com.acme.amazon.AAUtils;
+import com.acme.amazon.amazonpage.order.TransactionNode;
 import com.acme.amazon.databaseHelper.AAProvider.FbaShipReportColumns;
 import com.acme.amazon.databaseHelper.AAProvider.FbaShipReportItemColumns;
 import com.acme.amazon.databaseHelper.AAProvider.ItemColumns;
@@ -582,5 +583,35 @@ public class AADba {
         cr.delete(FbaShipReportItemColumns.CONTENT_URI, ID_SELECTION, new String[] {
             id
         });
+    }
+
+
+    public List<TransactionNode> getAllTransOrder(ContentResolver cr) {
+        List<TransactionNode> profileList = new ArrayList<>();
+
+        TransactionNode profile = null;
+        Cursor cursor = null;
+
+        try {
+            cursor = cr.query(FbaShipReportColumns.CONTENT_URI, null, null, null, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    profile = new TransactionNode();
+                    AAUtils.fromCursor(cursor, profile);
+                    profile.setFbaItemList((ArrayList<AAFbaItem>) getAAFbaItem(cr, profile.getDate(),
+                            profile.getID()));
+                    profileList.add(profile);
+                } while (cursor.moveToNext());
+
+            }
+        } catch (SQLException e) {
+            Logging.logE(TAG, e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+
+        return profileList;
     }
 }

@@ -63,6 +63,10 @@ public class AAProvider extends ContentProvider {
 
     private static final int FBA_SHIP_REPORT_ITEM_ID = 16;
 
+    private static final int AA_TRANS_ORDER = 17;
+
+    private static final int AA_TRANS_ORDER_ID = 18;
+
     private AADatabaseHelper mHelper;
 
     // Amazon Order profile
@@ -340,6 +344,13 @@ public class AAProvider extends ContentProvider {
             case FBA_SHIP_REPORT_ITEM_ID:
                 qb.setTables(FbaShipReportItemColumns.TBL_AA_REPORT_ITEM);
                 qb.appendWhere("_id=" + uri.getPathSegments().get(1));
+            case AA_TRANS_ORDER:
+                qb.setTables(TransColumns.TBL_TRANS_PROFILES);
+                sortOrder = (sort != null ? sort : TransColumns._ID);
+                break;
+            case AA_TRANS_ORDER_ID:
+                qb.setTables(TransColumns.TBL_TRANS_PROFILES);
+                qb.appendWhere("_id=" + uri.getPathSegments().get(1));
                 break;
             default:
                 throw new IllegalArgumentException("Unknown URL " + uri);
@@ -369,6 +380,7 @@ public class AAProvider extends ContentProvider {
             case FBA_SHIP_ITEM:
             case FBA_SHIP_REPORT:
             case FBA_SHIP_REPORT_ITEM:
+            case AA_TRANS_ORDER:
                 count = db.update(whichTable, values, selection, selectionArgs);
                 break;
             case AA_PROFILE_ID:
@@ -378,6 +390,7 @@ public class AAProvider extends ContentProvider {
             case FBA_SHIP_ITEM_ID:
             case FBA_SHIP_REPORT_ID:
             case FBA_SHIP_REPORT_ITEM_ID:
+            case AA_TRANS_ORDER_ID:
                 String segment = uri.getPathSegments().get(1);
                 count = db
                         .update(whichTable, values,
@@ -528,6 +541,11 @@ public class AAProvider extends ContentProvider {
                 FBA_SHIP_REPORT_ITEM);
         urlMatcher.addURI(AUTHORITY, FbaShipReportItemColumns.TBL_AA_REPORT_ITEM + "/#",
                 FBA_SHIP_REPORT_ITEM_ID);
+
+        urlMatcher.addURI(AUTHORITY, TransColumns.TBL_TRANS_PROFILES,
+                AA_TRANS_ORDER);
+        urlMatcher.addURI(AUTHORITY, TransColumns.TBL_TRANS_PROFILES + "/#",
+                AA_TRANS_ORDER_ID);
     }
 
     /**
@@ -564,6 +582,9 @@ public class AAProvider extends ContentProvider {
             case FBA_SHIP_REPORT_ITEM_ID:
                 whichTable = FbaShipReportItemColumns.TBL_AA_REPORT_ITEM;
                 break;
+            case AA_TRANS_ORDER:
+            case AA_TRANS_ORDER_ID:
+                whichTable = TransColumns.TBL_TRANS_PROFILES;
             default:
                 throw new IllegalArgumentException("Unknown URL: " + uri);
         }

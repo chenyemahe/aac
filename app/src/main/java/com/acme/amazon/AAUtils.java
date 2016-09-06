@@ -12,12 +12,15 @@ import java.util.Set;
 import android.content.ContentValues;
 import android.database.Cursor;
 
+import com.acme.amazon.amazonpage.order.TransactionNode;
+import com.acme.amazon.databaseHelper.AAProvider;
 import com.acme.amazon.databaseHelper.AAProvider.FbaShipReportColumns;
 import com.acme.amazon.databaseHelper.AAProvider.FbaShipReportItemColumns;
 import com.acme.amazon.databaseHelper.AAProvider.ItemColumns;
 import com.acme.amazon.databaseHelper.AAProvider.MatchColumns;
 import com.acme.amazon.databaseHelper.AAProvider.ProductColumns;
 import com.acme.amazon.databaseHelper.AAProvider.ProfileColumns;
+import com.acme.amazon.databaseHelper.AAProvider.TransColumns;
 
 public class AAUtils {
 
@@ -182,6 +185,20 @@ public class AAUtils {
         item.setDate(cursor.getString(idxDate));
         item.setName(cursor.getString(idxTitle));
         item.setQuality(Integer.parseInt(cursor.getString(idxQuality)));
+    }
+
+    public static void fromCursor(Cursor cursor, TransactionNode note) {
+        int idxId = cursor.getColumnIndexOrThrow(TransColumns._ID);
+        int idxDate = cursor.getColumnIndexOrThrow(TransColumns.aa_tran_date);
+        int idxSettlement_id = cursor.getColumnIndexOrThrow(TransColumns.settlement_id);
+        int idxType = cursor.getColumnIndexOrThrow(TransColumns.aa_type);
+        int idxOrderId = cursor.getColumnIndexOrThrow(TransColumns.order_id);
+
+        note.setId(cursor.getString(idxId));
+        note.setAa_tran_date(cursor.getString(idxDate));
+        note.setSettlement_id(cursor.getString(idxSettlement_id));
+        note.ty(cursor.getString(idxTitle));
+        note.setCost(cursor.getString(idxCost));
     }
 
     /**
@@ -467,5 +484,19 @@ public class AAUtils {
         } catch (Exception e) {
             return 0;
         }
+    }
+
+    public static String stripLeadingAndTrailingQuotes(String str) {
+        if (str == null) {
+            return null;
+        }
+
+        if (str.startsWith("\"")) {
+            str = str.substring(1, str.length());
+        }
+        if (str.endsWith("\"")) {
+            str = str.substring(0, str.length() - 1);
+        }
+        return str;
     }
 }

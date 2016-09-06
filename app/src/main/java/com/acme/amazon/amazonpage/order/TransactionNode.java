@@ -3,8 +3,9 @@ package com.acme.amazon.amazonpage.order;
 /**
  * Created by zhengmeiling on 9/5/16.
  */
-public class TransactionNotde {
+public class TransactionNode {
 
+    private String id;
     private String aa_tran_date = "date/time";
     private String settlement_id = "settlement id";
     private String type = "type";
@@ -27,131 +28,137 @@ public class TransactionNotde {
     private String other = "other";
     private String total = "total";
 
+    public void setId(String s) {
+        id = s;
+    }
     public void setAa_tran_date(String s) {
         aa_tran_date = s;
     }
-    public void settlement_id(String s) {
+    public void setSettlement_id(String s) {
         settlement_id = s;
     }
-    public void type(String s) {
+    public void setType(String s) {
         type = s;
     }
-    public void order_id(String s) {
+    public void setOrder_id(String s) {
         order_id = s;
     }
-    public void sku(String s) {
+    public void setSku(String s) {
         sku = s;
     }
-    public void description(String s) {
+    public void setDescription(String s) {
         description = s;
     }
-    public void quantiy(String s) {
+    public void setQuantiy(String s) {
         quantiy = s;
     }
-    public void fulfillment(String s) {
+    public void setFulfillment(String s) {
         fulfillment = s;
     }
-    public void order_city(String s) {
+    public void setOrder_city(String s) {
         order_city = s;
     }
-    public void order_state(String s) {
+    public void setOrder_state(String s) {
         order_state = s;
     }
-    public void order_postal(String s) {
+    public void setOrder_postal(String s) {
         order_postal = s;
     }
-    public void product_sales(String s) {
+    public void setProduct_sales(String s) {
         product_sales = s;
     }
-    public void shipping_credits(String s) {
+    public void setShipping_credits(String s) {
         shipping_credits = s;
     }
-    public void gift_wrap_credits(String s) {
+    public void setGift_wrap_credits(String s) {
         gift_wrap_credits = s;
     }
-    public void promotional_rebates(String s) {
+    public void setPromotional_rebates(String s) {
         promotional_rebates = s;
     }
-    public void sales_tax_collected(String s) {
+    public void setSales_tax_collected(String s) {
         sales_tax_collected = s;
     }
-    public void selling_fees(String s) {
+    public void setSelling_fees(String s) {
         selling_fees = s;
     }
-    public void fba_fees(String s) {
+    public void setFba_fees(String s) {
         fba_fees = s;
     }
-    public void other_transaction_fees(String s) {
+    public void setOther_transaction_fees(String s) {
         other_transaction_fees = s;
     }
-    public void other(String s) {
+    public void setOther(String s) {
         other = s;
     }
-    public void total(String s) {
+    public void setTotal(String s) {
         total = s;
     }
 
+    public String getId() {
+        return id;
+    }
     public String getAa_tran_date() {
         return aa_tran_date;
     }
-    public String settlement_id() {
+    public String getSettlement_id() {
         return settlement_id;
     }
-    public String type() {
+    public String getType() {
         return type;
     }
-    public String order_id() {
+    public String getOrder_id() {
         return order_id;
     }
-    public String sku() {
+    public String getSku() {
         return sku;
     }
-    public String description() {
+    public String getDescription() {
         return description;
     }
-    public String quantiy() {
+    public String getQuantiy() {
         return quantiy;
     }
-    public String fulfillment() {
+    public String getFulfillment() {
         return fulfillment;
     }
-    public String order_city() {
+    public String getOrder_city() {
         return order_city;
     }
-    public String order_state() {
+    public String getOrder_state() {
         return order_state;
     }
-    public String order_postal() {
+    public String getOrder_postal() {
         return order_postal;
     }
-    public String product_sales() {
+    public String getProduct_sales() {
         return product_sales;
     }
-    public String shipping_credits() {
+    public String getShipping_credits() {
         return shipping_credits;
     }
-    public String gift_wrap_credits() {
+    public String getGift_wrap_credits() {
         return gift_wrap_credits;
     }
-    public String promotional_rebates() {
+    public String getPromotional_rebates() {
         return promotional_rebates;
     }
-    public String sales_tax_collected() {
+    public String getSales_tax_collected() {
         return sales_tax_collected;
     }
-    public String selling_fees() {
+    public String getSelling_fees() {
         return selling_fees;
     }
-    public String fba_fees() {
+    public String getFba_fees() {
         return fba_fees;
     }
-    public String other_transaction_fees() {
+    public String getOther_transaction_fees() {
         return other_transaction_fees;
     }
-    public String other() {
+    public String getOther() {
         return other;
     }
-    public String total() {
+    public String getTotal() {
         return total;
     }
 }
