@@ -95,6 +95,30 @@ public class AAUtils {
         values.put(FbaShipReportItemColumns.ITEM_NAME, item.getName());
     }
 
+    public static void toContentValues(TransactionNode node, ContentValues values) {
+        values.put(TransColumns.aa_tran_date, node.getAa_tran_date());
+        values.put(TransColumns.settlement_id, node.getAa_tran_date());
+        values.put(TransColumns.aa_type, node.getAa_tran_date());
+        values.put(TransColumns.order_id, node.getAa_tran_date());
+        values.put(TransColumns.sku, node.getAa_tran_date());
+        values.put(TransColumns.description, node.getAa_tran_date());
+        values.put(TransColumns.quantiy, node.getAa_tran_date());
+        values.put(TransColumns.fulfillment, node.getAa_tran_date());
+        values.put(TransColumns.order_city, node.getAa_tran_date());
+        values.put(TransColumns.order_state, node.getAa_tran_date());
+        values.put(TransColumns.order_postal, node.getAa_tran_date());
+        values.put(TransColumns.product_sales, node.getAa_tran_date());
+        values.put(TransColumns.shipping_credits, node.getAa_tran_date());
+        values.put(TransColumns.gift_wrap_credits, node.getAa_tran_date());
+        values.put(TransColumns.promotional_rebates, node.getAa_tran_date());
+        values.put(TransColumns.sales_tax_collected, node.getAa_tran_date());
+        values.put(TransColumns.selling_fees, node.getAa_tran_date());
+        values.put(TransColumns.fba_fees, node.getAa_tran_date());
+        values.put(TransColumns.other_transaction_fees, node.getAa_tran_date());
+        values.put(TransColumns.other, node.getAa_tran_date());
+        values.put(TransColumns.total, node.getAa_tran_date());
+    }
+
     public static void fromCursor(Cursor cursor, AAProfile profile) {
         int idxId = cursor.getColumnIndexOrThrow(ProfileColumns._ID);
         int idxDate = cursor.getColumnIndexOrThrow(ProfileColumns.ORDER_DATE);
@@ -193,12 +217,46 @@ public class AAUtils {
         int idxSettlement_id = cursor.getColumnIndexOrThrow(TransColumns.settlement_id);
         int idxType = cursor.getColumnIndexOrThrow(TransColumns.aa_type);
         int idxOrderId = cursor.getColumnIndexOrThrow(TransColumns.order_id);
+        int idxSku = cursor.getColumnIndexOrThrow(TransColumns.sku);
+        int idxDescription = cursor.getColumnIndexOrThrow(TransColumns.description);
+        int idxQuantiy = cursor.getColumnIndexOrThrow(TransColumns.quantiy);
+        int idxFulfillment = cursor.getColumnIndexOrThrow(TransColumns.fulfillment);
+        int idxOrder_city = cursor.getColumnIndexOrThrow(TransColumns.order_city);
+        int idxOrder_state = cursor.getColumnIndexOrThrow(TransColumns.order_state);
+        int idxOrder_postal = cursor.getColumnIndexOrThrow(TransColumns.order_postal);
+        int idxProduct_sales = cursor.getColumnIndexOrThrow(TransColumns.product_sales);
+        int idxShipping_credits = cursor.getColumnIndexOrThrow(TransColumns.shipping_credits);
+        int idxGift_wrap_credits = cursor.getColumnIndexOrThrow(TransColumns.gift_wrap_credits);
+        int idxPromotional_rebates = cursor.getColumnIndexOrThrow(TransColumns.promotional_rebates);
+        int idxSales_tax_collected = cursor.getColumnIndexOrThrow(TransColumns.sales_tax_collected);
+        int idxSelling_fees = cursor.getColumnIndexOrThrow(TransColumns.selling_fees);
+        int idxFba_fees = cursor.getColumnIndexOrThrow(TransColumns.fba_fees);
+        int idxOther_transaction_fees = cursor.getColumnIndexOrThrow(TransColumns.other_transaction_fees);
+        int idxOther = cursor.getColumnIndexOrThrow(TransColumns.other);
+        int idxTotal = cursor.getColumnIndexOrThrow(TransColumns.total);
 
         note.setId(cursor.getString(idxId));
         note.setAa_tran_date(cursor.getString(idxDate));
         note.setSettlement_id(cursor.getString(idxSettlement_id));
-        note.ty(cursor.getString(idxTitle));
-        note.setCost(cursor.getString(idxCost));
+        note.setType(cursor.getString(idxType));
+        note.setOrder_id(cursor.getString(idxOrderId));
+        note.setSku(cursor.getString(idxSku));
+        note.setDescription(cursor.getString(idxDescription));
+        note.setQuantiy(cursor.getString(idxQuantiy));
+        note.setFulfillment(cursor.getString(idxFulfillment));
+        note.setOrder_city(cursor.getString(idxOrder_city));
+        note.setOrder_state(cursor.getString(idxOrder_state));
+        note.setOrder_postal(cursor.getString(idxOrder_postal));
+        note.setProduct_sales(cursor.getString(idxProduct_sales));
+        note.setShipping_credits(cursor.getString(idxShipping_credits));
+        note.setGift_wrap_credits(cursor.getString(idxGift_wrap_credits));
+        note.setPromotional_rebates(cursor.getString(idxPromotional_rebates));
+        note.setSales_tax_collected(cursor.getString(idxSales_tax_collected));
+        note.setSelling_fees(cursor.getString(idxSelling_fees));
+        note.setFba_fees(cursor.getString(idxFba_fees));
+        note.setOther_transaction_fees(cursor.getString(idxOther_transaction_fees));
+        note.setOther(cursor.getString(idxOther));
+        note.setTotal(cursor.getString(idxTotal));
     }
 
     /**

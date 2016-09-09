@@ -8,7 +8,7 @@ public class TransactionNode {
     private String id;
     private String aa_tran_date = "date/time";
     private String settlement_id = "settlement id";
-    private String type = "type";
+    private String aa_type = "type";
     private String order_id = "order id";
     private String sku = "sku";
     private String description = "description";
@@ -38,7 +38,7 @@ public class TransactionNode {
         settlement_id = s;
     }
     public void setType(String s) {
-        type = s;
+        aa_type = s;
     }
     public void setOrder_id(String s) {
         order_id = s;
@@ -105,7 +105,7 @@ public class TransactionNode {
         return settlement_id;
     }
     public String getType() {
-        return type;
+        return aa_type;
     }
     public String getOrder_id() {
         return order_id;

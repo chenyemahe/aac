@@ -587,20 +587,18 @@ public class AADba {
 
 
     public List<TransactionNode> getAllTransOrder(ContentResolver cr) {
-        List<TransactionNode> profileList = new ArrayList<>();
+        List<TransactionNode> nodesList = new ArrayList<>();
 
-        TransactionNode profile = null;
+        TransactionNode node = null;
         Cursor cursor = null;
 
         try {
-            cursor = cr.query(FbaShipReportColumns.CONTENT_URI, null, null, null, null);
+            cursor = cr.query(AAProvider.TransColumns.CONTENT_URI, null, null, null, null);
             if (cursor != null && cursor.moveToFirst()) {
                 do {
-                    profile = new TransactionNode();
-                    AAUtils.fromCursor(cursor, profile);
-                    profile.setFbaItemList((ArrayList<AAFbaItem>) getAAFbaItem(cr, profile.getDate(),
-                            profile.getID()));
-                    profileList.add(profile);
+                    node = new TransactionNode();
+                    AAUtils.fromCursor(cursor, node);
+                    nodesList.add(node);
                 } while (cursor.moveToNext());
 
             }
@@ -611,7 +609,18 @@ public class AADba {
                 cursor.close();
             }
         }
+        return nodesList;
+    }
 
-        return profileList;
+    public Uri saveTransOrder(ContentResolver cr, TransactionNode node) {
+        if (node == null) {
+            return null;
+        }
+
+        ContentValues values = new ContentValues();
+        AAUtils.toContentValues(node, values);
+
+        Log.d(TAG, "insert amazon transaction order " + node.getOrder_id());
+        return cr.insert(AAProvider.TransColumns.CONTENT_URI, values);
     }
 }

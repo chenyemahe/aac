@@ -27,6 +27,7 @@ public class AaTransUpdatePage extends Activity implements View.OnClickListener 
 
     private Button mFilePickBt;
     private static final int REQUEST_CODE_CSV = 7715;
+    private boolean isReadData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,9 +73,9 @@ public class AaTransUpdatePage extends Activity implements View.OnClickListener 
                     if (is != null) {
                         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
                         String line;
+                        isReadData = false;
                         while ((line = reader.readLine()) != null) {
-                            String l = line;
-                            Logging.logD(getLocalClassName(), l);
+                            readCSVAaTransUpdate(line);
                         }
                     }
                 } catch (Exception e) {
@@ -106,5 +107,14 @@ public class AaTransUpdatePage extends Activity implements View.OnClickListener 
 
     private String readData(Uri uri) {
         return uri.getPath();
+    }
+
+
+    private void readCSVAaTransUpdate(String line) {
+        if(isReadData) {
+
+        } else {
+            if(line.contains())
+        }
     }
 }
