@@ -20,7 +20,7 @@ import com.acme.amazon.AAProduct;
 import com.acme.amazon.AAProfile;
 import com.acme.amazon.AAUtils;
 import com.acme.amazon.amazonpage.order.TransactionNode;
-import com.acme.amazon.databaseHelper.AAProvider.FbaShipReportColumns;
+import com.acme.amazon.databaseHelper.AAProvider.*;
 import com.acme.amazon.databaseHelper.AAProvider.FbaShipReportItemColumns;
 import com.acme.amazon.databaseHelper.AAProvider.ItemColumns;
 import com.acme.amazon.databaseHelper.AAProvider.ProductColumns;
@@ -47,6 +47,9 @@ public class AADba {
     private static String ITEM_SELECTION = ItemColumns._ID + " LIKE ? ";
 
     private static String FBA_ITEM_SELECTION = FbaShipReportItemColumns._ID + " LIKE ? ";
+
+    private static String TRANS_SELECTION = TransColumns.aa_tran_date + " LIKE ? AND" + TransColumns.order_id + " LIKE ? AND" + TransColumns.description + " LIKE ? AND"
+            + TransColumns.total + "LIKE ?";
 
     public static String ID_SELECTION = BaseColumns._ID + "=?";
 
@@ -585,6 +588,29 @@ public class AADba {
         });
     }
 
+    public TransactionNode getTransOrder(ContentResolver cr, TransactionNode cachedNnode) {
+
+        TransactionNode node = null;
+        Cursor cursor = null;
+
+        try {
+            cursor = cr.query(AAProvider.TransColumns.CONTENT_URI, null, TRANS_SELECTION, null, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    node = new TransactionNode();
+                    AAUtils.fromCursor(cursor, node);
+                } while (cursor.moveToNext());
+
+            }
+        } catch (SQLException e) {
+            Logging.logE(TAG, e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return node;
+    }
 
     public List<TransactionNode> getAllTransOrder(ContentResolver cr) {
         List<TransactionNode> nodesList = new ArrayList<>();
@@ -622,5 +648,10 @@ public class AADba {
 
         Log.d(TAG, "insert amazon transaction order " + node.getOrder_id());
         return cr.insert(AAProvider.TransColumns.CONTENT_URI, values);
+    }
+
+    private String[] setTrans_Selection_Data(TransactionNode node) {
+        String[] s = {node.getAa_tran_date(), node.getOrder_id(), node.getDescription(), node.getTotal()};
+        return s;
     }
 }

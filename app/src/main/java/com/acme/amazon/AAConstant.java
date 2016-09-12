@@ -7,7 +7,7 @@ public class AAConstant {
 
     public static final String aa_tran_date = "date/time";
     public static final String settlement_id = "settlement id";
-    public static final String type = "type";
+    public static final String aa_type = "type";
     public static final String order_id = "order id";
     public static final String sku = "sku";
     public static final String description = "description";

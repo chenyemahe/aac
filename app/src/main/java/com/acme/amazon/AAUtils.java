@@ -103,6 +103,7 @@ public class AAUtils {
         values.put(TransColumns.sku, node.getAa_tran_date());
         values.put(TransColumns.description, node.getAa_tran_date());
         values.put(TransColumns.quantiy, node.getAa_tran_date());
+        values.put(TransColumns.marketPlace, node.getMarketPlace());
         values.put(TransColumns.fulfillment, node.getAa_tran_date());
         values.put(TransColumns.order_city, node.getAa_tran_date());
         values.put(TransColumns.order_state, node.getAa_tran_date());
@@ -220,6 +221,7 @@ public class AAUtils {
         int idxSku = cursor.getColumnIndexOrThrow(TransColumns.sku);
         int idxDescription = cursor.getColumnIndexOrThrow(TransColumns.description);
         int idxQuantiy = cursor.getColumnIndexOrThrow(TransColumns.quantiy);
+        int idxMarketplace = cursor.getColumnIndexOrThrow(TransColumns.marketPlace);
         int idxFulfillment = cursor.getColumnIndexOrThrow(TransColumns.fulfillment);
         int idxOrder_city = cursor.getColumnIndexOrThrow(TransColumns.order_city);
         int idxOrder_state = cursor.getColumnIndexOrThrow(TransColumns.order_state);
@@ -243,6 +245,7 @@ public class AAUtils {
         note.setSku(cursor.getString(idxSku));
         note.setDescription(cursor.getString(idxDescription));
         note.setQuantiy(cursor.getString(idxQuantiy));
+        note.setMarketPlace(cursor.getString(idxMarketplace));
         note.setFulfillment(cursor.getString(idxFulfillment));
         note.setOrder_city(cursor.getString(idxOrder_city));
         note.setOrder_state(cursor.getString(idxOrder_state));

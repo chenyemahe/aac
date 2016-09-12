@@ -6,27 +6,28 @@ package com.acme.amazon.amazonpage.order;
 public class TransactionNode {
 
     private String id;
-    private String aa_tran_date = "date/time";
-    private String settlement_id = "settlement id";
-    private String aa_type = "type";
-    private String order_id = "order id";
-    private String sku = "sku";
-    private String description = "description";
-    private String quantiy = "quantity";
-    private String fulfillment = "fulfillment";
-    private String order_city = "order city";
-    private String order_state = "order state";
-    private String order_postal = "order postal";
-    private String product_sales = "product sales";
-    private String shipping_credits = "shipping credits";
-    private String gift_wrap_credits = "gift wrap credits";
-    private String promotional_rebates = "promotional rebates";
-    private String sales_tax_collected = "sales tax collected";
-    private String selling_fees = "selling fees";
-    private String fba_fees = "fba fees";
-    private String other_transaction_fees = "other transaction fees";
-    private String other = "other";
-    private String total = "total";
+    private String aa_tran_date;
+    private String settlement_id;
+    private String aa_type;
+    private String order_id;
+    private String sku;
+    private String description;
+    private String quantiy;
+    private String marketPlace;
+    private String fulfillment;
+    private String order_city;
+    private String order_state;
+    private String order_postal;
+    private String product_sales;
+    private String shipping_credits;
+    private String gift_wrap_credits;
+    private String promotional_rebates;
+    private String sales_tax_collected;
+    private String selling_fees;
+    private String fba_fees;
+    private String other_transaction_fees;
+    private String other;
+    private String total;
 
     public void setId(String s) {
         id = s;
@@ -51,6 +52,9 @@ public class TransactionNode {
     }
     public void setQuantiy(String s) {
         quantiy = s;
+    }
+    public void setMarketPlace(String s) {
+        marketPlace = s;
     }
     public void setFulfillment(String s) {
         fulfillment = s;
@@ -118,6 +122,9 @@ public class TransactionNode {
     }
     public String getQuantiy() {
         return quantiy;
+    }
+    public String getMarketPlace() {
+        return marketPlace;
     }
     public String getFulfillment() {
         return fulfillment;

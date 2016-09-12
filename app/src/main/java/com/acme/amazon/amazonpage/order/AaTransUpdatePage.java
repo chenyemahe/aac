@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.acem.amazon.logging.Logging;
+import com.acme.amazon.AAConstant;
 import com.acme.amazon.orderrecord.R;
 
 import java.io.BufferedReader;
@@ -64,7 +65,7 @@ public class AaTransUpdatePage extends Activity implements View.OnClickListener 
             Uri uri = data.getData();
             if (uri != null) {
                 // Single URI return
-                if(!isFileCSVtype(uri)) {
+                if (!isFileCSVtype(uri)) {
                     return;
                 }
 
@@ -77,6 +78,8 @@ public class AaTransUpdatePage extends Activity implements View.OnClickListener 
                         while ((line = reader.readLine()) != null) {
                             readCSVAaTransUpdate(line);
                         }
+                        if(isReadData)
+                            isReadData = false;
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -111,10 +114,49 @@ public class AaTransUpdatePage extends Activity implements View.OnClickListener 
 
 
     private void readCSVAaTransUpdate(String line) {
-        if(isReadData) {
+        if (isReadData) {
 
         } else {
-            if(line.contains())
+            if (isReachNameList(line)) {
+                isReadData = true;
+            }
+        }
+    }
+
+    private boolean isReachNameList(String l) {
+        return (l.contains(AAConstant.aa_tran_date) && l.contains(AAConstant.settlement_id) && l.contains(AAConstant.aa_type) && l.contains(AAConstant.order_id) && l.contains(AAConstant.sku)
+                && l.contains(AAConstant.description) && l.contains(AAConstant.quantiy) && l.contains(AAConstant.marketPlace) && l.contains(AAConstant.fulfillment) && l.contains(AAConstant.order_city)
+                && l.contains(AAConstant.order_state) && l.contains(AAConstant.order_postal) && l.contains(AAConstant.product_sales) && l.contains(AAConstant.shipping_credits) && l.contains(AAConstant.gift_wrap_credits)
+                && l.contains(AAConstant.promotional_rebates) && l.contains(AAConstant.sales_tax_collected) && l.contains(AAConstant.selling_fees) && l.contains(AAConstant.fba_fees)
+                && l.contains(AAConstant.other_transaction_fees) && l.contains(AAConstant.other) && l.contains(AAConstant.total));
+    }
+
+    private void saveLineToDb(String l) {
+        String[] nodes = l.split(",");
+        if(nodes.length !=  0) {
+            TransactionNode node = new TransactionNode();
+            node.setAa_tran_date(nodes[0]);
+            node.setSettlement_id(nodes[1]);
+            node.setType(nodes[2]);
+            node.setOrder_id(nodes[3]);
+            node.setSku(nodes[4]);
+            node.setDescription(nodes[5]);
+            node.setQuantiy(nodes[6]);
+            node.setMarketPlace(nodes[7]);
+            node.setFulfillment(nodes[8]);
+            node.setOrder_city(nodes[9]);
+            node.setOrder_state(nodes[10]);
+            node.setOrder_postal(nodes[11]);
+            node.setProduct_sales(nodes[12]);
+            node.setShipping_credits(nodes[13]);
+            node.setGift_wrap_credits(nodes[14]);
+            node.setPromotional_rebates(nodes[15]);
+            node.setSales_tax_collected(nodes[16]);
+            node.setSelling_fees(nodes[17]);
+            node.setFba_fees(nodes[18]);
+            node.setOther_transaction_fees(nodes[19]);
+            node.setOther(nodes[20]);
+            node.setTotal(nodes[21]);
         }
     }
 }

@@ -222,6 +222,7 @@ public class AAProvider extends ContentProvider {
         String description = "description";
         String quantiy = "quantity";
         String fulfillment = "fulfillment";
+        String marketPlace = "marketplace";
         String order_city = "order_city";
         String order_state = "order_state";
         String order_postal = "order_postal";
@@ -484,6 +485,7 @@ public class AAProvider extends ContentProvider {
                     + TransColumns.sku + " VARCHAR, "
                     + TransColumns.description + " VARCHAR, "
                     + TransColumns.quantiy + " VARCHAR, "
+                    + TransColumns.marketPlace + " VARCHAR, "
                     + TransColumns.fulfillment + " VARCHAR, "
                     + TransColumns.order_city + " VARCHAR, "
                     + TransColumns.order_state + " VARCHAR, "
