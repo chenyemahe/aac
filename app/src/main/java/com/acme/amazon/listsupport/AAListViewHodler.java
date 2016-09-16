@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.acme.amazon.AAItem;
 import com.acme.amazon.AAProfile;
 import com.acme.amazon.AAUtils;
+import com.acme.amazon.amazonpage.order.TransactionNode;
 import com.acme.amazon.orderrecord.R;
 
 public class AAListViewHodler {
@@ -54,6 +55,14 @@ public class AAListViewHodler {
         mItemName.setText(" - " + item.getName());
         mItemQuantity.setText(" : " + String.valueOf(item.getQuality()));
         mItemCost.setText("Total Cost : " + item.getCost());
+    }
+
+
+    public void setData(TransactionNode node) {
+        mOLDate.setText(node.getAa_tran_date());
+        mOLTitle.setText(node.getDescription());
+        String t = "$ " + node.getTotal();
+        mOLTotal.setText(t);
     }
 
     public void setExpandId(int group, int child) {

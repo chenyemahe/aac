@@ -361,7 +361,8 @@ public class AAProvider extends ContentProvider {
                 "Build query: " + qb.buildQuery(projection, selection, null, null, sortOrder, null));
 
         Cursor cursor = qb.query(db, projection, selection, selectionArgs, null, null, sortOrder);
-        cursor.setNotificationUri(getContext().getContentResolver(), uri);
+        if(getContext() != null)
+            cursor.setNotificationUri(getContext().getContentResolver(), uri);
         return cursor;
     }
 

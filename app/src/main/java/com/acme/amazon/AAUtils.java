@@ -11,6 +11,7 @@ import java.util.Set;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.text.TextUtils;
 
 import com.acme.amazon.amazonpage.order.TransactionNode;
 import com.acme.amazon.databaseHelper.AAProvider;
@@ -45,6 +46,8 @@ public class AAUtils {
     public static final String EXPAND_ADAPTER_ORDER = "expand_adapter_order";
 
     public static final String EXPAND_ADAPTER_FBA = "expand_adapter_fba";
+
+    public static final String EXPAND_ADAPTER_TRANS = "expand_adapter_trans";
 
     public static final String INTENT_EXTRA_ITEM_STYLE = "intent_extra_item_style";
 
@@ -97,27 +100,27 @@ public class AAUtils {
 
     public static void toContentValues(TransactionNode node, ContentValues values) {
         values.put(TransColumns.aa_tran_date, node.getAa_tran_date());
-        values.put(TransColumns.settlement_id, node.getAa_tran_date());
-        values.put(TransColumns.aa_type, node.getAa_tran_date());
-        values.put(TransColumns.order_id, node.getAa_tran_date());
-        values.put(TransColumns.sku, node.getAa_tran_date());
-        values.put(TransColumns.description, node.getAa_tran_date());
-        values.put(TransColumns.quantiy, node.getAa_tran_date());
+        values.put(TransColumns.settlement_id, node.getSettlement_id());
+        values.put(TransColumns.aa_type, node.getType());
+        values.put(TransColumns.order_id, node.getOrder_id());
+        values.put(TransColumns.sku, node.getSku());
+        values.put(TransColumns.description, node.getDescription());
+        values.put(TransColumns.quantiy, node.getQuantiy());
         values.put(TransColumns.marketPlace, node.getMarketPlace());
-        values.put(TransColumns.fulfillment, node.getAa_tran_date());
-        values.put(TransColumns.order_city, node.getAa_tran_date());
-        values.put(TransColumns.order_state, node.getAa_tran_date());
-        values.put(TransColumns.order_postal, node.getAa_tran_date());
-        values.put(TransColumns.product_sales, node.getAa_tran_date());
-        values.put(TransColumns.shipping_credits, node.getAa_tran_date());
-        values.put(TransColumns.gift_wrap_credits, node.getAa_tran_date());
-        values.put(TransColumns.promotional_rebates, node.getAa_tran_date());
-        values.put(TransColumns.sales_tax_collected, node.getAa_tran_date());
-        values.put(TransColumns.selling_fees, node.getAa_tran_date());
-        values.put(TransColumns.fba_fees, node.getAa_tran_date());
-        values.put(TransColumns.other_transaction_fees, node.getAa_tran_date());
-        values.put(TransColumns.other, node.getAa_tran_date());
-        values.put(TransColumns.total, node.getAa_tran_date());
+        values.put(TransColumns.fulfillment, node.getFulfillment());
+        values.put(TransColumns.order_city, node.getOrder_city());
+        values.put(TransColumns.order_state, node.getOrder_state());
+        values.put(TransColumns.order_postal, node.getOrder_postal());
+        values.put(TransColumns.product_sales, node.getProduct_sales());
+        values.put(TransColumns.shipping_credits, node.getShipping_credits());
+        values.put(TransColumns.gift_wrap_credits, node.getGift_wrap_credits());
+        values.put(TransColumns.promotional_rebates, node.getPromotional_rebates());
+        values.put(TransColumns.sales_tax_collected, node.getSales_tax_collected());
+        values.put(TransColumns.selling_fees, node.getSelling_fees());
+        values.put(TransColumns.fba_fees, node.getFba_fees());
+        values.put(TransColumns.other_transaction_fees, node.getOther_transaction_fees());
+        values.put(TransColumns.other, node.getOther());
+        values.put(TransColumns.total, node.getTotal());
     }
 
     public static void fromCursor(Cursor cursor, AAProfile profile) {
@@ -380,6 +383,65 @@ public class AAUtils {
         return sortListMap;
     }
 
+    public static synchronized ArrayList<ArrayList<ArrayList<TransactionNode>>> sortTransOrderByDate(
+            List<TransactionNode> profileList) {
+        ArrayList<ArrayList<ArrayList<TransactionNode>>> sortListMap = new ArrayList<>();
+        ArrayList<String> yearList = new ArrayList<String>();
+        String year = UNSORT;
+        String month = UNSORT;
+        String day = UNSORT;
+        // date structure Month/Date/Year
+        for (TransactionNode profile : profileList) {
+            String date = getFormatDateFromAmazon(profile.getAa_tran_date());
+            if(date == null)
+                continue;
+            String[] mdate = date.split("/");
+            if (mdate.length == 3) {
+                year = mdate[2];
+                month = mdate[0];
+                day = mdate[1];
+            } else {
+                return null;
+            }
+            int indexYear = -1;
+            int indexMonth = Integer.parseInt(month);
+            if (!yearList.contains(year)) {
+                for (int i = 0; i <= yearList.size(); i++) {
+                    if (i == yearList.size()) {
+                        sortListMap.add(new ArrayList<ArrayList<TransactionNode>>());
+                        yearList.add(year);
+                        break;
+                    }
+                    if (Integer.parseInt(yearList.get(i)) < Integer.parseInt(year)) {
+                        sortListMap.add(i, new ArrayList<ArrayList<TransactionNode>>());
+                        yearList.add(i, year);
+                        break;
+                    }
+                }
+                indexYear = findStElemInArray(yearList, year);
+                for (int i = 0; i < 12; i++) {
+                    sortListMap.get(indexYear).add(new ArrayList<TransactionNode>());
+                }
+            } else {
+                indexYear = findStElemInArray(yearList, year);
+            }
+
+            ArrayList<TransactionNode> list = sortListMap.get(indexYear).get(indexMonth);
+            for (int i = 0; i <= list.size(); i++) {
+                if (i == list.size()) {
+                    list.add(profile);
+                    break;
+                }
+                // sort by latest date
+                if (Integer.parseInt(getFormatDateFromAmazon(list.get(i).getAa_tran_date()).split("/")[1]) < Integer.parseInt(day)) {
+                    list.add(i, profile);
+                    break;
+                }
+            }
+        }
+        return sortListMap;
+    }
+
     private static int findStElemInArray(ArrayList<String> list, String item) {
         int i = 0;
         for (String s : list) {
@@ -547,17 +609,61 @@ public class AAUtils {
         }
     }
 
-    public static String stripLeadingAndTrailingQuotes(String str) {
+    public static String[] stripLeadingAndTrailingQuotes(String[] str) {
         if (str == null) {
             return null;
         }
 
-        if (str.startsWith("\"")) {
-            str = str.substring(1, str.length());
+        for(int i = 0; i < str.length ; i++) {
+        if (str[i].startsWith("\"")) {
+            str[i] = str[i].substring(1, str[i].length());
         }
-        if (str.endsWith("\"")) {
-            str = str.substring(0, str.length() - 1);
+        if (str[i].endsWith("\"")) {
+            str[i] = str[i].substring(0, str[i].length() - 1);
+        }
         }
         return str;
+    }
+
+    public static String getFormatDateFromAmazon(String amazonDate) {
+        String month = null;
+        String date = null;
+        String year = null;
+        if (TextUtils.isEmpty(amazonDate))
+            return "";
+        String[] format_1 = amazonDate.split(",");
+        String[] month_date = format_1[0].split(" ");
+        month = month_date[0];
+        date = month_date[1];
+        if (format_1[1].startsWith(" ")) {
+            format_1[1] = format_1[1].substring(1, format_1[1].length());
+        }
+        String[] year_plus = format_1[1].split(" ");
+        year = year_plus[0];
+        if(TextUtils.equals(month,"Jan"))
+            month = "1";
+        else if(TextUtils.equals(month,"Feb"))
+            month = "2";
+        else if(TextUtils.equals(month,"Mar"))
+            month = "3";
+        else if(TextUtils.equals(month,"Apr"))
+            month = "4";
+        else if(TextUtils.equals(month,"May"))
+            month = "5";
+        else if(TextUtils.equals(month,"Jun"))
+            month = "6";
+        else if(TextUtils.equals(month,"Jul"))
+            month = "7";
+        else if(TextUtils.equals(month,"Aug"))
+            month = "8";
+        else if(TextUtils.equals(month,"Sep"))
+            month = "9";
+        else if(TextUtils.equals(month,"Oct"))
+            month = "10";
+        else if(TextUtils.equals(month,"Nov"))
+            month = "11";
+        else if(TextUtils.equals(month,"Dev"))
+            month = "12";
+        return month+"/"+date+"/"+year;
     }
 }

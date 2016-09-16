@@ -8,4 +8,10 @@
         android:layout_height="wrap_content"
         android:text="@string/pick_file"
         android:id="@+id/bt_file_picker" />
+
+    <ExpandableListView
+        android:id="@+id/expand_lv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ExpandableListView>
 </LinearLayout>

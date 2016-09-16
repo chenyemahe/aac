@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.acme.amazon.AAFbaProfile;
 import com.acme.amazon.AAProfile;
 import com.acme.amazon.AAUtils;
+import com.acme.amazon.amazonpage.order.TransactionNode;
 import com.acme.amazon.orderrecord.R;
 
 import android.content.Context;
@@ -24,11 +25,15 @@ public class AAExpandableListAdapter extends BaseExpandableListAdapter {
 
     private ArrayList<ArrayList<ArrayList<AAFbaProfile>>> mFbaList;
 
+    private ArrayList<ArrayList<ArrayList<TransactionNode>>> mTransList;
+
     private ArrayList<String> mGroupNameList;
 
     private ArrayList<ArrayList<AAProfile>> mChildList;
 
     private ArrayList<ArrayList<AAFbaProfile>> mFbaChildList;
+
+    private ArrayList<ArrayList<TransactionNode>> mTransChildList;
 
     private AAListDataHolder<?> mListDataHodler;
 
@@ -54,6 +59,12 @@ public class AAExpandableListAdapter extends BaseExpandableListAdapter {
             else
                 return mFbaList.size();
         }
+        if (TextUtils.equals(mStyle, AAUtils.EXPAND_ADAPTER_TRANS)) {
+            if (mTransList == null)
+                return 0;
+            else
+                return mTransList.size();
+        }
         return 0;
     }
 
@@ -74,6 +85,12 @@ public class AAExpandableListAdapter extends BaseExpandableListAdapter {
                 return 0;
             return mFbaList.get(groupPosition);
         }
+        if (TextUtils.equals(mStyle, AAUtils.EXPAND_ADAPTER_TRANS)) {
+            if (mTransList == null)
+                return 0;
+            else
+                return mTransList.get(groupPosition);
+        }
         return null;
     }
 
@@ -88,6 +105,12 @@ public class AAExpandableListAdapter extends BaseExpandableListAdapter {
             if (mFbaChildList == null)
                 return null;
             return mFbaChildList.get(groupPosition).get(childPosition);
+        }
+        if (TextUtils.equals(mStyle, AAUtils.EXPAND_ADAPTER_TRANS)) {
+            if (mTransList == null)
+                return null;
+            else
+                return mTransList.get(groupPosition).get(childPosition);
         }
         return null;
     }
@@ -130,6 +153,7 @@ public class AAExpandableListAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.aalistitem, parent, false);
         }
+
         AAListViewHodler holder = new AAListViewHodler(mStyle);
         holder.setOrderListView(convertView);
         if (TextUtils.equals(mStyle, AAUtils.EXPAND_ADAPTER_ORDER)) {
@@ -137,6 +161,9 @@ public class AAExpandableListAdapter extends BaseExpandableListAdapter {
         }
         if (TextUtils.equals(mStyle, AAUtils.EXPAND_ADAPTER_FBA)) {
             holder.setData(mFbaChildList.get(groupPosition).get(childPosition));
+        }
+        if (TextUtils.equals(mStyle, AAUtils.EXPAND_ADAPTER_TRANS)) {
+            holder.setData(mTransChildList.get(groupPosition).get(childPosition));
         }
         holder.setExpandId(groupPosition, childPosition);
         convertView.setTag(holder);
@@ -168,7 +195,7 @@ public class AAExpandableListAdapter extends BaseExpandableListAdapter {
             ArrayList<ArrayList<AAProfile>> childList, Context context) {
         mOrderList = list;
         mContext = context;
-        mGroupNameList = new ArrayList<String>();
+        mGroupNameList = new ArrayList<>();
         mChildList = childList;
         for (int i = 0; i < mOrderList.size(); i++) {
             for (int j = 0; j < mOrderList.get(i).size(); j++) {
@@ -185,12 +212,29 @@ public class AAExpandableListAdapter extends BaseExpandableListAdapter {
             ArrayList<ArrayList<AAFbaProfile>> childList, Context context) {
         mFbaList = list;
         mContext = context;
-        mGroupNameList = new ArrayList<String>();
+        mGroupNameList = new ArrayList<>();
         mFbaChildList = childList;
         for (int i = 0; i < mFbaList.size(); i++) {
             for (int j = 0; j < mFbaList.get(i).size(); j++) {
                 if (mFbaList.get(i).get(j).size() != 0) {
                     mGroupNameList.add(mFbaList.get(i).get(j).get(0).getDate().split("/")[2]);
+                    break;
+                }
+            }
+        }
+        notifiListUpdate();
+    }
+
+    public void setTransListData(ArrayList<ArrayList<ArrayList<TransactionNode>>> list,
+                               ArrayList<ArrayList<TransactionNode>> childList, Context context) {
+        mTransList = list;
+        mContext = context;
+        mGroupNameList = new ArrayList<>();
+        mTransChildList = childList;
+        for (int i = 0; i < mTransList.size(); i++) {
+            for (int j = 0; j < mTransList.get(i).size(); j++) {
+                if (mTransList.get(i).get(j).size() != 0) {
+                    mGroupNameList.add(mTransList.get(i).get(j).get(0).getAa_tran_date());
                     break;
                 }
             }

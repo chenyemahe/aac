@@ -1,38 +1,45 @@
 package com.acme.amazon.amazonpage.order;
 
 import android.app.Activity;
-import android.content.ActivityNotFoundException;
+import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.OpenableColumns;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ExpandableListView;
 import android.widget.Toast;
-
-import com.acem.amazon.logging.Logging;
 import com.acme.amazon.AAConstant;
 import com.acme.amazon.AAManager;
+import com.acme.amazon.AAUtils;
+import com.acme.amazon.listsupport.AAExpandableListAdapter;
 import com.acme.amazon.orderrecord.R;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 /**
  * Created by ye1chen on 9/1/16.
  */
-public class AaTransUpdatePage extends Activity implements View.OnClickListener {
+public class AaTransUpdatePage extends Activity implements View.OnClickListener,
+        ExpandableListView.OnChildClickListener {
 
     private Button mFilePickBt;
     private static final int REQUEST_CODE_CSV = 7715;
     private boolean isReadData;
+    private ExpandableListView mListView;
+    private AAExpandableListAdapter mExpandAdapter;
+
+    private ArrayList<ArrayList<ArrayList<TransactionNode>>> mExpandDataList;
+    private ArrayList<ArrayList<TransactionNode>> mChildList;
+    private ProgressDialog mProgressDialog;
 
     private static final String file_prex = "file://";
 
@@ -42,6 +49,15 @@ public class AaTransUpdatePage extends Activity implements View.OnClickListener 
         setContentView(R.layout.aa_trans_update_page);
         mFilePickBt = (Button) findViewById(R.id.bt_file_picker);
         mFilePickBt.setOnClickListener(this);
+        mListView = (ExpandableListView) findViewById(R.id.expand_lv);
+        mExpandAdapter = new AAExpandableListAdapter(AAUtils.EXPAND_ADAPTER_TRANS);
+        mListView.setAdapter(mExpandAdapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        new QueryTransData().execute();
     }
 
     @Override
@@ -51,6 +67,28 @@ public class AaTransUpdatePage extends Activity implements View.OnClickListener 
                 showChooser();
                 break;
         }
+    }
+
+    private void setSignleLevelChildData() {
+        if (mExpandDataList != null && mExpandDataList.size() != 0) {
+            for (int i = 0; i < mExpandDataList.size(); i++) {
+                if (mChildList.size() <= i) {
+                    mChildList.add(new ArrayList<TransactionNode>());
+                }
+                for (int j = mExpandDataList.get(i).size() - 1; j >= 0; j--) {
+                    for (int k = 0; k < mExpandDataList.get(i).get(j).size(); k++) {
+                        mChildList.get(i).add(mExpandDataList.get(i).get(j).get(k));
+                    }
+                }
+            }
+        }
+    }
+
+    private void setExpViewData() {
+        mChildList = new ArrayList<>();
+        setSignleLevelChildData();
+        mExpandAdapter.setTransListData(mExpandDataList, mChildList, this);
+        mListView.setOnChildClickListener(this);
     }
 
     private void showChooser() {
@@ -156,7 +194,8 @@ public class AaTransUpdatePage extends Activity implements View.OnClickListener 
     }
 
     private void saveLineToDb(String l) {
-        String[] nodes = l.split(",");
+        String[] nodes = l.split("\",\"");
+        nodes = AAUtils.stripLeadingAndTrailingQuotes(nodes);
         if(nodes.length !=  0) {
             TransactionNode node = new TransactionNode();
             node.setAa_tran_date(nodes[0]);
@@ -184,6 +223,56 @@ public class AaTransUpdatePage extends Activity implements View.OnClickListener 
             if (AAManager.getManager().getDB().getTransOrder(getContentResolver(), node) == null) {
                 AAManager.getManager().getDB().saveTransOrder(getContentResolver(), node);
             }
+        }
+    }
+
+    @Override
+    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+        return false;
+    }
+
+    /**
+     * Create a dialog and show it user when the provisioning is going on.
+     */
+    private void showProgressBar(String message, boolean cancelable) {
+        if(null == mProgressDialog) { //resolve the PLM ticket P160826-04769 (loading window keeps showing)
+            mProgressDialog = new ProgressDialog(AaTransUpdatePage.this);
+            mProgressDialog.setMessage(message);
+            mProgressDialog.setCancelable(cancelable);
+            mProgressDialog.setIndeterminate(true);
+            mProgressDialog.show();
+        }
+    }
+
+    /**
+     * Make sure the Progress Dialog is not null and actually showing.
+     */
+    private void dismissProgressBar() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+            mProgressDialog = null;
+        }
+    }
+
+
+    private class QueryTransData extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            showProgressBar("Loading", false);
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            mExpandDataList = AAUtils.sortTransOrderByDate(AAManager.getManager().getDB()
+                    .getAllTransOrder(getContentResolver()));
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            setExpViewData();
+            dismissProgressBar();
         }
     }
 }
