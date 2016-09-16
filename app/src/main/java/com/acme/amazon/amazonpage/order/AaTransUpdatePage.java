@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.View;
@@ -15,9 +16,12 @@ import android.widget.Toast;
 
 import com.acem.amazon.logging.Logging;
 import com.acme.amazon.AAConstant;
+import com.acme.amazon.AAManager;
 import com.acme.amazon.orderrecord.R;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
@@ -29,6 +33,8 @@ public class AaTransUpdatePage extends Activity implements View.OnClickListener 
     private Button mFilePickBt;
     private static final int REQUEST_CODE_CSV = 7715;
     private boolean isReadData;
+
+    private static final String file_prex = "file://";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,13 +54,25 @@ public class AaTransUpdatePage extends Activity implements View.OnClickListener 
     }
 
     private void showChooser() {
+
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("*/*");
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+
+        Intent sIntent = new Intent(AAConstant.ACTION_FOLDER_PICKER);
+        sIntent.putExtra("CONTENT_TYPE", "*/*");
+        sIntent.addCategory(Intent.CATEGORY_DEFAULT);
+
+        Intent chooserIntent;
+
         try {
-            startActivityForResult(intent, REQUEST_CODE_CSV);
-        } catch (ActivityNotFoundException e) {
-            // The reason for the existence of aFileChooser
+
+            chooserIntent = Intent.createChooser(intent, getString(R.string.pick_your_file));
+            chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS,
+                    new Intent[] { sIntent });
+            startActivityForResult(chooserIntent, REQUEST_CODE_CSV);
+        } catch (Exception ex) {
+
         }
     }
 
@@ -68,9 +86,15 @@ public class AaTransUpdatePage extends Activity implements View.OnClickListener 
                 if (!isFileCSVtype(uri)) {
                     return;
                 }
-
                 try {
-                    InputStream is = getContentResolver().openInputStream(uri);
+                    InputStream is = null;
+                    if(uri.toString().contains(file_prex)) {
+                        String realPath = uri.toString().replace(file_prex,"");
+                        File fi = new File(realPath);
+                        is = new FileInputStream(fi);
+                    } else {
+                        is = getContentResolver().openInputStream(uri);
+                    }
                     if (is != null) {
                         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
                         String line;
@@ -115,7 +139,7 @@ public class AaTransUpdatePage extends Activity implements View.OnClickListener 
 
     private void readCSVAaTransUpdate(String line) {
         if (isReadData) {
-
+            saveLineToDb(line);
         } else {
             if (isReachNameList(line)) {
                 isReadData = true;
@@ -157,6 +181,9 @@ public class AaTransUpdatePage extends Activity implements View.OnClickListener 
             node.setOther_transaction_fees(nodes[19]);
             node.setOther(nodes[20]);
             node.setTotal(nodes[21]);
+            if (AAManager.getManager().getDB().getTransOrder(getContentResolver(), node) == null) {
+                AAManager.getManager().getDB().saveTransOrder(getContentResolver(), node);
+            }
         }
     }
 }

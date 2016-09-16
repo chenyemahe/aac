@@ -27,4 +27,6 @@ public class AAConstant {
     public static final String other_transaction_fees = "other transaction fees";
     public static final String other = "other";
     public static final String total = "total";
+
+    public static final String ACTION_FOLDER_PICKER = "com.sec.android.app.myfiles.PICK_DATA";
 }

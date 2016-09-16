@@ -48,8 +48,10 @@ public class AADba {
 
     private static String FBA_ITEM_SELECTION = FbaShipReportItemColumns._ID + " LIKE ? ";
 
-    private static String TRANS_SELECTION = TransColumns.aa_tran_date + " LIKE ? AND" + TransColumns.order_id + " LIKE ? AND" + TransColumns.description + " LIKE ? AND"
-            + TransColumns.total + "LIKE ?";
+    private static String TRANS_SELECTION = TransColumns.aa_tran_date + " LIKE ? AND " + TransColumns.order_id + " LIKE ? AND " + TransColumns.description + " LIKE ? AND "
+            + TransColumns.total + " LIKE ?";
+
+    private static String TRANS_SELECTION_ORDER_ID = TransColumns.order_id + " LIKE ?";
 
     public static String ID_SELECTION = BaseColumns._ID + "=?";
 
@@ -594,12 +596,10 @@ public class AADba {
         Cursor cursor = null;
 
         try {
-            cursor = cr.query(AAProvider.TransColumns.CONTENT_URI, null, TRANS_SELECTION, null, null);
+            cursor = cr.query(AAProvider.TransColumns.CONTENT_URI, null, TRANS_SELECTION, setTrans_Selection_Data(cachedNnode), null);
             if (cursor != null && cursor.moveToFirst()) {
-                do {
-                    node = new TransactionNode();
-                    AAUtils.fromCursor(cursor, node);
-                } while (cursor.moveToNext());
+                node = new TransactionNode();
+                AAUtils.fromCursor(cursor, node);
 
             }
         } catch (SQLException e) {
@@ -610,6 +610,32 @@ public class AADba {
             }
         }
         return node;
+    }
+
+
+    public List<TransactionNode>  getTransOrderByOrderId(ContentResolver cr, String orderId) {
+        List<TransactionNode> nodesList = new ArrayList<>();
+        TransactionNode node = null;
+        Cursor cursor = null;
+
+        try {
+            cursor = cr.query(AAProvider.TransColumns.CONTENT_URI, null, TRANS_SELECTION_ORDER_ID, new String [] {orderId}, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    node = new TransactionNode();
+                    AAUtils.fromCursor(cursor, node);
+                    nodesList.add(node);
+                } while (cursor.moveToNext());
+
+            }
+        } catch (SQLException e) {
+            Logging.logE(TAG, e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return nodesList;
     }
 
     public List<TransactionNode> getAllTransOrder(ContentResolver cr) {

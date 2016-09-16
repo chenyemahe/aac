@@ -214,7 +214,7 @@ public class AAProvider extends ContentProvider {
 
         String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.acme.trans.order";
 
-        String aa_tran_date = "date/time";
+        String aa_tran_date = "date_time";
         String settlement_id = "settlement_id";
         String aa_type = "type";
         String order_id = "order_id";
@@ -587,6 +587,7 @@ public class AAProvider extends ContentProvider {
             case AA_TRANS_ORDER:
             case AA_TRANS_ORDER_ID:
                 whichTable = TransColumns.TBL_TRANS_PROFILES;
+                break;
             default:
                 throw new IllegalArgumentException("Unknown URL: " + uri);
         }
