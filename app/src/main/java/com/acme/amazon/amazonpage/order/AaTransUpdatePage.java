@@ -10,8 +10,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 import com.acme.amazon.AAConstant;
 import com.acme.amazon.AAManager;
@@ -24,12 +27,14 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Filter;
 
 /**
  * Created by ye1chen on 9/1/16.
  */
 public class AaTransUpdatePage extends Activity implements View.OnClickListener,
-        ExpandableListView.OnChildClickListener {
+        ExpandableListView.OnChildClickListener, AdapterView.OnItemSelectedListener {
 
     private Button mFilePickBt;
     private static final int REQUEST_CODE_CSV = 7715;
@@ -39,7 +44,11 @@ public class AaTransUpdatePage extends Activity implements View.OnClickListener,
 
     private ArrayList<ArrayList<ArrayList<TransactionNode>>> mExpandDataList;
     private ArrayList<ArrayList<TransactionNode>> mChildList;
+    private ArrayList<String> mYearList;
+    private List<String> mAdapterList;
     private ProgressDialog mProgressDialog;
+    private Spinner mSpinner;
+    private ArrayAdapter<String> adapter_2;
 
     private static final String file_prex = "file://";
 
@@ -52,10 +61,17 @@ public class AaTransUpdatePage extends Activity implements View.OnClickListener,
         mListView = (ExpandableListView) findViewById(R.id.expand_lv);
         mExpandAdapter = new AAExpandableListAdapter(AAUtils.EXPAND_ADAPTER_TRANS);
         mListView.setAdapter(mExpandAdapter);
+        mYearList = new ArrayList<String>();
+        mSpinner = (Spinner) findViewById(R.id.spinner);
+        mAdapterList  = new ArrayList<String>();
+        adapter_2 = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, mAdapterList);
+        adapter_2.add(getString(R.string.spinner_all));
+        adapter_2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     }
 
     @Override
     protected void onResume() {
+        AAUtils.startPermissionDialog(this);
         super.onResume();
         new QueryTransData().execute();
     }
@@ -147,12 +163,12 @@ public class AaTransUpdatePage extends Activity implements View.OnClickListener,
                     e.printStackTrace();
                 }
             } else {
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                    ClipData clipData = data.getClipData();
-                    for (int i = 0; i < clipData.getItemCount(); i++) {
-                        String s = readData(clipData.getItemAt(i).getUri());
-                    }
-                }
+                //if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                //    ClipData clipData = data.getClipData();
+                //    for (int i = 0; i < clipData.getItemCount(); i++) {
+                //        String s = readData(clipData.getItemAt(i).getUri());
+                //    }
+                //}
             }
         }
     }
@@ -235,7 +251,7 @@ public class AaTransUpdatePage extends Activity implements View.OnClickListener,
      * Create a dialog and show it user when the provisioning is going on.
      */
     private void showProgressBar(String message, boolean cancelable) {
-        if(null == mProgressDialog) { //resolve the PLM ticket P160826-04769 (loading window keeps showing)
+        if(null == mProgressDialog) {
             mProgressDialog = new ProgressDialog(AaTransUpdatePage.this);
             mProgressDialog.setMessage(message);
             mProgressDialog.setCancelable(cancelable);
@@ -254,6 +270,16 @@ public class AaTransUpdatePage extends Activity implements View.OnClickListener,
         }
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
 
     private class QueryTransData extends AsyncTask<Void, Void, Void> {
 
@@ -264,15 +290,27 @@ public class AaTransUpdatePage extends Activity implements View.OnClickListener,
 
         @Override
         protected Void doInBackground(Void... params) {
+            mYearList.clear();
             mExpandDataList = AAUtils.sortTransOrderByDate(AAManager.getManager().getDB()
-                    .getAllTransOrder(getContentResolver()));
+                    .getAllTransOrder(getContentResolver()), mYearList);
             return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             setExpViewData();
+            setSpinnerData();
             dismissProgressBar();
         }
+    }
+
+    private void setSpinnerData() {
+        adapter_2.clear();
+        adapter_2.add(getString(R.string.spinner_all));
+        for(String year : mYearList) {
+            adapter_2.add(year);
+        }
+        mSpinner.setAdapter(adapter_2);
+        mSpinner.setOnItemSelectedListener(this);
     }
 }

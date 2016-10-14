@@ -16,6 +16,7 @@ public class AAListViewHodler {
     private TextView mOLDate;
     private TextView mOLTitle;
     private TextView mOLTotal;
+    private TextView mOLBv;
     //Item List
     private TextView mItemName;
     private TextView mItemQuantity;
@@ -34,6 +35,7 @@ public class AAListViewHodler {
         mOLDate = (TextView) v.findViewById(R.id.tv_date);
         mOLTitle = (TextView) v.findViewById(R.id.tv_title);
         mOLTotal = (TextView) v.findViewById(R.id.tv_cost);
+        mOLBv = (TextView) v.findViewById(R.id.tv_bv);
     }
 
     public void setItemListView(View v) {
@@ -60,6 +62,7 @@ public class AAListViewHodler {
 
     public void setData(TransactionNode node) {
         mOLDate.setText(node.getAa_tran_date());
+        mOLBv.setText(node.getOrder_id());
         mOLTitle.setText(node.getDescription());
         String t = "$ " + node.getTotal();
         mOLTotal.setText(t);

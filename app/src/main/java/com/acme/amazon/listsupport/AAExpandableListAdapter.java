@@ -188,6 +188,11 @@ public class AAExpandableListAdapter extends BaseExpandableListAdapter {
                 childNum = mFbaChildList.get(groupPosition).size();
             }
         }
+        if (TextUtils.equals(mStyle, AAUtils.EXPAND_ADAPTER_TRANS)) {
+            if (mTransChildList.get(groupPosition).size() != 0) {
+                childNum = mTransChildList.get(groupPosition).size();
+            }
+        }
         return childNum;
     }
 
@@ -234,7 +239,7 @@ public class AAExpandableListAdapter extends BaseExpandableListAdapter {
         for (int i = 0; i < mTransList.size(); i++) {
             for (int j = 0; j < mTransList.get(i).size(); j++) {
                 if (mTransList.get(i).get(j).size() != 0) {
-                    mGroupNameList.add(mTransList.get(i).get(j).get(0).getAa_tran_date());
+                    mGroupNameList.add(AAUtils.getFormatDateFromAmazon(mTransList.get(i).get(j).get(0).getAa_tran_date()).split("/")[2]);
                     break;
                 }
             }

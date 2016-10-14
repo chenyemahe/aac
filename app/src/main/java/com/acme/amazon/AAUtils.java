@@ -10,7 +10,11 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 
 import com.acme.amazon.amazonpage.order.TransactionNode;
@@ -384,9 +388,8 @@ public class AAUtils {
     }
 
     public static synchronized ArrayList<ArrayList<ArrayList<TransactionNode>>> sortTransOrderByDate(
-            List<TransactionNode> profileList) {
+            List<TransactionNode> profileList, ArrayList<String> yearList) {
         ArrayList<ArrayList<ArrayList<TransactionNode>>> sortListMap = new ArrayList<>();
-        ArrayList<String> yearList = new ArrayList<String>();
         String year = UNSORT;
         String month = UNSORT;
         String day = UNSORT;
@@ -665,5 +668,27 @@ public class AAUtils {
         else if(TextUtils.equals(month,"Dev"))
             month = "12";
         return month+"/"+date+"/"+year;
+    }
+
+    /**
+     * check permission is granted or not
+     * @param context
+     * @return
+     */
+    public static int checkPermissionGranted(Context context) {
+        if(ContextCompat.checkSelfPermission(context, android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            return AAConstant.NO_EXTERNAL_STORAGE_PERMISSION;
+        }
+        return AAConstant.PERMISSION_CHECKING_PASS;
+    }
+
+    public static boolean isPermissionGranted(Context context) {
+        return AAConstant.PERMISSION_CHECKING_PASS == checkPermissionGranted(context);
+    }
+
+    public static void startPermissionDialog(Context context) {
+        if(!isPermissionGranted(context))
+            context.startActivity(new Intent(context, PermissionDialogPage.class));
     }
 }

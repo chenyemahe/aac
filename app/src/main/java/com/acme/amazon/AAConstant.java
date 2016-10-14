@@ -29,4 +29,8 @@ public class AAConstant {
     public static final String total = "total";
 
     public static final String ACTION_FOLDER_PICKER = "com.sec.android.app.myfiles.PICK_DATA";
+
+    //permission
+    public static final int PERMISSION_CHECKING_PASS = 0;
+    public static final int NO_EXTERNAL_STORAGE_PERMISSION = 1;
 }

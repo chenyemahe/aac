@@ -75,6 +75,7 @@
     <!-- Product inventor -->
     <string name="product_receive">FBA shipping received List</string>
     <string name="product_list">Product Info List</string>
+    <string name="check_price">Amazon Profit/Fee Calculation</string>
     
     <!-- FBA Strings -->
     <string name="add_fba_shipment">Add FBA Shipping</string>
@@ -84,4 +85,9 @@
     <string name="pick_file_title">Amazon Transaction Update</string>
     <string name="toast_csv_file_only">The input file do not supported. Please input CSV file.</string>
     <string name="pick_your_file">Pick Your File</string>
+    <string name="spinner_all">ALL ORDERS</string>
+
+    <!-- Permission dialog -->
+    <string name="permission_deny_title">Cannot open file</string>
+    <string name="permission_deny_close">Permission not Granted! The application cannot run this funcion!</string>
 </resources>

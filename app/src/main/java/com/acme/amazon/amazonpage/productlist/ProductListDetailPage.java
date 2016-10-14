@@ -27,6 +27,8 @@ public class ProductListDetailPage extends Activity implements OnClickListener {
 
     public static final String AMAZON_PRODUCT_EDIT = "amazon_product_edit";
 
+    public static final String AMAZON_CHECK_PROFIT = "amazon_check_profit";
+
     public static final String INTENT_EXTRA_DETAIL_PAGE = "extra_detail_page";
 
     private String mPageType;
@@ -100,7 +102,7 @@ public class ProductListDetailPage extends Activity implements OnClickListener {
             setViewPage();
         }
         if (TextUtils.equals(mPageType, AMAZON_PRODUCT_ADD)
-                || TextUtils.equals(mPageType, AMAZON_PRODUCT_EDIT)) {
+                || TextUtils.equals(mPageType, AMAZON_PRODUCT_EDIT) || TextUtils.equals(mPageType,AMAZON_CHECK_PROFIT)) {
             setAddPage();
         }
     }
@@ -246,6 +248,12 @@ public class ProductListDetailPage extends Activity implements OnClickListener {
 
         if (TextUtils.equals(mPageType, AMAZON_PRODUCT_EDIT)) {
             setViewText();
+        }
+        if (TextUtils.equals(mPageType,AMAZON_CHECK_PROFIT)) {
+            mProduct_Name_ED.setVisibility(View.GONE);
+            mBVpoint_ED.setVisibility(View.GONE);
+            mAmazonPricewithBV_ADD.setVisibility(View.GONE);
+            mSubmitBT.setVisibility(View.GONE);
         }
     }
 

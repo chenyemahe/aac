@@ -6,6 +6,12 @@
     android:orientation="vertical" >
 
     <Button
+        android:id="@+id/check_profit_amazon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/check_price" />
+
+    <Button
         android:id="@+id/trans_update"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.acme.amazon.orderrecord"
-        minSdkVersion 11
+        minSdkVersion 16
         targetSdkVersion 23
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_7

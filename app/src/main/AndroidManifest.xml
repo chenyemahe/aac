@@ -5,7 +5,7 @@
     android:versionName="1.0">
 
     <uses-sdk
-        android:minSdkVersion="11"
+        android:minSdkVersion="16"
         android:targetSdkVersion="23" />
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -54,6 +54,9 @@
             android:name="com.acme.amazon.amazonpage.fba.FbaShippingAddPage"
             android:screenOrientation="portrait"/>
         <activity android:name="com.acme.amazon.amazonpage.order.AaTransUpdatePage"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.acme.amazon.PermissionDialogPage"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:screenOrientation="portrait"/>
 
         <provider

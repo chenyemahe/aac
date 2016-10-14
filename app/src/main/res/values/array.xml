@@ -43,4 +43,8 @@
         <string-array name="list_of_product">
             <item>DELETE</item>
         </string-array>
+
+    <string-array name="list_of_view_selector">
+        <item>All</item>
+    </string-array>
 </resources>
